@@ -6,7 +6,7 @@
 /*   By: mchoma <mchoma@student.42vienna.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 09:26:29 by mchoma            #+#    #+#             */
-/*   Updated: 2025/04/29 09:26:32 by mchoma           ###   ########.fr       */
+/*   Updated: 2025/12/06 12:55:17 by mchoma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@
 #include <stdlib.h>
 #include <limits.h>
 #include <stdio.h>
-#include <criterion/criterion.h>
-#include <signal.h>
-#include <string.h>
 
 typedef struct s_list
 {
