@@ -1,14 +1,16 @@
-NAME = minishell
+NAME = cube3d
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
+TESTFLAGS = -Wall -Wextra -g
 LIBS = -lreadline -lhistory
-HEADERS = minishell.h libft/libft.h\
-		parsing/parsing.h commands/commands.h ids/ids.h execution/execution.h
+HEADERS = parsing/parsing.h
 
+# Sources
 SRC =
-COMMANDS =
-PARSING =
+PARSING = parsing/parse.c \
+          parsing/parse_utils.c
 EXECUTE =
+LIBFT = libft/ft_strlen.c
 
 OBJ_DIR = objects/
 TEST_OBJ_DIR = test_objects/
@@ -16,6 +18,9 @@ TEST_OBJ_DIR = test_objects/
 ALL_SRC = $(SRC) $(COMMANDS) $(PARSING) $(EXECUTE)
 OBJ = $(patsubst %.c,$(OBJ_DIR)%.o,$(ALL_SRC))
 TEST_OBJ = $(patsubst %.c,$(TEST_OBJ_DIR)%.o,$(ALL_SRC))
+PARSING_OBJ = $(patsubst %.c,$(TEST_OBJ_DIR)%.o,$(PARSING))
+LIBFT_OBJ = $(patsubst %.c,$(TEST_OBJ_DIR)%.o,$(LIBFT))
+MAIN_PARSING_OBJ = $(TEST_OBJ_DIR)parsing/main_parsing.o
 
 all: $(NAME)
 
@@ -30,35 +35,22 @@ $(OBJ_DIR)%.o: %.c
 test: $(TEST_OBJ)
 	$(CC) $(CFLAGS) $^ $(LIBS) -o test
 
-testj :
-	make test -j `nproc`
+# Build parse test binary with libft and main_parsing
+parse: $(PARSING_OBJ) $(LIBFT_OBJ) $(MAIN_PARSING_OBJ)
+	$(CC) $(TESTFLAGS) $^ -o pars
+	./pars
 
-sta:
-	cc -g star/*.c libft/*.c -o sta
-	
-
-
+# Pattern rule for test objects (includes main_parsing.c too)
 $(TEST_OBJ_DIR)%.o: %.c
 	mkdir -p $(dir $@)
-	$(CC) -Wall -Wextra -g -c $< -o $@
-
-runt: test
-	valgrind --leak-check=full --trace-children=yes --track-fds=all --show-leak-kinds=all --suppressions=readline.supp ./test
-
-runtj:
-	make fclean
-	make test -j`nproc`
-	make runt
-
-ctest: all
-	./minishell
+	$(CC) $(TESTFLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(OBJ_DIR) $(TEST_OBJ_DIR)
 
 fclean: clean
-	rm -f $(NAME) test
+	rm -f $(NAME) test pars
 
 re: fclean all
 
-.PHONY: all clean fclean re test runt ctest testj sta
+.PHONY: all clean fclean re test parse
