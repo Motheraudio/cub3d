@@ -6,7 +6,7 @@
 /*   By: mchoma <your@mail.com>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 13:55:55 by mchoma            #+#    #+#             */
-/*   Updated: 2025/12/06 15:13:14 by mchoma           ###   ########.fr       */
+/*   Updated: 2025/12/06 15:37:59 by mchoma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,11 @@ int	celing_line(char *line, t_parse_data *data)
 	int		err;
 
 	err = 0;
-	if (ft_strncmp(line, "C ", 3) != 0)
+	if (ft_strncmp(line, "C ", 2) != 0)
 		return (0);
 	if (data->celing_set != 0)
 		return (-1);
-	tmp = ft_split(line, ',');
+	tmp = ft_split(line + 2, ',');
 	if (tmp == NULL)
 		return (-1);
 	if (tmp[0])
@@ -104,7 +104,7 @@ int	celing_line(char *line, t_parse_data *data)
 		data->celing.r = colour_atoi(tmp[1], &err);
 	if (tmp[0] && tmp[1] && tmp[2])
 		data->celing.r = colour_atoi(tmp[2], &err);
-	if (tmp[0] && tmp[1] && tmp[2] && tmp[3])
+	if ((tmp[0] && tmp[1] && tmp[2] && tmp[3] != 0) || err == -1)
 		return (free_arr((void***)&tmp), -1);
 	data->celing_set = 1;
 	return (free_arr((void ***)&tmp), 1);
@@ -117,11 +117,11 @@ int	floor_line(char *line, t_parse_data *data)
 	int		err;
 
 	err = 0;
-	if (ft_strncmp(line, "C ", 3) != 0)
+	if (ft_strncmp(line, "F ", 2) != 0)
 		return (0);
 	if (data->floor_set != 0)
 		return (-1);
-	tmp = ft_split(line, ',');
+	tmp = ft_split(line + 2, ',');
 	if (tmp == NULL)
 		return (-1);
 	if (tmp[0])
@@ -130,8 +130,12 @@ int	floor_line(char *line, t_parse_data *data)
 		data->floor.r = colour_atoi(tmp[1], &err);
 	if (tmp[0] && tmp[1] && tmp[2])
 		data->floor.r = colour_atoi(tmp[2], &err);
-	if ((tmp[0] && tmp[1] && tmp[2] && tmp[3]) || err == -1)
+	if ((tmp[0] && tmp[1] && tmp[2] && tmp[3] != 0) || err == -1)
+	{
+		printf("135 floor line\n");
+		printf("err = %i\n", err);
 		return (free_arr((void ***)&tmp), -1);
+	}
 	data->floor_set = 1;
 	return (free_arr((void ***)&tmp), 1);
 }

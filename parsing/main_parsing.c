@@ -6,7 +6,7 @@
 /*   By: mchoma <your@mail.com>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 13:19:29 by mchoma            #+#    #+#             */
-/*   Updated: 2025/12/06 15:04:32 by mchoma           ###   ########.fr       */
+/*   Updated: 2025/12/06 15:44:50 by mchoma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "parsing.h"
@@ -38,6 +38,7 @@ void	line_path_validation()
 	int				fd;
 	char			*path;
 
+	init_parse_data(&data);
 	path = "./files/test1.cub";
 	fd = open(path , O_RDONLY);
 	if (fd == -1)
@@ -45,8 +46,8 @@ void	line_path_validation()
 		printf("file not found expected path = %s\n", path);
 		return;
 	}
-	get_metadata(fd, &data);
-	print_parse_data(&data);
+	if (get_metadata(fd, &data) != -1)
+		print_parse_data(&data);
 
 }
 

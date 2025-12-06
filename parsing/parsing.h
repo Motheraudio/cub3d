@@ -6,7 +6,7 @@
 /*   By: mchoma <your@mail.com>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 12:54:01 by mchoma            #+#    #+#             */
-/*   Updated: 2025/12/06 15:12:46 by mchoma           ###   ########.fr       */
+/*   Updated: 2025/12/06 15:38:27 by mchoma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ typedef enum e_map_sqare
 }	t_sqare;
 
 typedef struct s_colour{
-	char r;
-	char g;
-	char b;
+	unsigned int r;
+	unsigned int g;
+	unsigned int b;
 }	t_colour;
 
 typedef struct s_parse_data{
@@ -62,7 +62,7 @@ int	east_line(char *line, t_parse_data *data);
 int	north_line(char *line, t_parse_data *data);
 int	south_line(char *line, t_parse_data *data);
 
-int	colour_atoi(char *str, int *err);
+unsigned int	colour_atoi(char *str, int *err);
 
 void	print_parse_data(t_parse_data *data);
 #endif

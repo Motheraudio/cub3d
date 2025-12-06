@@ -6,22 +6,26 @@
 /*   By: mchoma <your@mail.com>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 14:31:50 by mchoma            #+#    #+#             */
-/*   Updated: 2025/12/06 14:43:05 by mchoma           ###   ########.fr       */
+/*   Updated: 2025/12/06 15:39:49 by mchoma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "parsing.h"
 
-int	colour_atoi(char *str, int *err)
+unsigned int	colour_atoi(char *str, int *err)
 {
-	int		rt;
-	size_t	i;
+	unsigned int	rt;
+	size_t			i;
 
 	i = 0;
 	rt = 0;
 	while (str[i])
 	{
-		if (ft_isdigit(str[i]) != 0)
+		if (str[i] == '\n')
+			break;
+		if (ft_isdigit(str[i]) == 0)
 		{
+			printf("str colour atoi = %s\n", str);
+			printf("%lu == i\n", i);
 			*err = -1;
 			return (0);
 		}
