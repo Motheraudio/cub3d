@@ -6,7 +6,7 @@
 /*   By: mchoma <your@mail.com>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 13:00:51 by mchoma            #+#    #+#             */
-/*   Updated: 2025/12/06 15:43:44 by mchoma           ###   ########.fr       */
+/*   Updated: 2025/12/06 20:31:41 by mchoma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "parsing.h"
@@ -45,6 +45,10 @@ void	init_parse_data(t_parse_data *data)
 	data->celing.r = 0;
 	data->celing.g = 0;
 	data->celing.b = 0;
+	data->tall = 0;
+	data->wide = 0;
+	data->emap = NULL;
+	data->orientation = UNINITIALIZED;
 }
 
 void	print_parse_data(t_parse_data *data)

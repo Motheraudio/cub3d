@@ -6,7 +6,7 @@
 /*   By: mchoma <your@mail.com>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 12:54:01 by mchoma            #+#    #+#             */
-/*   Updated: 2025/12/06 18:35:13 by mchoma           ###   ########.fr       */
+/*   Updated: 2025/12/06 20:31:20 by mchoma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,22 @@
 
 # include "../libft/libft.h"
 
-typedef enum e_map_sqare
+typedef enum s_map_sqare
 {
 	EMPTY,
 	WALL,
 	FLOOR,
 	PLAYER,
 }	t_sqare;
+
+typedef enum s_compas
+{
+	NORTH,
+	SOUTH,
+	WEST,
+	EAST,
+	UNINITIALIZED,
+} e_compas;
 
 typedef struct s_colour{
 	unsigned int r;
@@ -38,6 +47,11 @@ typedef struct s_parse_data{
 	int			celing_set;
 	t_colour	floor;
 	int			floor_set;
+	char		**str_arr_map;
+	t_sqare		**emap;
+	size_t		wide;
+	size_t		tall;
+	e_compas	orientation;
 }	t_parse_data;
 
 //takes null terminated filename and ending
