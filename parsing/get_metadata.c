@@ -13,7 +13,6 @@
 
 static int	all_set(t_parse_data *data)
 {
-	print_parse_data(data);
 	if (data->celing_set == 0)
 		return (-1);
 	if (data->floor_set == 0)
@@ -39,21 +38,21 @@ int		get_metadata(int fd, t_parse_data *data)
 	while (all_set(data) != 1)
 	{
 		line = get_next_line(fd, &err);
-		printf("line = %s", line);
+		// printf("line = %s", line);
 		if (err == -1 || line == NULL)
 			break ; //error handle
 		if (west_line(line, data) == -1 )
-			return (free(line), printf("44\n"), -1); //error handle ((this happends only if internal failiure))
+			return (free(line), -1); //error handle ((this happends only if internal failiure))
 		if (east_line(line, data) == -1 )
-			return (free(line), printf("46\n"), -1); //error handle ((this happends only if internal failiure))
+			return (free(line), -1); //error handle ((this happends only if internal failiure))
 		if (north_line(line, data) == -1 )
-			return (free(line), printf("48\n"), -1); //error handle ((this happends only if internal failiure))
+			return (free(line), -1); //error handle ((this happends only if internal failiure))
 		if (south_line(line, data) == -1 )
-			return (free(line), printf("50\n"), -1); //error handle ((this happends only if internal failiure))
+			return (free(line), -1); //error handle ((this happends only if internal failiure))
 		if (celing_line(line, data) == -1 )
-			return (free(line), printf("52\n"), -1); //error handle ((this happends only if internal failiure))
+			return (free(line), -1); //error handle ((this happends only if internal failiure))
 		if (floor_line(line, data) == -1 )
-			return (free(line), printf("54\n"), -1); //error handle ((this happends only if internal failiure))
+			return (free(line), -1); //error handle ((this happends only if internal failiure))
 	}
 	if (line == NULL)
 		return (printf("57\n"), -1); //invalid line

@@ -101,9 +101,9 @@ int	celing_line(char *line, t_parse_data *data)
 	if (tmp[0])
 		data->celing.r = colour_atoi(tmp[0], &err);
 	if (tmp[0] && tmp[1])
-		data->celing.r = colour_atoi(tmp[1], &err);
+		data->celing.g = colour_atoi(tmp[1], &err);
 	if (tmp[0] && tmp[1] && tmp[2])
-		data->celing.r = colour_atoi(tmp[2], &err);
+		data->celing.b = colour_atoi(tmp[2], &err);
 	if ((tmp[0] && tmp[1] && tmp[2] && tmp[3] != 0) || err == -1)
 		return (free_arr((void***)&tmp), -1);
 	data->celing_set = 1;
@@ -127,15 +127,11 @@ int	floor_line(char *line, t_parse_data *data)
 	if (tmp[0])
 		data->floor.r = colour_atoi(tmp[0], &err);
 	if (tmp[0] && tmp[1])
-		data->floor.r = colour_atoi(tmp[1], &err);
+		data->floor.g = colour_atoi(tmp[1], &err);
 	if (tmp[0] && tmp[1] && tmp[2])
-		data->floor.r = colour_atoi(tmp[2], &err);
+		data->floor.b = colour_atoi(tmp[2], &err);
 	if ((tmp[0] && tmp[1] && tmp[2] && tmp[3] != 0) || err == -1)
-	{
-		printf("135 floor line\n");
-		printf("err = %i\n", err);
 		return (free_arr((void ***)&tmp), -1);
-	}
 	data->floor_set = 1;
 	return (free_arr((void ***)&tmp), 1);
 }

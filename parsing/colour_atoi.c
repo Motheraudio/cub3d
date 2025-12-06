@@ -15,27 +15,23 @@ unsigned int	colour_atoi(char *str, int *err)
 {
 	unsigned int	rt;
 	size_t			i;
+	char			*tmp;
 
 	i = 0;
 	rt = 0;
-	while (str[i])
+	tmp = ft_strtrim(str, " \n");
+	if (tmp == NULL)
+		return (*err = -1, 0);
+	while (tmp[i])
 	{
-		if (str[i] == '\n')
+		if (tmp[i] == '\n')
 			break;
-		if (ft_isdigit(str[i]) == 0)
-		{
-			printf("str colour atoi = %s\n", str);
-			printf("%lu == i\n", i);
-			*err = -1;
-			return (0);
-		}
-		rt = rt * 10 + str[i] - '0';
+		if (ft_isdigit(tmp[i]) == 0)
+			return (*err = -1, free(tmp), 0);
+		rt = rt * 10 + tmp[i] - '0';
 		if (rt > 255)
-		{
-			*err = -1;
-			return (0);
-		}
+			return (*err = -1, free(tmp), 0);
 		i ++;
 	}
-	return (rt);
+	return (free(tmp), rt);
 }
