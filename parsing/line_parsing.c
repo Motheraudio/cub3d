@@ -6,7 +6,7 @@
 /*   By: mchoma <your@mail.com>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 13:55:55 by mchoma            #+#    #+#             */
-/*   Updated: 2025/12/06 14:19:28 by mchoma           ###   ########.fr       */
+/*   Updated: 2025/12/06 15:13:14 by mchoma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,9 @@ int	celing_line(char *line, t_parse_data *data)
 	if (tmp[0] && tmp[1] && tmp[2])
 		data->celing.r = colour_atoi(tmp[2], &err);
 	if (tmp[0] && tmp[1] && tmp[2] && tmp[3])
-		return (free_split(tmp), -1);
+		return (free_arr((void***)&tmp), -1);
 	data->celing_set = 1;
-	return (1);
+	return (free_arr((void ***)&tmp), 1);
 }
 
 int	floor_line(char *line, t_parse_data *data)
@@ -131,8 +131,7 @@ int	floor_line(char *line, t_parse_data *data)
 	if (tmp[0] && tmp[1] && tmp[2])
 		data->floor.r = colour_atoi(tmp[2], &err);
 	if ((tmp[0] && tmp[1] && tmp[2] && tmp[3]) || err == -1)
-		return (free_split(tmp), -1);
-
+		return (free_arr((void ***)&tmp), -1);
 	data->floor_set = 1;
-	return (1);
+	return (free_arr((void ***)&tmp), 1);
 }

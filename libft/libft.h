@@ -6,7 +6,7 @@
 /*   By: mchoma <mchoma@student.42vienna.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 09:26:29 by mchoma            #+#    #+#             */
-/*   Updated: 2025/12/06 12:55:17 by mchoma           ###   ########.fr       */
+/*   Updated: 2025/12/06 15:06:56 by mchoma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,8 @@ int		ft_lstsize(t_list *lst);
 //in err it gives errror if err is set to -1 it is error if err = 0 no error ecountered
 //if fd = -1 
 char	*get_next_line(int fd, int *err);
+
+void	free_arr(void ***arr);
+
 
 #endif

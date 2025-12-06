@@ -8,9 +8,21 @@ HEADERS = parsing/parsing.h
 # Sources
 SRC =
 PARSING = parsing/parse.c \
-          parsing/parse_utils.c
+          parsing/parse_utils.c\
+          parsing/line_parsing.c\
+		  parsing/colour_atoi.c\
+		  parsing/get_metadata.c
 EXECUTE =
-LIBFT = libft/ft_strlen.c
+LIBFT = libft/ft_strlen.c\
+		libft/ft_isdigit.c\
+		libft/get_next_line.c\
+		libft/get_next_line_utils.c\
+		libft/ft_split.c\
+		libft/ft_strncmp.c\
+		libft/ft_calloc.c\
+		libft/ft_strtrim.c\
+		libft/free_arr.c
+	
 
 OBJ_DIR = objects/
 TEST_OBJ_DIR = test_objects/

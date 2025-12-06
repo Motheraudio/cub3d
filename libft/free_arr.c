@@ -1,36 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   free_arr.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchoma <your@mail.com>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/06 12:59:25 by mchoma            #+#    #+#             */
-/*   Updated: 2025/12/06 14:58:05 by mchoma           ###   ########.fr       */
+/*   Created: 2025/12/06 14:47:59 by mchoma            #+#    #+#             */
+/*   Updated: 2025/12/06 14:48:00 by mchoma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 
-#include "parsing.h"
-#include <fcntl.h>
-
-void *parse(char *file_name)
+void	free_arr(void ***arr)
 {
-	t_parse_data	data;
-	int				fd;
-	
-	if (file_sufix(file_name, ".cub") == -1)
-		return (NULL); // error handle
-	fd = open(file_name, O_RDONLY);
-	if(fd == -1)
-		return(NULL); //error handle
-	if (get_metadata(fd, &data) == -1)
-		return (NULL);
+	size_t	i;
 
-	return ((void *)1);
+	i = 0;
+	if (arr == NULL)
+		return ;
+	if (*arr == NULL)
+		return ;
+	while ((*arr)[i])
+	{
+		free((*arr)[i]);
+		i ++;
+	}
+	free(*arr);
+	*arr = NULL;
 }
-
-
-
-
-

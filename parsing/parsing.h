@@ -6,7 +6,7 @@
 /*   By: mchoma <your@mail.com>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 12:54:01 by mchoma            #+#    #+#             */
-/*   Updated: 2025/12/06 14:19:33 by mchoma           ###   ########.fr       */
+/*   Updated: 2025/12/06 15:12:46 by mchoma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,10 @@ int	floor_line(char *line, t_parse_data *data);
 int	celing_line(char *line, t_parse_data *data);
 int	west_line(char *line, t_parse_data *data);
 int	east_line(char *line, t_parse_data *data);
-int	nort_line(char *line, t_parse_data *data);
+int	north_line(char *line, t_parse_data *data);
 int	south_line(char *line, t_parse_data *data);
 
+int	colour_atoi(char *str, int *err);
 
+void	print_parse_data(t_parse_data *data);
 #endif
