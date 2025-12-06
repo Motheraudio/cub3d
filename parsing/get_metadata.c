@@ -6,7 +6,7 @@
 /*   By: mchoma <your@mail.com>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 13:38:49 by mchoma            #+#    #+#             */
-/*   Updated: 2025/12/06 15:39:08 by mchoma           ###   ########.fr       */
+/*   Updated: 2025/12/06 18:44:57 by mchoma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "parsing.h"
@@ -42,20 +42,20 @@ int		get_metadata(int fd, t_parse_data *data)
 		if (err == -1 || line == NULL)
 			break ; //error handle
 		if (west_line(line, data) == -1 )
-			return (free(line), -1); //error handle ((this happends only if internal failiure))
+			return (get_next_line(-1, &err), -1); //error handle ((this happends only if internal failiure))
 		if (east_line(line, data) == -1 )
-			return (free(line), -1); //error handle ((this happends only if internal failiure))
+			return (get_next_line(-1, &err), -1); //error handle ((this happends only if internal failiure))
 		if (north_line(line, data) == -1 )
-			return (free(line), -1); //error handle ((this happends only if internal failiure))
+			return (get_next_line(-1, &err), -1); //error handle ((this happends only if internal failiure))
 		if (south_line(line, data) == -1 )
-			return (free(line), -1); //error handle ((this happends only if internal failiure))
+			return (get_next_line(-1, &err), -1); //error handle ((this happends only if internal failiure))
 		if (celing_line(line, data) == -1 )
-			return (free(line), -1); //error handle ((this happends only if internal failiure))
+			return (get_next_line(-1, &err), -1); //error handle ((this happends only if internal failiure))
 		if (floor_line(line, data) == -1 )
-			return (free(line), -1); //error handle ((this happends only if internal failiure))
+			return (get_next_line(-1, &err), -1); //error handle ((this happends only if internal failiure))
 	}
 	if (line == NULL)
-		return (printf("57\n"), -1); //invalid line
+		return (get_next_line(-1, &err), -1); //invalid line
 
 	return (1);
 }

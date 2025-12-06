@@ -6,10 +6,9 @@
 /*   By: mchoma <mchoma@student.42vienna.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 09:26:29 by mchoma            #+#    #+#             */
-/*   Updated: 2025/12/06 15:06:56 by mchoma           ###   ########.fr       */
+/*   Updated: 2025/12/06 18:39:28 by mchoma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #ifndef LIBFT_H
 # define LIBFT_H
 
@@ -72,9 +71,12 @@ int		ft_lstsize(t_list *lst);
 //will return malloced string that is one line from the file
 //in err it gives errror if err is set to -1 it is error if err = 0 no error ecountered
 //if fd = -1 
+//if it is at the end of the file returns NULL and err is set to 1
 char	*get_next_line(int fd, int *err);
 
 void	free_arr(void ***arr);
 
+char **ft_append_arr_str(char ***arr, char *str);
+char **fd_to_str_arr(int fd, char ***arr);
 
 #endif

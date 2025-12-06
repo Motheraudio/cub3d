@@ -6,7 +6,7 @@
 /*   By: mchoma <your@mail.com>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 12:54:01 by mchoma            #+#    #+#             */
-/*   Updated: 2025/12/06 15:38:27 by mchoma           ###   ########.fr       */
+/*   Updated: 2025/12/06 18:35:13 by mchoma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,6 @@ int	south_line(char *line, t_parse_data *data);
 
 unsigned int	colour_atoi(char *str, int *err);
 
+int		validate_map(int fd, t_parse_data *data);
 void	print_parse_data(t_parse_data *data);
 #endif

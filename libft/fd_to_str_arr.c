@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   fd_to_str_arr.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchoma <your@mail.com>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/06 12:59:25 by mchoma            #+#    #+#             */
-/*   Updated: 2025/12/06 18:36:58 by mchoma           ###   ########.fr       */
+/*   Created: 2025/12/06 18:33:54 by mchoma            #+#    #+#             */
+/*   Updated: 2025/12/06 18:42:27 by mchoma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "parsing.h"
-#include <fcntl.h>
+#include "libft.h"
 
-void *parse(char *file_name)
+char **fd_to_str_arr(int fd, char ***arr)
 {
-	t_parse_data	data;
-	int				fd;
-	
-	init_parse_data(&data);
-	if (file_sufix(file_name, ".cub") == -1)
-		return (NULL); // error handle
-	fd = open(file_name, O_RDONLY);
-	if(fd == -1)
-		return(NULL); //error handle
-	if (get_metadata(fd, &data) == -1)
-		return (NULL);
-	if (validate_map(fd, &data) == -1)
-		return (NULL);
+	int		err;
 
-	return ((void *)1);
+	err = 0;
+	arr = NULL;
+	while (1)
+	{
+		if (ft_append_arr_str(arr, get_next_line(fd, &err)) == NULL)
+			return (get_next_line(-1, &err), free_arr((void***) arr), NULL);
+		if (err == -1)
+			return (get_next_line(-1, &err), free_arr((void***) arr), NULL);
+		if (err == 1)
+			break;
+	}
+	return (*arr);
 }
+
+
