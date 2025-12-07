@@ -2,8 +2,7 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   validate_map.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mchoma <your@mail.com>                     +#+  +:+       +#+        */
+/*                                                    +:+ +:+         +:+     */ /*   By: mchoma <your@mail.com>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 18:05:34 by mchoma            #+#    #+#             */
 /*   Updated: 2025/12/06 20:32:49 by mchoma           ###   ########.fr       */
@@ -108,21 +107,29 @@ t_sqare	**convert_to_enum(char **arr, t_parse_data *data)
 			else if (arr[i][j] == 'W')
 			{
 				data->emap[i + 1][j + 1] = PLAYER;
+				if (data->orientation != UNI)
+					return (NULL);
 				data->orientation = WEST;
 			}
 			else if (arr[i][j] == 'E')
 			{
 				data->emap[i + 1][j + 1] = PLAYER;
+				if (data->orientation != UNI)
+					return (NULL);
 				data->orientation = EAST;
 			}
 			else if (arr[i][j] == 'N')
 			{
 				data->emap[i + 1][j + 1] = PLAYER;
+				if (data->orientation != UNI)
+					return (NULL);
 				data->orientation = NORTH;
 			}
 			else if (arr[i][j] == 'S')
 			{
 				data->emap[i + 1][j + 1] = PLAYER;
+				if (data->orientation != UNI)
+					return (NULL);
 				data->orientation = SOUTH;
 			}
 			else if (arr[i][j] != '\n')
@@ -134,6 +141,49 @@ t_sqare	**convert_to_enum(char **arr, t_parse_data *data)
 	return (data->emap);
 }
 
+int	is_a_valid_sqare(t_parse_data *data, size_t i, size_t j)
+{
+	if (data->emap[i][j] != EMPTY)
+		return (1);
+	if ((i != 0 && j != 0) && (data->emap[i - 1][j - 1] == PLAYER || data->emap[i - 1][j - 1] == FLOOR))
+			return (-1);
+	if ((i != 0) && (data->emap[i - 1][j] == PLAYER || data->emap[i - 1][j] == FLOOR))
+			return (-1);
+	if ((j != 0) && (data->emap[i][j - 1] == PLAYER || data->emap[i][j - 1] == FLOOR))
+			return (-1);
+	if ((i < data->tall && j < data->wide) && (data->emap[i + 1][j + 1] == PLAYER || data->emap[i + 1][j + 1] == FLOOR))
+			return (-1);
+	if ((i < data->tall) && (data->emap[i + 1][j] == PLAYER || data->emap[i + 1][j] == FLOOR))
+			return (-1);
+	if ((j < data->wide) && (data->emap[i][j + 1] == PLAYER || data->emap[i][j + 1] == FLOOR))
+			return (-1);
+	if ((i < data->tall && j != 0) && (data->emap[i + 1][j - 1] == PLAYER || data->emap[i + 1][j - 1] == FLOOR))
+			return (-1);
+	if ((i < 0 && j < data->wide) && (data->emap[i - 1][j + 1] == PLAYER || data->emap[i - 1][j + 1] == FLOOR))
+			return (-1);
+	return (1);
+}
+
+
+int	map_checker(t_parse_data *data)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	while (i < data->tall - 1)
+ 	{
+		j = 0;
+		while (j < data->wide - 1)
+		{
+			if (is_a_valid_sqare(data, i, j) == -1)
+				return (-1);
+			j ++;
+		}
+		i ++;
+	}
+	return (1);
+}
 
 
 int		validate_map(int fd, t_parse_data *data)
@@ -144,10 +194,10 @@ int		validate_map(int fd, t_parse_data *data)
 	arr = NULL;
 	if (fd_to_str_arr(fd, &arr) == NULL)
 		return (get_next_line(-1, &err), -1);
-	printf("hehe\n");
 	if (convert_to_enum(arr, data) == NULL)
 		return (-1); //manage error and allocations
-	printf("hehe\n");
+	if (map_checker(data) == -1)
+		return (-1);
 	print_emap(data);
 	return (1);
 }

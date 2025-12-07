@@ -14,23 +14,22 @@
 
 void *parse(char *file_name)
 {
-	t_parse_data	data;
+	t_parse_data	*data;
 	int				fd;
 	
-	init_parse_data(&data);
+	data = malloc(sizeof(t_parse_data));
+	if (data == NULL)
+		return (NULL);
+	init_parse_data(data);
 	if (file_sufix(file_name, ".cub") == -1)
 		return (NULL); // error handle
-	printf("after file suffix\n");
 	fd = open(file_name, O_RDONLY);
 	if(fd == -1)
 		return(NULL); //error handle
-	printf("after open\n");
-	if (get_metadata(fd, &data) == -1)
+	if (get_metadata(fd, data) == -1)
 		return (NULL);
-	printf("after metadata\n");
-	if (validate_map(fd, &data) == -1)
+	if (validate_map(fd, data) == -1)
 		return (NULL);
-	printf("after valideate map\n");
 
-	return ((void *)1);
+	return (data);
 }

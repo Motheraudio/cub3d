@@ -48,7 +48,7 @@ void	init_parse_data(t_parse_data *data)
 	data->tall = 0;
 	data->wide = 0;
 	data->emap = NULL;
-	data->orientation = UNINITIALIZED;
+	data->orientation = UNI;
 }
 
 void	print_parse_data(t_parse_data *data)
@@ -65,4 +65,5 @@ void	print_parse_data(t_parse_data *data)
 	printf("	data->floor.r= %u\n", data->floor.r);
 	printf("	data->floor.g= %u\n", data->floor.g);
 	printf("	data->floor.b= %u\n", data->floor.b);
+	print_emap(data);
 }

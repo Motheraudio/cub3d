@@ -248,7 +248,10 @@ void	map_validation(void)
 	int				fd;
 	char			*path;
 
-	parse("files/test1.cub");
+	if (parse("files/test1.cub") == NULL)
+		printf("TEST 1 FAILED\n");
+	else
+		printf("TEST 1 PASSED\n");
 
 	
 
