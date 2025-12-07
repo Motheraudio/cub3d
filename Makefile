@@ -75,7 +75,7 @@ clean:
 	rm -rf $(OBJ_DIR) $(TEST_OBJ_DIR)
 
 fclean: clean
-	rm -f $(NAME) test pars
+	rm -f $(NAME) test pars rendt
 
 re: fclean all
 
