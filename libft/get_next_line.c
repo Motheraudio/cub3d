@@ -6,7 +6,7 @@
 /*   By: mchoma <mchoma@student.42vienna.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 13:53:44 by mchoma            #+#    #+#             */
-/*   Updated: 2025/05/20 13:53:51 by mchoma           ###   ########.fr       */
+/*   Updated: 2025/12/06 18:27:08 by mchoma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -93,7 +93,7 @@ char	*get_next_line(int fd, int *err)
 		if (data->readcounter == -1)
 			return (freeall(data, &str), NULL);
 		if (data->readcounter == 0)
-			return (data->rt = str, str = NULL, free(data->buff), *err = 0, data->rt);
+			return (data->rt = str, str = NULL, free(data->buff), *err = 1, data->rt);
 		data->buff[data->readcounter] = 0;
 		str = strjoinf2(data->buff, str);
 		if (str == NULL)
