@@ -12,12 +12,19 @@
 # define MAGENTA 0xFF00FF
 # define YELLOW 0xFFEA00
 # define WALL_LEN 20
+# define RAYCAST_ARR 20
 # include "../libft/libft.h"
 # include "../parsing/parsing.h"
 # include <mlx.h>
 # include <errno.h>
 # include <math.h>
 
+typedef struct s_player
+{
+	int		x;
+	int		y;
+	float	radian;
+}	t_player;
 
 typedef struct s_mlx
 {
@@ -68,6 +75,12 @@ typedef struct	s_2d
 
 }				t_2d;
 
+typedef struct s_raycast
+{
+	unsigned int	colour;
+	size_t			distance;
+}	t_raycast;
+
 typedef struct s_algo
 {
 	int	deltax;
@@ -89,4 +102,6 @@ int	calcdir(int p1, int p2);
 int	checksize(int x1, int y1);
 void	draw_line(t_2d *minimap, t_line *line);
 void	draw_minimap(t_2d *minimap, t_parse_data *data);
+unsigned int	pixel_color(t_2d *data, int x, int y);
+void	initline(t_algo *algo, t_line *line);
 #endif
