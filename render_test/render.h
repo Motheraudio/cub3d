@@ -22,6 +22,8 @@ typedef struct	s_img
 	void	*player;
 	int		player_width;
 	int		player_height;
+	int		player_posx;
+	int		player_posy;
 	int		img_width;
 	int		img_height;
 	int		x_tilecount;

@@ -48,7 +48,10 @@ void	draw_lines(t_mlx *mlx, t_img *img)
 	i = -1;
 	while(++i < img->y_tilecount)
 		draw_line_horizontal(mlx, img, i);
-	mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, img->player, WIDTH / 2, HEIGHT / 2);
+	img->player_posx = WIDTH / 2;
+	img->player_posy = HEIGHT / 2;
+	mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, img->player, img->player_posx, img->player_posy);
+
 }
 
 // int		draw_with_offset(t_mlx *mlx, t_img *img)
@@ -85,6 +88,7 @@ void	destroy_prev_images (t_img *img, t_mlx *mlx, ssize_t last)
 	while(++i <= last)
 		mlx_destroy_image(mlx->mlx, img->img[i]);
 }
+
 
 int	create_board(t_mlx *mlx, t_img *img)
 {
@@ -128,12 +132,8 @@ int main ()
 	img.img_height = 64;
 	img.img_width = 64;
 	if (!create_board(&mlx, &img))
-		return (print_error("board creation", 'n'), mlx_destroy_display(mlx.mlx), 
+		return (print_error("board creation", 'n'), mlx_destroy_display(mlx.mlx),
 			free(mlx.mlx), 1);
 	draw_lines(&mlx, &img);
-
 	mlx_loop(mlx.mlx);
-
-
-
 }
