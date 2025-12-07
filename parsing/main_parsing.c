@@ -257,9 +257,9 @@ void	map_validation(void)
 
 }
 
-int main(){
-	// filename_validation();
-	// line_path_validation();
-	map_validation();
-
-}
+// int main(){
+// 	// filename_validation();
+// 	// line_path_validation();
+// 	map_validation();
+//
+// }

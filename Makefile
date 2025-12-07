@@ -2,7 +2,7 @@ NAME = cube3d
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 TESTFLAGS = -Wall -Wextra -g
-LIBS = -lreadline -lhistory
+LIBS = -lmlx -lXext -lX11
 HEADERS = parsing/parsing.h
 
 # Sources
@@ -14,6 +14,12 @@ PARSING = parsing/parse.c \
 		  parsing/validate_map.c\
 		  parsing/get_metadata.c
 EXECUTE =
+RENDER_TESTING = render_test/test.c\
+				render_test/tooling.c\
+				render_test/draw_line.c\
+				render_test/draw_minimap.c\
+				render_test/draw_box.c
+
 LIBFT = libft/ft_strlen.c\
 		libft/ft_isdigit.c\
 		libft/fd_to_str_arr.c\
@@ -34,6 +40,7 @@ ALL_SRC = $(SRC) $(COMMANDS) $(PARSING) $(EXECUTE)
 OBJ = $(patsubst %.c,$(OBJ_DIR)%.o,$(ALL_SRC))
 TEST_OBJ = $(patsubst %.c,$(TEST_OBJ_DIR)%.o,$(ALL_SRC))
 PARSING_OBJ = $(patsubst %.c,$(TEST_OBJ_DIR)%.o,$(PARSING))
+RENDER_TESTING_OBJ= $(patsubst %.c,$(TEST_OBJ_DIR)%.o,$(RENDER_TESTING))
 LIBFT_OBJ = $(patsubst %.c,$(TEST_OBJ_DIR)%.o,$(LIBFT))
 MAIN_PARSING_OBJ = $(TEST_OBJ_DIR)parsing/main_parsing.o
 
@@ -54,6 +61,10 @@ test: $(TEST_OBJ)
 parse: $(PARSING_OBJ) $(LIBFT_OBJ) $(MAIN_PARSING_OBJ)
 	$(CC) $(TESTFLAGS) $^ -o pars
 	./pars
+
+rendert: $(RENDER_TESTING_OBJ) $(LIBFT_OBJ) $(PARSING_OBJ)
+	$(CC) $(TESTFLAGS) $(LIBS) $^ -o rendt
+	./rendt files/test1.cub
 
 # Pattern rule for test objects (includes main_parsing.c too)
 $(TEST_OBJ_DIR)%.o: %.c
