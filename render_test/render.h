@@ -79,6 +79,8 @@ typedef struct s_raycast
 {
 	unsigned int	colour;
 	size_t			distance;
+	int				x_hit;
+	int				y_hit;
 }	t_raycast;
 
 typedef struct s_algo
