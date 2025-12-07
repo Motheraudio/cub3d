@@ -6,7 +6,7 @@
 /*   By: mchoma <your@mail.com>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 22:46:23 by mchoma            #+#    #+#             */
-/*   Updated: 2025/12/07 23:05:47 by mchoma           ###   ########.fr       */
+/*   Updated: 2025/12/07 23:07:40 by mchoma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,7 @@ unsigned int	casting_ray(t_2d *minimap, t_line *line)
 }
 
 
-void	raycasting(t_raycast *arr, int x, int i, float radian)
+void	raycasting(t_raycast *arr, int x, int i, float radian, )
+{
+
+}
