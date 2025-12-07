@@ -1,10 +1,19 @@
 #ifndef RENDER_H
 #define RENDER_H
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH  1000
+# define FLOOR_COLOUR 0xFFFFFF
+# define HEIGHT 500
 # define TILESIZE 64
-
+# define MINITILE 2
+# define WHITE 0xFFFFFF
+# define RED   0xFF0000
+# define BLUE  0x0000FF
+# define GREEN 0x00FF00
+# define MAGENTA 0xFF00FF
+# define YELLOW 0xFFEA00
+# define WALL_LEN 20
 # include "../libft/libft.h"
+# include "../parsing/parsing.h"
 # include <mlx.h>
 # include <errno.h>
 # include <math.h>
@@ -15,6 +24,16 @@ typedef struct s_mlx
 	void	*mlx;
 	void	*mlx_win;
 }				t_mlx;
+
+typedef struct s_line
+{
+	int				x1;
+	int				x2;
+	int				y1;
+	int				y2;
+	unsigned int	colour;
+}	t_line;
+
 
 typedef struct	s_img
 {
@@ -31,7 +50,43 @@ typedef struct	s_img
 	int		tileamount;
 }				t_img;
 
+typedef struct	s_2d
+{
+	void	*img_2d;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		x1;
+	int		x2;
+	int		y1;
+	int		y2;
+	size_t	sizex;
+	size_t	sizey;
+	size_t	blockx;
+	size_t	blocky;
+
+}				t_2d;
+
+typedef struct s_algo
+{
+	int	deltax;
+	int	deltay;
+	int	p;
+	int	dirx;
+	int	diry;
+	int	p2;
+}			t_algo;
 /*Cannot fail. prints with perror. error is the error message, type is a char representing the error errno should be set to:
 'n' means no manual setting of errno.*/
 void	print_error(char *error, char type); 
+void	my_mlx_pixel_put(t_2d *data, int x, int y, int color);
+void	algo(t_2d *minimap, t_parse_data *data);
+void	draw_line(t_2d *minimap, t_line *line);
+void	draw_floor(t_2d *minimap, int x, int y);
+void	draw_wall(t_2d *minimap, int x, int y);
+int	calcdir(int p1, int p2);
+int	checksize(int x1, int y1);
+void	draw_line(t_2d *minimap, t_line *line);
+void	draw_minimap(t_2d *minimap, t_parse_data *data);
 #endif

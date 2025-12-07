@@ -14,7 +14,12 @@ PARSING = parsing/parse.c \
 		  parsing/validate_map.c\
 		  parsing/get_metadata.c
 EXECUTE =
-RENDER_TESTING = render_test/test.c
+RENDER_TESTING = render_test/test.c\
+				render_test/tooling.c\
+				render_test/draw_line.c\
+				render_test/draw_minimap.c\
+				render_test/draw_box.c
+
 LIBFT = libft/ft_strlen.c\
 		libft/ft_isdigit.c\
 		libft/fd_to_str_arr.c\
@@ -57,9 +62,9 @@ parse: $(PARSING_OBJ) $(LIBFT_OBJ) $(MAIN_PARSING_OBJ)
 	$(CC) $(TESTFLAGS) $^ -o pars
 	./pars
 
-rendert: $(RENDER_TESTING_OBJ) $(LIBFT_OBJ)
+rendert: $(RENDER_TESTING_OBJ) $(LIBFT_OBJ) $(PARSING_OBJ)
 	$(CC) $(TESTFLAGS) $(LIBS) $^ -o rendt
-	./rendt
+	./rendt files/test1.cub
 
 # Pattern rule for test objects (includes main_parsing.c too)
 $(TEST_OBJ_DIR)%.o: %.c

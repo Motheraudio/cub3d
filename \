@@ -1,0 +1,20 @@
+#include "render.h"
+unsigned int	pixel_color(t_2d *data, int x, int y)
+{
+	char	*dst;
+
+	dst = data->addr + ((y * data->line_length)
+			+ (x * (data->bits_per_pixel / 8)));
+	return (*(unsigned int *)dst);
+}
+
+void	my_mlx_pixel_put(t_2d *data, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = data->addr + ((y * data->line_length)
+			+ (x * (data->bits_per_pixel / 8)));
+	*(unsigned int *)dst = color;
+}
+
+
