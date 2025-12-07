@@ -1,5 +1,5 @@
 #include "render.h"
-
+#include "../parsing/parsing.h"
 // int	initmlx(t_parrays *parrays, t_mlx *mlx, t_img *img)
 // {
 // 	if (!mlx->mlx)
@@ -54,6 +54,11 @@ void	draw_lines(t_mlx *mlx, t_img *img)
 
 }
 
+void put_texture_x_y(t_mlx *mlx, t_img *img, int x, int y)
+{
+	mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, *img->img, x * TILESIZE, y * TILESIZE);
+}
+
 // int		draw_with_offset(t_mlx *mlx, t_img *img)
 // {
 //
@@ -80,9 +85,12 @@ void	draw_lines(t_mlx *mlx, t_img *img)
 // 	return (1);
 // }
 
+void	render_minimap()
+
 void	destroy_prev_images (t_img *img, t_mlx *mlx, ssize_t last)
 {
 	ssize_t	i;
+
 
 	i = -1;
 	while(++i <= last)
@@ -103,14 +111,14 @@ int	create_board(t_mlx *mlx, t_img *img)
 		return (0);
 	while(++i < img->tileamount)
 	{
-		img->img[i] = mlx_xpm_file_to_image(mlx->mlx, "./texture.xpm",
+		img->img[i] = mlx_xpm_file_to_image(mlx->mlx, "render_test/texture.xpm",
 									  &img->img_width, &img->img_height);
 		if (img->img[i] == NULL)
 			return (destroy_prev_images(img, mlx, i), free(img->img), 0);
 	}
 	img->player_width = 16;
 	img->player_height = 16;
-	img->player = mlx_xpm_file_to_image(mlx->mlx, "./player.xpm",&img->player_width, &img->player_height);
+	img->player = mlx_xpm_file_to_image(mlx->mlx, "render_test/player.xpm",&img->player_width, &img->player_height);
 	if (!img->player)
 		return(destroy_prev_images(img, mlx, i + 1), free(img->img), 0);
 	return (1);
