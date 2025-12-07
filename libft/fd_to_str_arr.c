@@ -14,19 +14,22 @@
 char **fd_to_str_arr(int fd, char ***arr)
 {
 	int		err;
+	char	*str;
 
 	err = 0;
-	arr = NULL;
 	while (1)
 	{
-		if (ft_append_arr_str(arr, get_next_line(fd, &err)) == NULL)
-			return (get_next_line(-1, &err), free_arr((void***) arr), NULL);
+		str = get_next_line(fd, &err);
 		if (err == -1)
 			return (get_next_line(-1, &err), free_arr((void***) arr), NULL);
+		if (str && str[0] == '\n')
+		{
+			free(str);
+			continue;
+		}
+		ft_append_arr_str(arr, str);
 		if (err == 1)
 			break;
 	}
 	return (*arr);
 }
-
-

@@ -80,4 +80,5 @@ unsigned int	colour_atoi(char *str, int *err);
 
 int		validate_map(int fd, t_parse_data *data);
 void	print_parse_data(t_parse_data *data);
+int		validate_map(int fd, t_parse_data *data);
 #endif

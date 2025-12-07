@@ -242,8 +242,21 @@ void	line_path_validation()
 	init_parse_data(&data);
 }
 
+void	map_validation(void)
+{
+	t_parse_data	data;
+	int				fd;
+	char			*path;
+
+	parse("files/test1.cub");
+
+	
+
+}
+
 int main(){
-	filename_validation();
-	line_path_validation();
+	// filename_validation();
+	// line_path_validation();
+	map_validation();
 
 }

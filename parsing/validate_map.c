@@ -11,6 +11,47 @@
 /* ************************************************************************** */
 #include "parsing.h"
 
+void	print_emap(t_parse_data *data)
+{
+	size_t	i;
+	size_t	j;
+
+printf("%p emap adress\n", data->emap);
+printf("%p emap[0] adress\n", data->emap[0]);
+	i = 0;
+	j = 0;
+	while (i < data->tall)
+	{
+		j = 0;
+		while (j < data->wide)
+		{
+			if (data->emap[i][j] == EMPTY)
+				printf(" ");
+			else if (data->emap[i][j] == WALL)
+				printf("1");
+			else if (data->emap[i][j] == FLOOR)
+				printf("0");
+			else if (data->emap[i][j] == PLAYER)
+			{
+				if (data->orientation == WEST)
+					printf("W");
+				else if (data->orientation == EAST)
+					printf("E");
+				else if (data->orientation == NORTH)
+					printf("N");
+				else if (data->orientation == SOUTH)
+					printf("S");
+				else 
+					printf("X");
+			}
+			j ++;
+		}
+		printf("\n");
+		i ++;
+	}
+
+}
+
 static t_sqare	**emap_alloc(char **arr, t_parse_data  *data)
 {
 	size_t	j;
@@ -28,16 +69,17 @@ static t_sqare	**emap_alloc(char **arr, t_parse_data  *data)
 		j++;
 	}
 	emap = ft_calloc(j + 3, sizeof(t_sqare *));
-	data->wide = j + 2;
-	data->tall = len_horizont + 2;
 	if (emap == NULL)
 		return (NULL);
-	while (j + 1)
+	data->wide = len_horizont + 2;
+	data->tall = j + 1;
+	j = 0;
+	while (j <  data->tall)
 	{
-		emap[j + 1] = ft_calloc(len_horizont + 2, sizeof(t_sqare));
-		if (emap[j + 1] == NULL)
+		emap[j] = ft_calloc(len_horizont + 2, sizeof(t_sqare));
+		if (emap[j] == NULL)
 			return (free_arr((void ***)& emap), NULL);
-		j-- ;
+		j++;
 	}
 	return (emap);
 }
@@ -61,8 +103,6 @@ t_sqare	**convert_to_enum(char **arr, t_parse_data *data)
 				data->emap[i + 1][j + 1] = WALL;
 			else if (arr[i][j] == '0')
 				data->emap[i + 1][j + 1] = FLOOR;
-			else if (arr[i][j] == ' ')
-				data->emap[i + 1][j + 1] = EMPTY;
 			else if (arr[i][j] == ' ')
 				data->emap[i + 1][j + 1] = EMPTY;
 			else if (arr[i][j] == 'W')
@@ -94,21 +134,20 @@ t_sqare	**convert_to_enum(char **arr, t_parse_data *data)
 	return (data->emap);
 }
 
-int	valid_map(t_parse_data *data)
-{
 
-}
 
 int		validate_map(int fd, t_parse_data *data)
 {
 	char	**arr;
 	int		err;
 	
-	if (fd_to_str_arr(fd, &arr))
+	arr = NULL;
+	if (fd_to_str_arr(fd, &arr) == NULL)
 		return (get_next_line(-1, &err), -1);
+	printf("hehe\n");
 	if (convert_to_enum(arr, data) == NULL)
 		return (-1); //manage error and allocations
-	if (valid_map(data) == -1)
-		return (-1);
+	printf("hehe\n");
+	print_emap(data);
 	return (1);
 }

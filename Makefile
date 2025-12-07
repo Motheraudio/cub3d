@@ -11,10 +11,13 @@ PARSING = parsing/parse.c \
           parsing/parse_utils.c\
           parsing/line_parsing.c\
 		  parsing/colour_atoi.c\
+		  parsing/validate_map.c\
 		  parsing/get_metadata.c
 EXECUTE =
 LIBFT = libft/ft_strlen.c\
 		libft/ft_isdigit.c\
+		libft/fd_to_str_arr.c\
+		libft/ft_append_str_arr.c\
 		libft/get_next_line.c\
 		libft/get_next_line_utils.c\
 		libft/ft_split.c\

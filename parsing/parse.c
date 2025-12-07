@@ -20,13 +20,17 @@ void *parse(char *file_name)
 	init_parse_data(&data);
 	if (file_sufix(file_name, ".cub") == -1)
 		return (NULL); // error handle
+	printf("after file suffix\n");
 	fd = open(file_name, O_RDONLY);
 	if(fd == -1)
 		return(NULL); //error handle
+	printf("after open\n");
 	if (get_metadata(fd, &data) == -1)
 		return (NULL);
+	printf("after metadata\n");
 	if (validate_map(fd, &data) == -1)
 		return (NULL);
+	printf("after valideate map\n");
 
 	return ((void *)1);
 }
