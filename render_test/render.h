@@ -19,6 +19,9 @@ typedef struct s_mlx
 typedef struct	s_img
 {
 	void	**img;
+	void	*player;
+	int		player_width;
+	int		player_height;
 	int		img_width;
 	int		img_height;
 	int		x_tilecount;

@@ -48,6 +48,7 @@ void	draw_lines(t_mlx *mlx, t_img *img)
 	i = -1;
 	while(++i < img->y_tilecount)
 		draw_line_horizontal(mlx, img, i);
+	mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, img->player, WIDTH / 2, HEIGHT / 2);
 }
 
 // int		draw_with_offset(t_mlx *mlx, t_img *img)
@@ -103,8 +104,14 @@ int	create_board(t_mlx *mlx, t_img *img)
 		if (img->img[i] == NULL)
 			return (destroy_prev_images(img, mlx, i), free(img->img), 0);
 	}
+	img->player_width = 16;
+	img->player_height = 16;
+	img->player = mlx_xpm_file_to_image(mlx->mlx, "./player.xpm",&img->player_width, &img->player_height);
+	if (!img->player)
+		return(destroy_prev_images(img, mlx, i + 1), free(img->img), 0);
 	return (1);
 }
+
 
 int main ()
 {
@@ -113,7 +120,7 @@ int main ()
 
 	mlx.mlx = mlx_init();
 	if (!mlx.mlx)
-		return (print_error("mlx init", 'n'), 1); // Needs a correspondng perror print through function
+		return (print_error("mlx init", 'n'), 1);
 	mlx.mlx_win = mlx_new_window(mlx.mlx, WIDTH, HEIGHT, "Cub3d");
 	if (!mlx.mlx_win)
 		return (print_error("mlx wimdow", 'n'), mlx_destroy_display(mlx.mlx),
@@ -124,6 +131,7 @@ int main ()
 		return (print_error("board creation", 'n'), mlx_destroy_display(mlx.mlx), 
 			free(mlx.mlx), 1);
 	draw_lines(&mlx, &img);
+
 	mlx_loop(mlx.mlx);
 
 
