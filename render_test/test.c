@@ -11,7 +11,6 @@ void	destroy_prev_images (t_img *img, t_mlx *mlx, ssize_t last)
 {
 	ssize_t	i;
 
-
 	i = -1;
 	while(++i <= last)
 		mlx_destroy_image(mlx->mlx, img->img[i]);
@@ -44,71 +43,16 @@ int	create_board(t_mlx *mlx, t_img *img)
 	return (1);
 }
 
-void	draw_horizon_mm(t_2d *minimap, int y, int x, unsigned int color)
-{
-	ssize_t	i;
 
-	i = -1;
-	while(++i < minimap->blockx)
-	{
-		my_mlx_pixel_put(minimap, x + i, y, color);
-	}
-}
-
-void	draw_square_in_image(t_2d *minimap, unsigned int color, int x, int y)
-{
-	ssize_t	i;
-
-	i = -1;
-	x *= minimap->blockx;
-	y *=minimap->blocky;
-	while (++i < minimap->blocky)
-		draw_horizon_mm(minimap, x, y + i, color);
-}
-
-void	draw_cols(t_2d *minimap, t_parse_data *data)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	minimap->x1 = 0;
-	minimap->y1 = 0;
-	minimap->x2 = 0;
-	minimap->y2 = TILESIZE;
-	while (j < data->tall - 1)
-	{
-		while (i < data->wide - 1)
-		{
-			algo(minimap, data);
-			minimap->y1 = minimap->y2;
-			minimap->y2 += TILESIZE;
-			i++;
-		}
-		minimap->x1 = minimap->x2;
-		minimap->x2 += TILESIZE;
-		j++;
-	}
-}
 int	create_minimap(t_parse_data *data, t_mlx *mlx, t_2d *minimap)
 {
-	minimap->sizex = data->wide * WALL_LEN; //* 10;
-	minimap->sizey = data->tall * WALL_LEN; //* 10;
-	minimap->blockx = TILESIZE;
-	minimap->blocky = TILESIZE;
-	minimap->x1 = 0;
-	minimap->y1 = 0;
-	minimap->x2 = TILESIZE;
-	minimap->y2 = TILESIZE;
-	minimap->img_2d = mlx_new_image(mlx->mlx, minimap->sizex, minimap->sizey);
+	minimap->img_2d = mlx_new_image(mlx->mlx, data->wide * WALL_LEN, data->tall * WALL_LEN);
 	if (!minimap->img_2d)
 		return (0);
 	minimap->addr = mlx_get_data_addr(minimap->img_2d, &minimap->bits_per_pixel,
 							&minimap->line_length, &minimap->endian);
 		return (1);
 }
-
 
 int main (int argc, char **argv)
 {
@@ -117,7 +61,10 @@ int main (int argc, char **argv)
 	t_parse_data	*data;
 	t_2d	minimap;
 	t_line line;
+	t_player player;
+	t_2d	player_img;
 
+	player.image = &player_img;
 	if (argc != 2)
 		return (1);
 	data = parse(argv[1]);
@@ -134,7 +81,9 @@ int main (int argc, char **argv)
 	img.img_width = 64;
 	create_minimap(data, &mlx, &minimap);
 	draw_minimap(&minimap, data);
-
+	if (!create_2d_player(&player, &mlx, data))
+		return (1); // meeds free
 	mlx_put_image_to_window(mlx.mlx, mlx.mlx_win, minimap.img_2d, 0, 0);
-	mlx_loop(mlx.mlx);
+	mlx_put_image_to_window(mlx.mlx, mlx.mlx_win, player.image->img_2d, player.x, player.y);
+	game_loop(&minimap, &player, &mlx, data);
 }

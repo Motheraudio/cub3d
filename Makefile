@@ -18,7 +18,9 @@ RENDER_TESTING = render_test/test.c\
 				render_test/tooling.c\
 				render_test/draw_line.c\
 				render_test/draw_minimap.c\
-				render_test/draw_box.c
+				render_test/draw_box.c\
+				render_test/key_hooks.c\
+				render_test/create_player2d.c\
 
 LIBFT = libft/ft_strlen.c\
 		libft/ft_isdigit.c\
@@ -30,7 +32,8 @@ LIBFT = libft/ft_strlen.c\
 		libft/ft_strncmp.c\
 		libft/ft_calloc.c\
 		libft/ft_strtrim.c\
-		libft/free_arr.c
+		libft/free_arr.c\
+		libft/ft_memcpy.c
 	
 
 OBJ_DIR = objects/

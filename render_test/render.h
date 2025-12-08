@@ -18,14 +18,8 @@
 # include <mlx.h>
 # include <errno.h>
 # include <math.h>
-
-typedef struct s_player
-{
-	int		x;
-	int		y;
-	float	radian;
-}	t_player;
-
+# include <X11/keysym.h> 
+#include <sys/time.h>
 typedef struct s_mlx
 {
 	void	*mlx;
@@ -64,16 +58,28 @@ typedef struct	s_2d
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-	int		x1;
-	int		x2;
-	int		y1;
-	int		y2;
-	size_t	sizex;
-	size_t	sizey;
-	size_t	blockx;
-	size_t	blocky;
+
+
 
 }				t_2d;
+
+typedef struct s_wasd
+{
+	int	w;
+	int	a;
+	int	s;
+	int	d;
+	
+}			t_wasd;
+
+typedef struct s_player
+{
+	int		x;
+	int		y;
+	double	radian;
+	t_2d	*image;
+	t_wasd	*ctrl;
+}				t_player;
 
 typedef struct s_raycast
 {
@@ -82,6 +88,14 @@ typedef struct s_raycast
 	int				x_hit;
 	int				y_hit;
 }	t_raycast;
+
+typedef struct	s_bundle
+{
+	t_player		*player;
+	t_parse_data	*data;
+	t_mlx			*mlx;
+	t_2d			*minimap;
+}				t_bundle;
 
 typedef struct s_algo
 {
@@ -106,4 +120,8 @@ void	draw_line(t_2d *minimap, t_line *line);
 void	draw_minimap(t_2d *minimap, t_parse_data *data);
 unsigned int	pixel_color(t_2d *data, int x, int y);
 void	initline(t_algo *algo, t_line *line);
+void where_player2d(t_player *player, t_parse_data *data);
+int	create_2d_player(t_player *player, t_mlx *mlx, t_parse_data *data);
+void	game_loop(t_2d *minimap, t_player *player, t_mlx *mlx, t_parse_data *data);
+int	move_2d_player(t_bundle *bundle, int addx, int addy);
 #endif
