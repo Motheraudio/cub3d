@@ -18,7 +18,7 @@
 # include <mlx.h>
 # include <errno.h>
 # include <math.h>
-
+# include <X11/keysym.h>
 typedef struct s_mlx
 {
 	void	*mlx;
@@ -62,12 +62,22 @@ typedef struct	s_2d
 
 }				t_2d;
 
+typedef struct s_wasd
+{
+	int	w;
+	int	a;
+	int	s;
+	int	d;
+	
+}			t_wasd;
+
 typedef struct s_player
 {
 	int		x;
 	int		y;
 	double	radian;
 	t_2d	*image;
+	t_wasd	*ctrl;
 }				t_player;
 
 typedef struct s_raycast
@@ -101,4 +111,7 @@ void	draw_line(t_2d *minimap, t_line *line);
 void	draw_minimap(t_2d *minimap, t_parse_data *data);
 unsigned int	pixel_color(t_2d *data, int x, int y);
 void	initline(t_algo *algo, t_line *line);
+void where_player2d(t_player *player, t_parse_data *data);
+int	create_2d_player(t_player *player, t_mlx *mlx, t_parse_data *data);
+void	game_loop(t_2d *minimap, t_player *player, t_mlx *mlx);
 #endif

@@ -11,7 +11,6 @@ void	destroy_prev_images (t_img *img, t_mlx *mlx, ssize_t last)
 {
 	ssize_t	i;
 
-
 	i = -1;
 	while(++i <= last)
 		mlx_destroy_image(mlx->mlx, img->img[i]);
@@ -55,42 +54,6 @@ int	create_minimap(t_parse_data *data, t_mlx *mlx, t_2d *minimap)
 		return (1);
 }
 
-void where_player2d(t_player *player, t_parse_data *data)
-{
-	ssize_t	i;
-	ssize_t	j;
-
-	i = 1;
-	j = 1;
-	while (i < data->tall - 1)
-	{
-		j = 1;
-		while (j < data->wide - 1)
-		{
-			if (data->emap[i][j] == PLAYER)
-			{
-				player->x = (j * WALL_LEN) + (WALL_LEN / 2);
-				player->y = (i * WALL_LEN) + (WALL_LEN / 2);
-				return ;
-			}
-			j++;
-		}
-		i++;
-	}
-}
-int	create_2d_player(t_player *player, t_mlx *mlx, t_parse_data *data)
-{
-	player->image->img_2d = mlx_new_image(mlx->mlx, (data->tall - 1) * WALL_LEN, 
-									   (data->wide - 1) * WALL_LEN);
-	if(!player->image->img_2d)
-		return(0);
-	player->image->addr = mlx_get_data_addr(player->image->img_2d, &player->image->bits_per_pixel,
-								  &player->image->line_length, &player->image->endian);
-	where_player2d(player, data);
-	my_mlx_pixel_put(player->image, (((data->tall -1 ) * WALL_LEN) / 2),
-		((data->tall - 1) * WALL_LEN) / 2, 0x00008B);
-	return (1);
-}
 int main (int argc, char **argv)
 {
 	t_img	img;
@@ -122,5 +85,5 @@ int main (int argc, char **argv)
 		return (1); // meeds free
 	mlx_put_image_to_window(mlx.mlx, mlx.mlx_win, minimap.img_2d, 0, 0);
 	mlx_put_image_to_window(mlx.mlx, mlx.mlx_win, player.image->img_2d, player.x, player.y);
-	mlx_loop(mlx.mlx);
+	game_loop(&minimap, &player, &mlx);
 }
