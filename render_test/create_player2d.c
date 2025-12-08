@@ -35,8 +35,22 @@ void where_player2d(t_player *player, t_parse_data *data)
 		i++;
 	}
 }
+
+void	set_radian(t_player *player, t_parse_data *data)
+{
+	if (data->orientation == NORTH)
+		player->radian = 0;
+	else if (data->orientation == SOUTH)
+		player->radian = M_PI;
+	else if (data->orientation == EAST)
+		player->radian = M_PI / 2;
+	else if (data->orientation == WEST)
+		player->radian = M_PI + M_PI / 2;
+}
+
 int	create_2d_player(t_player *player, t_mlx *mlx, t_parse_data *data)
 {
+	set_radian(player, data);
 	player->image->img_2d = mlx_new_image(mlx->mlx, 1, 1);
 	if(!player->image->img_2d)
 		return(0);
