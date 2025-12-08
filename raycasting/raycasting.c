@@ -11,21 +11,24 @@
 /* ************************************************************************** */
 
 #include "../render_test/render.h"
+#include "raycasting.h"
 
-unsigned int	casting_ray(t_2d *minimap, t_line *line)
+void	casting_ray(t_2d *minimap, t_line *line, t_raycast *res)
 {
-	t_algo			algo;
-	size_t			i;
-	unsigned int	colour;
+	t_algo	algo;
 
-	i = 0;
+	res->distance = 0;
 	initline(&algo, line);
 	while (1)
 	{
-		i ++;
-		colour = pixel_color(minimap, line->x1, line->y1);
-		if (colour != FLOOR_COLOUR)
-			return (colour);
+		res->distance ++;
+		res->colour = pixel_color(minimap, line->x1, line->y1);
+		if (res->colour != FLOOR_COLOUR)
+		{
+			res->x_hit = line->x1;
+			res->y_hit = line->y1;
+			return ;
+		}
 		algo.p2 = 2 * algo.p;
 		if (algo.p2 >= algo.deltay)
 		{
@@ -41,7 +44,19 @@ unsigned int	casting_ray(t_2d *minimap, t_line *line)
 }
 
 
-void	raycasting(t_raycast *arr, int x, int i, float radian, )
+void	raycasting(t_raycast *arr, t_player *player)
 {
-
+	t_line	line;
+	size_t	i;
+	
+	i = 0;
+	while (i < RAYCAST_ARR)
+	{
+		line.x1 = player->x;
+		line.y1 = player->y;
+		line.x2 = player->x + RAY_LEN * cos(player->radian - 0.26179 + i * 0.523598 / RAYCAST_ARR);
+		line.y2 = player->y + RAY_LEN * sin(player->radian - 0.26179 + i * 0.523598 / RAYCAST_ARR);
+		casting_ray(player->minimap, &line, arr + i);
+		i ++;
+	}
 }
