@@ -6,7 +6,7 @@
 /*   By: alvcampo <alvcampo@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 15:31:41 by alvcampo          #+#    #+#             */
-/*   Updated: 2025/12/08 15:32:54 by alvcampo         ###   ########.fr       */
+/*   Updated: 2025/12/08 20:22:32 by alvcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,3 +47,16 @@ int	create_2d_player(t_player *player, t_mlx *mlx, t_parse_data *data)
 	return (1);
 }
 
+int	move_2d_player(t_bundle *bundle, int addx, int addy)
+{
+	bundle->player->image->img_2d = mlx_new_image(bundle->mlx->mlx, 1, 1);
+	if(!bundle->player->image->img_2d)
+		return(0);
+	bundle->player->image->addr = mlx_get_data_addr(bundle->player->image->img_2d, &bundle->player->image->bits_per_pixel,
+								  &bundle->player->image->line_length, &bundle->player->image->endian);
+	my_mlx_pixel_put(bundle->player->image, 0,0, 0xFF00008B);
+	
+	bundle->player->x += addx;
+	bundle->player->y += addy;
+	return(1);
+}

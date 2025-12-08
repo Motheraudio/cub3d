@@ -85,5 +85,5 @@ int main (int argc, char **argv)
 		return (1); // meeds free
 	mlx_put_image_to_window(mlx.mlx, mlx.mlx_win, minimap.img_2d, 0, 0);
 	mlx_put_image_to_window(mlx.mlx, mlx.mlx_win, player.image->img_2d, player.x, player.y);
-	game_loop(&minimap, &player, &mlx);
+	game_loop(&minimap, &player, &mlx, data);
 }

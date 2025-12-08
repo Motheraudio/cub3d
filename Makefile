@@ -32,7 +32,8 @@ LIBFT = libft/ft_strlen.c\
 		libft/ft_strncmp.c\
 		libft/ft_calloc.c\
 		libft/ft_strtrim.c\
-		libft/free_arr.c
+		libft/free_arr.c\
+		libft/ft_memcpy.c
 	
 
 OBJ_DIR = objects/
