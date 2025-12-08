@@ -6,13 +6,14 @@
 /*   By: mchoma <your@mail.com>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 20:46:04 by mchoma            #+#    #+#             */
-/*   Updated: 2025/12/08 20:55:19 by mchoma           ###   ########.fr       */
+/*   Updated: 2025/12/08 22:09:54 by mchoma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../render_test/render.h"
 #include <sys/time.h>
 #include "game_loop.h"
+#include "../raycasting/raycasting.h"
 
 int	nex_frame()
 {
@@ -20,7 +21,7 @@ int	nex_frame()
 	struct timeval	now;
 
 	gettimeofday(&now, NULL);
-	if ((now.tv_sec * 100 + now.tv_usec / 10000) > (prev.tv_sec * 100 + prev.tv_usec / 10000) + 100 / 5)
+	if ((now.tv_sec * 100 + now.tv_usec / 10000) > (prev.tv_sec * 100 + prev.tv_usec / 10000) + FPS)
 	{
 		prev = now;
 		return (1);
@@ -55,6 +56,7 @@ int	game_loop(void *param)
 {
 	t_bundle	*bundle;
 	int			has_moved;
+	t_raycast	arr[RAYCAST_ARR];
 
 	if (nex_frame() == -1)
 		return (0);
@@ -62,6 +64,8 @@ int	game_loop(void *param)
 	has_moved = player_movement(bundle);
 	if (has_moved == 1)
 	{
+		draw_minimap(bundle->minimap, bundle->data);
+		raycasting(arr, bundle->player, bundle->minimap);
 		mlx_put_image_to_window(bundle->mlx->mlx, bundle->mlx->mlx_win, bundle->minimap->img_2d, 0, 0);
 		mlx_put_image_to_window(bundle->mlx->mlx, bundle->mlx->mlx_win, bundle->player->image->img_2d, bundle->player->x, bundle->player->y + 1);
 	}

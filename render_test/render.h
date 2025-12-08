@@ -1,7 +1,7 @@
 #ifndef RENDER_H
 #define RENDER_H
 # define WIDTH  1000
-# define FLOOR_COLOUR 0xFFFFFF
+# define FLOOR_COLOUR 0x0
 # define HEIGHT 500
 # define TILESIZE 64
 # define MINITILE 2
@@ -11,8 +11,9 @@
 # define GREEN 0x00FF00
 # define MAGENTA 0xFF00FF
 # define YELLOW 0xFFEA00
-# define WALL_LEN 20
-# define RAYCAST_ARR 20
+# define PINK 0xFFC0CB
+# define WALL_LEN 50
+# define RAYCAST_ARR 50
 # include "../libft/libft.h"
 # include "../parsing/parsing.h"
 # include <mlx.h>
@@ -122,6 +123,6 @@ unsigned int	pixel_color(t_2d *data, int x, int y);
 void	initline(t_algo *algo, t_line *line);
 void where_player2d(t_player *player, t_parse_data *data);
 int	create_2d_player(t_player *player, t_mlx *mlx, t_parse_data *data);
-void	game_init(t_2d *minimap, t_player *player, t_mlx *mlx, t_parse_data *data);
+void	init_game(t_2d *minimap, t_player *player, t_mlx *mlx, t_parse_data *data);
 int	move_2d_player(t_bundle *bundle, int addx, int addy);
 #endif

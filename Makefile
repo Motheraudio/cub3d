@@ -2,7 +2,7 @@ NAME = cube3d
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 TESTFLAGS = -Wall -Wextra -g
-LIBS = -lmlx -lXext -lX11
+LIBS = -lmlx -lXext -lX11 -lm
 HEADERS = parsing/parsing.h
 
 # Sources
@@ -13,14 +13,18 @@ PARSING = parsing/parse.c \
 		  parsing/colour_atoi.c\
 		  parsing/validate_map.c\
 		  parsing/get_metadata.c
-EXECUTE =
-RENDER_TESTING = render_test/test.c\
+GAME_LOOP = game_loop/game_loop.c\
+			raycasting/raycasting.c\
+			game_loop/key_hooks.c\
+			game_loop/player_movement.c
+
+
+RENDER_TESTING = render_test/test.c $(GAME_LOOP)\
 				render_test/tooling.c\
 				render_test/draw_line.c\
 				render_test/draw_minimap.c\
 				render_test/draw_box.c\
-				render_test/key_hooks.c\
-				render_test/create_player2d.c\
+				render_test/create_player2d.c
 
 LIBFT = libft/ft_strlen.c\
 		libft/ft_isdigit.c\
@@ -44,6 +48,7 @@ OBJ = $(patsubst %.c,$(OBJ_DIR)%.o,$(ALL_SRC))
 TEST_OBJ = $(patsubst %.c,$(TEST_OBJ_DIR)%.o,$(ALL_SRC))
 PARSING_OBJ = $(patsubst %.c,$(TEST_OBJ_DIR)%.o,$(PARSING))
 RENDER_TESTING_OBJ= $(patsubst %.c,$(TEST_OBJ_DIR)%.o,$(RENDER_TESTING))
+GAME_LOOP_OBJ_TEST = $(patsubst %.c,$(TEST_OBJ_DIR)%.o,$(GAME_LOOP))
 LIBFT_OBJ = $(patsubst %.c,$(TEST_OBJ_DIR)%.o,$(LIBFT))
 MAIN_PARSING_OBJ = $(TEST_OBJ_DIR)parsing/main_parsing.o
 
@@ -65,7 +70,7 @@ parse: $(PARSING_OBJ) $(LIBFT_OBJ) $(MAIN_PARSING_OBJ)
 	$(CC) $(TESTFLAGS) $^ -o pars
 	./pars
 
-rendert: $(RENDER_TESTING_OBJ) $(LIBFT_OBJ) $(PARSING_OBJ)
+rendert: $(RENDER_TESTING_OBJ) $(LIBFT_OBJ) $(PARSING_OBJ) $(GAME_LOOP_OBJ_TEST)
 	$(CC) $(TESTFLAGS) $(LIBS) $^ -o rendt
 	./rendt files/test1.cub
 
