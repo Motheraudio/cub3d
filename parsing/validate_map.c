@@ -15,8 +15,6 @@ void	print_emap(t_parse_data *data)
 	size_t	i;
 	size_t	j;
 
-printf("%p emap adress\n", data->emap);
-printf("%p emap[0] adress\n", data->emap[0]);
 	i = 0;
 	j = 0;
 	while (i < data->tall)

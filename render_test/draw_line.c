@@ -6,11 +6,11 @@
 /*   By: alvcampo <alvcampo@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 22:00:39 by alvcampo          #+#    #+#             */
-/*   Updated: 2025/12/07 22:01:51 by alvcampo         ###   ########.fr       */
+/*   Updated: 2025/12/07 22:53:17 by mchoma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "render.h"
-static void	initline(t_algo *algo, t_line *line)
+void	initline(t_algo *algo, t_line *line)
 {
 	algo->deltax = abs(line->x2 - line->x1);
 	algo->deltay = -abs(line->y2 - line->y1);

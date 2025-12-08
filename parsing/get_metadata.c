@@ -53,6 +53,7 @@ int		get_metadata(int fd, t_parse_data *data)
 			return (get_next_line(-1, &err), -1); //error handle ((this happends only if internal failiure))
 		if (floor_line(line, data) == -1 )
 			return (get_next_line(-1, &err), -1); //error handle ((this happends only if internal failiure))
+		free(line);
 	}
 	if (line == NULL)
 		return (get_next_line(-1, &err), -1); //invalid line

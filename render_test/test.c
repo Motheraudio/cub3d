@@ -11,37 +11,38 @@ void	destroy_prev_images (t_img *img, t_mlx *mlx, ssize_t last)
 {
 	ssize_t	i;
 
+
 	i = -1;
 	while(++i <= last)
 		mlx_destroy_image(mlx->mlx, img->img[i]);
 }
 
 
-// int	create_board(t_mlx *mlx, t_img *img)
-// {
-// 	ssize_t	i;
-//
-// 	i = -1;
-// 	img->x_tilecount =  WIDTH / TILESIZE;
-// 	img->y_tilecount = HEIGHT / TILESIZE;
-// 	img->tileamount = img->x_tilecount * img->y_tilecount;
-// 	img->img = malloc(img->tileamount * sizeof(void *));
-// 	if (!img->img)
-// 		return (0);
-// 	while(++i < img->tileamount)
-// 	{
-// 		img->img[i] = mlx_xpm_file_to_image(mlx->mlx, "./texture.xpm",
-// 									  &img->img_width, &img->img_height);
-// 		if (img->img[i] == NULL)
-// 			return (destroy_prev_images(img, mlx, i), free(img->img), 0);
-// 	}
-// 	img->player_width = 16;
-// 	img->player_height = 16;
-// 	img->player = mlx_xpm_file_to_image(mlx->mlx, "./player.xpm",&img->player_width, &img->player_height);
-// 	if (!img->player)
-// 		return(destroy_prev_images(img, mlx, i + 1), free(img->img), 0);
-// 	return (1);
-// }
+int	create_board(t_mlx *mlx, t_img *img)
+{
+	ssize_t	i;
+
+	i = -1;
+	img->x_tilecount =  WIDTH / TILESIZE;
+	img->y_tilecount = HEIGHT / TILESIZE;
+	img->tileamount = img->x_tilecount * img->y_tilecount;
+	img->img = malloc(img->tileamount * sizeof(void *));
+	if (!img->img)
+		return (0);
+	while(++i < img->tileamount)
+	{
+		img->img[i] = mlx_xpm_file_to_image(mlx->mlx, "render_test/texture.xpm",
+									  &img->img_width, &img->img_height);
+		if (img->img[i] == NULL)
+			return (destroy_prev_images(img, mlx, i), free(img->img), 0);
+	}
+	img->player_width = 16;
+	img->player_height = 16;
+	img->player = mlx_xpm_file_to_image(mlx->mlx, "render_test/player.xpm",&img->player_width, &img->player_height);
+	if (!img->player)
+		return(destroy_prev_images(img, mlx, i + 1), free(img->img), 0);
+	return (1);
+}
 
 void	draw_horizon_mm(t_2d *minimap, int y, int x, unsigned int color)
 {
