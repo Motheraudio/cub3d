@@ -122,6 +122,6 @@ unsigned int	pixel_color(t_2d *data, int x, int y);
 void	initline(t_algo *algo, t_line *line);
 void where_player2d(t_player *player, t_parse_data *data);
 int	create_2d_player(t_player *player, t_mlx *mlx, t_parse_data *data);
-void	game_loop(t_2d *minimap, t_player *player, t_mlx *mlx, t_parse_data *data);
+void	game_init(t_2d *minimap, t_player *player, t_mlx *mlx, t_parse_data *data);
 int	move_2d_player(t_bundle *bundle, int addx, int addy);
 #endif
