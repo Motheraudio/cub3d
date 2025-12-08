@@ -109,7 +109,43 @@ int	create_minimap(t_parse_data *data, t_mlx *mlx, t_2d *minimap)
 		return (1);
 }
 
+void where_player2d(t_2d *minimap, t_parse_data *data)
+{
+	ssize_t	i;
+	ssize_t	j;
 
+	i = 1;
+	j = 1;
+	while (i < data->tall - 1)
+	{
+		j = 1;
+		while (j < data->wide - 1)
+		{
+			if (data->emap[i][j] == PLAYER)
+			{
+				minimap->player_x = (j * WALL_LEN) + (WALL_LEN / 2);
+				minimap->player_y = (i * WALL_LEN) + (WALL_LEN / 2);
+				return ;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+int	create_2d_player(t_2d *minimap, t_mlx *mlx, t_parse_data *data)
+{
+	char	*dst;
+	minimap->player_img = mlx_new_image(mlx->mlx, 1, 1);
+	if(!minimap->player_img)
+		return(0);
+	minimap->player_addr = mlx_get_data_addr(minimap->player_img, &minimap->player_bits_per_pixel,
+								  &minimap->player_line_length, &minimap->player_endian);
+	where_player2d(minimap, data);
+	dst = minimap->player_addr + ((minimap->player_y * minimap->player_line_length)
+			+ (minimap->player_x * (minimap->player_bits_per_pixel / 8)));
+	*(unsigned int *)dst = YELLOW;
+	return (1);
+}
 int main (int argc, char **argv)
 {
 	t_img	img;
@@ -134,7 +170,9 @@ int main (int argc, char **argv)
 	img.img_width = 64;
 	create_minimap(data, &mlx, &minimap);
 	draw_minimap(&minimap, data);
-
+	if (!create_2d_player(&minimap, &mlx, data))
+		return (1); // meeds free
 	mlx_put_image_to_window(mlx.mlx, mlx.mlx_win, minimap.img_2d, 0, 0);
+	mlx_put_image_to_window(mlx.mlx, mlx.mlx_win, minimap.player_img, minimap.player_x, minimap.player_y);
 	mlx_loop(mlx.mlx);
 }

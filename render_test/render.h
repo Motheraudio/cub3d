@@ -19,12 +19,6 @@
 # include <errno.h>
 # include <math.h>
 
-typedef struct s_player
-{
-	int		x;
-	int		y;
-	float	radian;
-}	t_player;
 
 typedef struct s_mlx
 {
@@ -72,6 +66,15 @@ typedef struct	s_2d
 	size_t	sizey;
 	size_t	blockx;
 	size_t	blocky;
+	int		player_x;
+	int		player_y;
+	double	player_radian;
+	void	*player_img;
+	char	*player_addr;
+	int		player_bits_per_pixel;
+	int		player_line_length;
+	int		player_endian;
+
 
 }				t_2d;
 
