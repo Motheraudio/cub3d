@@ -44,64 +44,10 @@ int	create_board(t_mlx *mlx, t_img *img)
 	return (1);
 }
 
-void	draw_horizon_mm(t_2d *minimap, int y, int x, unsigned int color)
-{
-	ssize_t	i;
 
-	i = -1;
-	while(++i < minimap->blockx)
-	{
-		my_mlx_pixel_put(minimap, x + i, y, color);
-	}
-}
-
-void	draw_square_in_image(t_2d *minimap, unsigned int color, int x, int y)
-{
-	ssize_t	i;
-
-	i = -1;
-	x *= minimap->blockx;
-	y *=minimap->blocky;
-	while (++i < minimap->blocky)
-		draw_horizon_mm(minimap, x, y + i, color);
-}
-
-void	draw_cols(t_2d *minimap, t_parse_data *data)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	minimap->x1 = 0;
-	minimap->y1 = 0;
-	minimap->x2 = 0;
-	minimap->y2 = TILESIZE;
-	while (j < data->tall - 1)
-	{
-		while (i < data->wide - 1)
-		{
-			algo(minimap, data);
-			minimap->y1 = minimap->y2;
-			minimap->y2 += TILESIZE;
-			i++;
-		}
-		minimap->x1 = minimap->x2;
-		minimap->x2 += TILESIZE;
-		j++;
-	}
-}
 int	create_minimap(t_parse_data *data, t_mlx *mlx, t_2d *minimap)
 {
-	minimap->sizex = data->wide * WALL_LEN; //* 10;
-	minimap->sizey = data->tall * WALL_LEN; //* 10;
-	minimap->blockx = TILESIZE;
-	minimap->blocky = TILESIZE;
-	minimap->x1 = 0;
-	minimap->y1 = 0;
-	minimap->x2 = TILESIZE;
-	minimap->y2 = TILESIZE;
-	minimap->img_2d = mlx_new_image(mlx->mlx, minimap->sizex, minimap->sizey);
+	minimap->img_2d = mlx_new_image(mlx->mlx, data->wide * WALL_LEN, data->tall * WALL_LEN);
 	if (!minimap->img_2d)
 		return (0);
 	minimap->addr = mlx_get_data_addr(minimap->img_2d, &minimap->bits_per_pixel,
@@ -109,7 +55,7 @@ int	create_minimap(t_parse_data *data, t_mlx *mlx, t_2d *minimap)
 		return (1);
 }
 
-void where_player2d(t_2d *minimap, t_parse_data *data)
+void where_player2d(t_player *player, t_parse_data *data)
 {
 	ssize_t	i;
 	ssize_t	j;
@@ -123,8 +69,8 @@ void where_player2d(t_2d *minimap, t_parse_data *data)
 		{
 			if (data->emap[i][j] == PLAYER)
 			{
-				minimap->player_x = (j * WALL_LEN) + (WALL_LEN / 2);
-				minimap->player_y = (i * WALL_LEN) + (WALL_LEN / 2);
+				player->x = (j * WALL_LEN) + (WALL_LEN / 2);
+				player->y = (i * WALL_LEN) + (WALL_LEN / 2);
 				return ;
 			}
 			j++;
@@ -132,18 +78,17 @@ void where_player2d(t_2d *minimap, t_parse_data *data)
 		i++;
 	}
 }
-int	create_2d_player(t_2d *minimap, t_mlx *mlx, t_parse_data *data)
+int	create_2d_player(t_player *player, t_mlx *mlx, t_parse_data *data)
 {
-	char	*dst;
-	minimap->player_img = mlx_new_image(mlx->mlx, 1, 1);
-	if(!minimap->player_img)
+	player->image->img_2d = mlx_new_image(mlx->mlx, (data->tall - 1) * WALL_LEN, 
+									   (data->wide - 1) * WALL_LEN);
+	if(!player->image->img_2d)
 		return(0);
-	minimap->player_addr = mlx_get_data_addr(minimap->player_img, &minimap->player_bits_per_pixel,
-								  &minimap->player_line_length, &minimap->player_endian);
-	where_player2d(minimap, data);
-	dst = minimap->player_addr + ((minimap->player_y * minimap->player_line_length)
-			+ (minimap->player_x * (minimap->player_bits_per_pixel / 8)));
-	*(unsigned int *)dst = YELLOW;
+	player->image->addr = mlx_get_data_addr(player->image->img_2d, &player->image->bits_per_pixel,
+								  &player->image->line_length, &player->image->endian);
+	where_player2d(player, data);
+	my_mlx_pixel_put(player->image, (((data->tall -1 ) * WALL_LEN) / 2),
+		((data->tall - 1) * WALL_LEN) / 2, 0x00008B);
 	return (1);
 }
 int main (int argc, char **argv)
@@ -153,7 +98,10 @@ int main (int argc, char **argv)
 	t_parse_data	*data;
 	t_2d	minimap;
 	t_line line;
+	t_player player;
+	t_2d	player_img;
 
+	player.image = &player_img;
 	if (argc != 2)
 		return (1);
 	data = parse(argv[1]);
@@ -170,9 +118,9 @@ int main (int argc, char **argv)
 	img.img_width = 64;
 	create_minimap(data, &mlx, &minimap);
 	draw_minimap(&minimap, data);
-	if (!create_2d_player(&minimap, &mlx, data))
+	if (!create_2d_player(&player, &mlx, data))
 		return (1); // meeds free
 	mlx_put_image_to_window(mlx.mlx, mlx.mlx_win, minimap.img_2d, 0, 0);
-	mlx_put_image_to_window(mlx.mlx, mlx.mlx_win, minimap.player_img, minimap.player_x, minimap.player_y);
+	mlx_put_image_to_window(mlx.mlx, mlx.mlx_win, player.image->img_2d, player.x, player.y);
 	mlx_loop(mlx.mlx);
 }

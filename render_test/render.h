@@ -19,7 +19,6 @@
 # include <errno.h>
 # include <math.h>
 
-
 typedef struct s_mlx
 {
 	void	*mlx;
@@ -58,25 +57,18 @@ typedef struct	s_2d
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-	int		x1;
-	int		x2;
-	int		y1;
-	int		y2;
-	size_t	sizex;
-	size_t	sizey;
-	size_t	blockx;
-	size_t	blocky;
-	int		player_x;
-	int		player_y;
-	double	player_radian;
-	void	*player_img;
-	char	*player_addr;
-	int		player_bits_per_pixel;
-	int		player_line_length;
-	int		player_endian;
+
 
 
 }				t_2d;
+
+typedef struct s_player
+{
+	int		x;
+	int		y;
+	double	radian;
+	t_2d	*image;
+}				t_player;
 
 typedef struct s_raycast
 {
