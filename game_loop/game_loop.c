@@ -6,7 +6,7 @@
 /*   By: mchoma <your@mail.com>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 20:46:04 by mchoma            #+#    #+#             */
-/*   Updated: 2025/12/10 17:22:23 by mchoma           ###   ########.fr       */
+/*   Updated: 2025/12/10 21:16:09 by alvcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	game_loop(void *param)
 	int			has_moved;
 	t_raycast	arr[RAYCAST_ARR];
 
+
 	if (nex_frame() == -1)
 		return (0);
 	bundle = (t_bundle *)param;
@@ -65,21 +66,31 @@ int	game_loop(void *param)
 		// mlx_clear_window(bundle->mlx->mlx, bundle->mlx->mlx_win);
 		draw_minimap(bundle->minimap, bundle->data);
 		raycasting(arr, bundle->player, bundle->minimap);
+		draw_3d(arr, bundle);
+		mlx_put_image_to_window(bundle->mlx->mlx, bundle->mlx->mlx_win, bundle->view->img_2d, 0, 0);
 		mlx_put_image_to_window(bundle->mlx->mlx, bundle->mlx->mlx_win, bundle->minimap->img_2d, 0, 0);
 		mlx_put_image_to_window(bundle->mlx->mlx, bundle->mlx->mlx_win, bundle->player->image->img_2d, bundle->player->x, bundle->player->y + 1);
 	}
 	return (0);
 }
 
-
-
+t_2d	create_view(t_mlx *mlx)
+{
+	t_2d	view;
+	view.img_2d = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);
+	view.addr = mlx_get_data_addr(view.img_2d, &view.bits_per_pixel, &view.line_length, &view.endian);
+	return(view);
+}
 
 void	init_game(t_2d *minimap, t_player *player, t_mlx *mlx, t_parse_data *data) // add if you need;
 {
-	t_bundle bundle;
+	t_bundle	bundle;
+	t_2d		view;
 
 	// mlx_do_key_autorepeatoff(mlx->mlx);
 	init_player(player);
+	view = create_view(mlx);
+	bundle.view = &view;
 	bundle.player = player;
 	bundle.minimap = minimap;
 	bundle.data = data;

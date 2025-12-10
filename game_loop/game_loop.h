@@ -6,7 +6,7 @@
 /*   By: mchoma <your@mail.com>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 20:47:45 by mchoma            #+#    #+#             */
-/*   Updated: 2025/12/10 17:02:42 by mchoma           ###   ########.fr       */
+/*   Updated: 2025/12/10 20:47:45 by alvcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define TURNING_RATE 0.26179
 # define MOVEMENT_SPEED 5
 # include "../render_test/render.h"
+# include "../projection/projection.h"
 
 int	player_move_axis(int *hasmoved, int *y, int *x, char type);
 int	handle_keyrelease(int keycode, void *param);

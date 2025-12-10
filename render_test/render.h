@@ -12,7 +12,7 @@
 # define MAGENTA 0xFF00FF
 # define YELLOW 0xFFEA00
 # define PINK 0xFFC0CB
-# define WALL_LEN 255
+# define WALL_LEN 5
 # define VOID_COLOUR 0x000001
 # define PLAYER_COLOUR 0xFF00008B
 # define NORTH_C 0xFF0000
@@ -100,6 +100,7 @@ typedef struct	s_bundle
 	t_parse_data	*data;
 	t_mlx			*mlx;
 	t_2d			*minimap;
+	t_2d			*view;
 }				t_bundle;
 
 typedef struct s_algo
