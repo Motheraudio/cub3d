@@ -14,7 +14,7 @@
 # define YELLOW 0xFFEA00
 # define PINK 0xFFC0CB
 # define WALL_LEN 30
-# define RAYCAST_ARR 20
+# define RAYCAST_ARR 10
 # define MOVEMENT_SPEED 5
 # include "../libft/libft.h"
 # include "../parsing/parsing.h"

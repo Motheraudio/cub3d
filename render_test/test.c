@@ -80,7 +80,9 @@ int main (int argc, char **argv)
 		free(mlx.mlx), 1);
 	img.img_height = 64;
 	img.img_width = 64;
-	create_minimap(data, &mlx, &minimap);
+	if (create_minimap(data, &mlx, &minimap) == 0)
+		return (print_error("mlx image", 'n'), mlx_destroy_display(mlx.mlx),
+		free(mlx.mlx), 1);
 	draw_minimap(&minimap, data);
 	if (!create_2d_player(&player, &mlx, data))
 		return (1); // meeds free

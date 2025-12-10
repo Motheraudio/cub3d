@@ -6,7 +6,7 @@
 /*   By: alvcampo <alvcampo@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 15:31:41 by alvcampo          #+#    #+#             */
-/*   Updated: 2025/12/08 20:22:32 by alvcampo         ###   ########.fr       */
+/*   Updated: 2025/12/10 16:51:36 by mchoma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,11 @@ void where_player2d(t_player *player, t_parse_data *data)
 		{
 			if (data->emap[i][j] == PLAYER)
 			{
-				player->x = (j- 1) * WALL_LEN + (WALL_LEN / 2);
+				player->x = (j - 1) * WALL_LEN + (WALL_LEN / 2);
 				player->y = (i - 1) * WALL_LEN + (WALL_LEN / 2);
+				printf("%i player->y where_player2d\n", player->y);
+				// printf("%lu i\n", i);
+				// printf("%i WALL_LEN\n", WALL_LEN);
 				return ;
 			}
 			j++;

@@ -6,13 +6,13 @@
 /*   By: mchoma <your@mail.com>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 20:47:45 by mchoma            #+#    #+#             */
-/*   Updated: 2025/12/10 15:02:38 by mchoma           ###   ########.fr       */
+/*   Updated: 2025/12/10 17:02:42 by mchoma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GAME_LOOP_H
 # define GAME_LOOP_H
-# define FPS 50 
+# define FPS 30 
 # define TURNING_RATE 0.26179
 # include "../render_test/render.h"
 

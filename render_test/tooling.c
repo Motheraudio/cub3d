@@ -1,7 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tooling.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mchoma <your@mail.com>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/10 16:36:26 by mchoma            #+#    #+#             */
+/*   Updated: 2025/12/10 17:03:18 by mchoma           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "render.h"
 unsigned int	pixel_color(t_2d *data, int x, int y)
 {
 	char	*dst;
+
+	// printf("%i == x \n %i == y\n", x, y);
 
 	dst = data->addr + ((y * data->line_length)
 			+ (x * (data->bits_per_pixel / 8)));

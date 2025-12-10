@@ -1,7 +1,7 @@
 NAME = cube3d
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-TESTFLAGS = -Wall -Wextra -g
+TESTFLAGS = -Wall -Wextra -g -O3
 LIBS = -lmlx -lXext -lX11 -lm
 HEADERS = parsing/parsing.h
 

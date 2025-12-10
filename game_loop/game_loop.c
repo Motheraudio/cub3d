@@ -6,7 +6,7 @@
 /*   By: mchoma <your@mail.com>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 20:46:04 by mchoma            #+#    #+#             */
-/*   Updated: 2025/12/10 15:02:36 by mchoma           ###   ########.fr       */
+/*   Updated: 2025/12/10 17:22:23 by mchoma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	nex_frame()
 	struct timeval	now;
 
 	gettimeofday(&now, NULL);
-	if ((now.tv_sec * 100 + now.tv_usec / 10000) > (prev.tv_sec * 100 + prev.tv_usec / 10000) + FPS)
+	if ((now.tv_sec * 1000 + now.tv_usec / 1000) > (prev.tv_sec * 1000 + prev.tv_usec / 1000) + FPS)
 	{
 		prev = now;
 		return (1);
@@ -35,6 +35,8 @@ int		player_movement(t_bundle *bundle)
 	int		yadd;
 	int		xadd;
 
+	yadd = 0;
+	xadd = 0;
 	hasmoved = 1;
 	if (bundle->player->ctrl.w == 1)
 		hasmoved = player_move_axis(&hasmoved, &yadd, &xadd, 'w');
