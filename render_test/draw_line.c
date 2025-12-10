@@ -26,8 +26,8 @@ void	draw_line(t_2d *minimap, t_line *line)
 	initline(&algo, line);
 	while (1)
 	{
-		if (checksize(line->x1, line->y1) == 0)
-			break ;
+		// if (checksize(line->x1, line->y1) == 0)
+			// break ;
 		my_mlx_pixel_put(minimap, line->x1, line->y1, line->colour);
 		algo.p2 = 2 * algo.p;
 		if (algo.p2 >= algo.deltay)

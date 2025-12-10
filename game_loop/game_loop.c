@@ -31,30 +31,22 @@ int	nex_frame()
 
 int		player_movement(t_bundle *bundle)
 {
-	int		hasmoved;
-	int		yadd;
-	int		xadd;
+	int	hasmoved;
+	int	hasturned;
+	int	xadd;
+	int	yadd;
 
-	yadd = 0;
-	xadd = 0;
-	hasmoved = 1;
-	if (bundle->player->ctrl.w == 1)
-		hasmoved = player_move_axis(&hasmoved, &yadd, &xadd, 'w');
-	if (bundle->player->ctrl.a == 1)
-		hasmoved = player_move_axis(&hasmoved, &yadd, &xadd, 'a');
-	if (bundle->player->ctrl.s == 1)
-		hasmoved = player_move_axis(&hasmoved, &yadd, &xadd, 's');
-	if (bundle->player->ctrl.d == 1)
-		hasmoved = player_move_axis(&hasmoved, &yadd, &xadd, 'd');
-	if (bundle->player->ctrl.right == 1)
-		bundle->player->radian += TURNING_RATE;
-	if (bundle->player->ctrl.left == 1)
-		bundle->player->radian -= TURNING_RATE;
+	hasmoved = check_move(bundle);
+	hasturned = check_turn(bundle);
 	if (hasmoved != 0)
 	{
+		xadd = MOVEMENT_SPEED * cos(bundle->player->radian + bundle->player->direction);
+		yadd = MOVEMENT_SPEED * sin(bundle->player->radian + bundle->player->direction);
 		move_2d_player(bundle, xadd, yadd);
 		return (1);
 	}
+	if (hasturned == 1)
+		return (1);
 	return (0);
 }
 

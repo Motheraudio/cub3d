@@ -3,9 +3,8 @@
 # define WIDTH  1000
 # define FLOOR_COLOUR 0x0
 # define RAY_COLOUR 0xFFFFED
-# define HEIGHT 500
+# define HEIGHT 1000
 # define TILESIZE 64
-# define MINITILE 2
 # define WHITE 0xFFFFFF
 # define RED   0xFF0000
 # define BLUE  0x0000FF
@@ -13,9 +12,13 @@
 # define MAGENTA 0xFF00FF
 # define YELLOW 0xFFEA00
 # define PINK 0xFFC0CB
-# define WALL_LEN 30
-# define RAYCAST_ARR 10
-# define MOVEMENT_SPEED 5
+# define WALL_LEN 255
+# define VOID_COLOUR 0x000001
+# define PLAYER_COLOUR 0xFF00008B
+# define NORTH_C 0xFF0000
+# define SOUTH_C 0x00FF00
+# define EAST_C 0x8F0000
+# define WEST_C 0x008F00
 # include "../libft/libft.h"
 # include "../parsing/parsing.h"
 # include <mlx.h>
@@ -80,6 +83,7 @@ typedef struct s_player
 	double	radian;
 	t_2d	*image;
 	t_wasd	ctrl;
+	double	direction;
 }				t_player;
 
 typedef struct s_raycast

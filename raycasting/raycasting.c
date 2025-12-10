@@ -52,9 +52,9 @@ void	raycasting(t_raycast arr[], t_player *player, t_2d *minimap)
 	size_t	i;
 	
 	i = 0;
-	struct timeval start;
-	struct timeval end;
-	gettimeofday(&start, NULL);
+	// struct timeval start;
+	// struct timeval end;
+	// gettimeofday(&start, NULL);
 	while (i < RAYCAST_ARR)
 	{
 		// printf("i == %lu\n", i);
@@ -66,7 +66,7 @@ void	raycasting(t_raycast arr[], t_player *player, t_2d *minimap)
 		casting_ray(minimap, &line, arr + i);
 		i ++;
 	}
-	gettimeofday(&end, NULL);
-	size_t diff = (end.tv_sec - start.tv_sec) * 1000 + end.tv_usec - start.tv_usec;
-	printf("%lu start usec\n", diff);
+	// gettimeofday(&end, NULL);
+	// size_t diff = (end.tv_sec - start.tv_sec) * 1000 + end.tv_usec - start.tv_usec;
+	// printf("%lu start usec\n", diff);
 }
