@@ -10,31 +10,46 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "game_loop.h"
 #include "../render_test/render.h"
 
-int	player_move_axis(int *hasmoved, int *y, int *x, char type)
+int check_turn(t_bundle *bundle)
 {
-	*hasmoved += 1;
-	if (type == 'w')
+	int	ret;
+
+	ret = 0;
+	if (bundle->player->ctrl.right == 1)
+	{ bundle->player->radian += TURNING_RATE; ret  = 1; }
+	if (bundle->player->ctrl.left == 1)
 	{
-		*x = 0;
-		*y = - MOVEMENT_SPEED;
+		bundle->player->radian -= TURNING_RATE;
+		ret  = 1;
 	}
-	if (type == 's')
-	{
-		*x = 0;
-		*y = + MOVEMENT_SPEED;
-	}
-	if (type == 'a')
-	{
-		*x = - MOVEMENT_SPEED;
-		*y = 0;
-	}
-	if (type == 'd')
-	{
-		*x = + MOVEMENT_SPEED;
-		*y = 0;
-	}
-	return (1);
+	return (ret);
 }
 
+int check_move(t_bundle *bundle)
+{
+	int	ret;
+
+	ret = 0;
+	bundle->player->direction = 0;
+	if (bundle->player->ctrl.a == 1)
+		ret ++;
+	if (bundle->player->ctrl.s == 1)
+	{
+		ret ++;
+		bundle->player->direction += M_PI + M_PI_2;
+	}
+	if (bundle->player->ctrl.w == 1)
+	{
+		ret ++;
+		bundle->player->direction += M_PI_2;
+	}
+	if (bundle->player->ctrl.d == 1)
+	{
+		ret ++;
+		bundle->player->direction += M_PI;
+	}
+	return (ret);
+}

@@ -66,14 +66,14 @@ int	create_2d_player(t_player *player, t_mlx *mlx, t_parse_data *data)
 
 int	move_2d_player(t_bundle *bundle, int addx, int addy)
 {
-	bundle->player->image->img_2d = mlx_new_image(bundle->mlx->mlx, 1, 1);
-	if(!bundle->player->image->img_2d)
-		return(0);
-	bundle->player->image->addr = mlx_get_data_addr(bundle->player->image->img_2d, &bundle->player->image->bits_per_pixel,
-								  &bundle->player->image->line_length, &bundle->player->image->endian);
-	my_mlx_pixel_put(bundle->player->image, 0,0, 0xFF00008B);
-	
-	bundle->player->x += addx;
-	bundle->player->y += addy;
+	unsigned int		col;
+
+	col = pixel_color(bundle->minimap, bundle->player->x + addx, bundle->player->y + addy);
+	if (col == FLOOR_COLOUR || col == RAY_COLOUR)
+	{
+		bundle->player->x += addx;
+		bundle->player->y += addy;
+		my_mlx_pixel_put(bundle->minimap, bundle->player->x, bundle->player->y, PLAYER_COLOUR);
+	}
 	return(1);
 }
