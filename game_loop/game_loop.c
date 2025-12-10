@@ -6,7 +6,7 @@
 /*   By: mchoma <your@mail.com>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 20:46:04 by mchoma            #+#    #+#             */
-/*   Updated: 2025/12/08 22:09:54 by mchoma           ###   ########.fr       */
+/*   Updated: 2025/12/10 15:02:36 by mchoma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,19 @@ int		player_movement(t_bundle *bundle)
 	int		yadd;
 	int		xadd;
 
-	hasmoved = 0;
-	if (bundle->player->ctrl->w == 1)
+	hasmoved = 1;
+	if (bundle->player->ctrl.w == 1)
 		hasmoved = player_move_axis(&hasmoved, &yadd, &xadd, 'w');
-	if (bundle->player->ctrl->a == 1)
+	if (bundle->player->ctrl.a == 1)
 		hasmoved = player_move_axis(&hasmoved, &yadd, &xadd, 'a');
-	if (bundle->player->ctrl->s == 1)
+	if (bundle->player->ctrl.s == 1)
 		hasmoved = player_move_axis(&hasmoved, &yadd, &xadd, 's');
-	if (bundle->player->ctrl->d == 1)
+	if (bundle->player->ctrl.d == 1)
 		hasmoved = player_move_axis(&hasmoved, &yadd, &xadd, 'd');
+	if (bundle->player->ctrl.right == 1)
+		bundle->player->radian += TURNING_RATE;
+	if (bundle->player->ctrl.left == 1)
+		bundle->player->radian -= TURNING_RATE;
 	if (hasmoved != 0)
 	{
 		move_2d_player(bundle, xadd, yadd);
@@ -64,6 +68,7 @@ int	game_loop(void *param)
 	has_moved = player_movement(bundle);
 	if (has_moved == 1)
 	{
+		// mlx_clear_window(bundle->mlx->mlx, bundle->mlx->mlx_win);
 		draw_minimap(bundle->minimap, bundle->data);
 		raycasting(arr, bundle->player, bundle->minimap);
 		mlx_put_image_to_window(bundle->mlx->mlx, bundle->mlx->mlx_win, bundle->minimap->img_2d, 0, 0);
@@ -73,17 +78,14 @@ int	game_loop(void *param)
 }
 
 
+
+
 void	init_game(t_2d *minimap, t_player *player, t_mlx *mlx, t_parse_data *data) // add if you need;
 {
 	t_bundle bundle;
-	t_wasd	wasd;
 
 	// mlx_do_key_autorepeatoff(mlx->mlx);
-	player->ctrl = &wasd;
-	player->ctrl->w = 0;
-	player->ctrl->a = 0;
-	player->ctrl->s = 0;
-	player->ctrl->d = 0;
+	init_player(player);
 	bundle.player = player;
 	bundle.minimap = minimap;
 	bundle.data = data;

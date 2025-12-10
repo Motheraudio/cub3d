@@ -252,14 +252,15 @@ void	map_validation(void)
 		printf("TEST 1 FAILED\n");
 	else
 		printf("TEST 1 PASSED\n");
-
-	
-
+	if (parse("files/test2.cub") == NULL)
+		printf("TEST 2 PASSED\n");
+	else
+		printf("TEST 2 FAILED\n");
 }
 
-// int main(){
-// 	// filename_validation();
-// 	// line_path_validation();
-// 	map_validation();
-//
-// }
+int main(){
+	// filename_validation();
+	// line_path_validation();
+	map_validation();
+
+}

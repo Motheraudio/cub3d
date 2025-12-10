@@ -2,6 +2,7 @@
 #define RENDER_H
 # define WIDTH  1000
 # define FLOOR_COLOUR 0x0
+# define RAY_COLOUR 0xFFFFED
 # define HEIGHT 500
 # define TILESIZE 64
 # define MINITILE 2
@@ -12,8 +13,9 @@
 # define MAGENTA 0xFF00FF
 # define YELLOW 0xFFEA00
 # define PINK 0xFFC0CB
-# define WALL_LEN 50
-# define RAYCAST_ARR 50
+# define WALL_LEN 30
+# define RAYCAST_ARR 20
+# define MOVEMENT_SPEED 5
 # include "../libft/libft.h"
 # include "../parsing/parsing.h"
 # include <mlx.h>
@@ -59,18 +61,16 @@ typedef struct	s_2d
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-
-
-
 }				t_2d;
 
 typedef struct s_wasd
 {
-	int	w;
-	int	a;
-	int	s;
-	int	d;
-	
+	char	w;
+	char	a;
+	char	s;
+	char	d;
+	char	left;
+	char	right;
 }			t_wasd;
 
 typedef struct s_player
@@ -79,7 +79,7 @@ typedef struct s_player
 	int		y;
 	double	radian;
 	t_2d	*image;
-	t_wasd	*ctrl;
+	t_wasd	ctrl;
 }				t_player;
 
 typedef struct s_raycast

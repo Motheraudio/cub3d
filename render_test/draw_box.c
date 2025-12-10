@@ -52,10 +52,10 @@ void	draw_floor(t_2d *minimap, int x, int y)
 	i = 0;
 	x ++;
 	y ++;
-	while (i < WALL_LEN - 1)
+	while (i < WALL_LEN)
 	{
 		line.x1 = x;
-		line.x2 = x + WALL_LEN - 1;
+		line.x2 = x + WALL_LEN;
 		line.y1 = y + i;
 		line.y2 = y + i;
 		line.colour = FLOOR_COLOUR;

@@ -14,7 +14,7 @@ void	my_mlx_pixel_put(t_2d *data, int x, int y, int color)
 
 	dst = data->addr + ((y * data->line_length)
 			+ (x * (data->bits_per_pixel / 8)));
-	*(unsigned int *)dst = color;
+	*(unsigned int *)dst = (unsigned int)color;
 }
 
 int	calcdir(int p1, int p2)

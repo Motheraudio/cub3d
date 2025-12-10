@@ -183,6 +183,25 @@ int	map_checker(t_parse_data *data)
 	return (1);
 }
 
+int		split_up_map(t_parse_data *data)
+{
+	size_t	i;
+
+	i = 0;
+	while (data->str_arr_map[i])
+	{
+		if (ft_strchr(data->str_arr_map[i], '1') != NULL)
+			break;
+		i ++;
+	}
+	while (data->str_arr_map[i] && ft_strchr(data->str_arr_map[i], '1') != NULL)
+		i ++;
+	while (data->str_arr_map[i] && ft_strchr(data->str_arr_map[i], '1') == NULL)
+		i ++;
+	if (data->str_arr_map[i] == NULL)
+		return (1);
+	return (-1);
+}
 
 int		validate_map(int fd, t_parse_data *data)
 {
@@ -192,6 +211,9 @@ int		validate_map(int fd, t_parse_data *data)
 	arr = NULL;
 	if (fd_to_str_arr(fd, &arr) == NULL)
 		return (get_next_line(-1, &err), -1);
+	data->str_arr_map = arr;
+	if (split_up_map(data) == -1)
+		return (-1);
 	if (convert_to_enum(arr, data) == NULL)
 		return (-1); //manage error and allocations
 	if (map_checker(data) == -1)

@@ -16,6 +16,7 @@ PARSING = parsing/parse.c \
 GAME_LOOP = game_loop/game_loop.c\
 			raycasting/raycasting.c\
 			game_loop/key_hooks.c\
+			game_loop/utils.c\
 			game_loop/player_movement.c
 
 
@@ -37,6 +38,7 @@ LIBFT = libft/ft_strlen.c\
 		libft/ft_calloc.c\
 		libft/ft_strtrim.c\
 		libft/free_arr.c\
+		libft/ft_strchr.c\
 		libft/ft_memcpy.c
 	
 
@@ -66,7 +68,7 @@ test: $(TEST_OBJ)
 	$(CC) $(CFLAGS) $^ $(LIBS) -o test
 
 # Build parse test binary with libft and main_parsing
-parse: $(PARSING_OBJ) $(LIBFT_OBJ) $(MAIN_PARSING_OBJ)
+parse: $(PARSING_OBJ) $(LIBFT_OBJ) $(MAIN_PARSING_OBJ) 
 	$(CC) $(TESTFLAGS) $^ -o pars
 	./pars
 

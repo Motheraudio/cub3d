@@ -65,9 +65,10 @@ int main (int argc, char **argv)
 	t_2d	player_img;
 
 	player.image = &player_img;
-	if (argc != 2)
-		return (1);
-	data = parse(argv[1]);
+	// if (argc != 2)
+		// return (1);
+	// data = parse(argv[1]);
+	data = parse("files/test1.cub");
 	if (!data)
 		return (1); // needs free;
 	mlx.mlx = mlx_init();
