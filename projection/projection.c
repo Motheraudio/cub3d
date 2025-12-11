@@ -59,7 +59,7 @@ void	clear_3d_image(t_bundle *bundle)
 void	draw_3d(t_raycast rays[], t_bundle *bundle)
 {
 	int	i;
-	int	line_height;
+	double	line_height;
 	int	draw_start;
 	int	draw_end;
 	int	x;
@@ -74,11 +74,11 @@ void	draw_3d(t_raycast rays[], t_bundle *bundle)
 	{
 		if(rays[i].distance <= 0)
 			continue;
-		line_height = (int)((double)HEIGHT / (double)rays[i].distance);
-		draw_start = -line_height / 2 + HEIGHT / 2;
+		line_height = ((double)HEIGHT / (double)rays[i].distance);
+		draw_start = -line_height / 2 + (double)HEIGHT / 2;
 		if (draw_start < 0)
 			draw_start = 0;
-		draw_end = line_height / 2 + HEIGHT / 2;
+		draw_end = line_height / 2 + (double)HEIGHT / 2;
 		if (draw_end >= HEIGHT)
 			draw_end = HEIGHT - 1;
 		x = i * (WIDTH / RAYCAST_ARR);

@@ -12,7 +12,8 @@ PARSING = parsing/parse.c \
           parsing/line_parsing.c\
 		  parsing/colour_atoi.c\
 		  parsing/validate_map.c\
-		  parsing/get_metadata.c
+		  parsing/get_metadata.c\
+		  parsing/validate_texture.c
 GAME_LOOP = game_loop/game_loop.c\
 			raycasting/raycasting.c\
 			game_loop/key_hooks.c\
@@ -25,7 +26,8 @@ RENDER_TESTING = render_test/test.c $(GAME_LOOP)\
 				render_test/draw_line.c\
 				render_test/draw_minimap.c\
 				render_test/draw_box.c\
-				render_test/create_player2d.c
+				render_test/create_player2d.c\
+				render_test/textures.c
 
 
 PROJECTION = projection/projection.c
@@ -43,7 +45,8 @@ LIBFT = libft/ft_strlen.c\
 		libft/ft_strtrim.c\
 		libft/free_arr.c\
 		libft/ft_strchr.c\
-		libft/ft_memcpy.c
+		libft/ft_memcpy.c\
+		libft/get_nth_line.c
 	
 
 OBJ_DIR = objects/

@@ -6,7 +6,7 @@
 /*   By: mchoma <mchoma@student.42vienna.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 09:26:29 by mchoma            #+#    #+#             */
-/*   Updated: 2025/12/06 18:39:28 by mchoma           ###   ########.fr       */
+/*   Updated: 2025/12/11 20:33:36 by alvcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef LIBFT_H
@@ -78,5 +78,8 @@ void	free_arr(void ***arr);
 
 char **ft_append_arr_str(char ***arr, char *str);
 char **fd_to_str_arr(int fd, char ***arr);
+// takes an fd and the line number to be returned. Returns NULL on alloc failure
+// or when line_num is not available
+char *get_nth_line(int fd, int line_num);
 
 #endif

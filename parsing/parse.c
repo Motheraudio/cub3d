@@ -6,7 +6,7 @@
 /*   By: mchoma <your@mail.com>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 12:59:25 by mchoma            #+#    #+#             */
-/*   Updated: 2025/12/06 20:14:36 by mchoma           ###   ########.fr       */
+/*   Updated: 2025/12/11 20:42:17 by alvcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "parsing.h"
@@ -30,6 +30,7 @@ void *parse(char *file_name)
 		return (NULL);
 	if (validate_map(fd, data) == -1)
 		return (NULL);
-
+	if (check_texture_dimensions(data) == -1)
+		return (NULL);
 	return (data);
 }

@@ -63,6 +63,7 @@ int main (int argc, char **argv)
 	t_line line;
 	t_player player;
 	t_2d	player_img;
+	t_2d	textures[4];
 
 	player.image = &player_img;
 	// if (argc != 2)

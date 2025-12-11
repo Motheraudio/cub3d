@@ -1,9 +1,47 @@
-NO ./north 
-SO ./south
-WE ./west
-F 256;100,0
-C 225,30, -1
-
-111
-1N1
-111
+  .git
+  files
+  │ 󰈚 test1.cub
+  │ 󰈚 test10.cub
+  │ 󰈚 test11.cub
+  │ 󰈚 test2.cub
+  │ 󰈚 test3.cub
+  │ 󰈚 test4.cub
+  │ 󰈚 test5.cub
+  │ 󰈚 test6.cub
+  │ 󰈚 test7.cub
+  │ 󰈚 test8.cub
+  └ 󰈚 test9.cub
+  game_loop
+  │  game_loop.c
+  │  game_loop.h
+  │  key_hooks.c
+  │  player_movement.c
+  └  utils.c
+  hehe
+  libft
+  parsing
+  projection
+  │  projection.c
+  └  projection.h
+  raycasting
+  │  raycasting.c
+  │  raycasting.h
+  └  raycasting_main.c
+  render_test
+  │  create_player2d.c
+  │  draw_box.c
+  │  draw_line.c
+  │  draw_minimap.c
+  │  get_wall_orientation.c
+  │ 󰈚 player.xpm
+  │  render.h
+  │  test.c
+  │ 󰈚 texture.xpm
+  │  tooling.c
+  └ 󰈚 transparent.xpm
+   .gitignore
+   a.out
+   cubed.h
+   heh.json
+   Makefile
+  󰈚 ★ rendt
