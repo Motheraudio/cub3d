@@ -15,6 +15,7 @@
 
 # include "../libft/libft.h"
 
+typedef struct s_2d t_2d;
 typedef enum s_map_sqare
 {
 	EMPTY,
@@ -43,6 +44,7 @@ typedef struct s_parse_data{
 	char		*s_texture;
 	char		*w_texture;
 	char		*e_texture;
+	t_2d		*textures[4];
 	t_colour	celing;
 	int			celing_set;
 	t_colour	floor;
