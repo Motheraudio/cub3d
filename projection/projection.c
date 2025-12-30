@@ -71,7 +71,6 @@ void	draw_3d(t_raycast rays[], t_bundle *bundle)
 	int tex_index;
 	t_2d *texture;
 
-	col = 0xAAAAAA;
 	i = 0;
 	clear_3d_image(bundle);
 	put_floor_and_ceiling(bundle);
@@ -95,10 +94,17 @@ void	draw_3d(t_raycast rays[], t_bundle *bundle)
 		texture = bundle->data->textures[tex_index];
 		tx = slice(rays[i].colour);
 		tx = (tx * 64) / 256;
-
+		if (tx >= 64)
+			tx = 63;
+		if (tx < 0)
+			tx = 0;
 		while (y < draw_end)
 		{
 			ty = ((y - draw_start) * 64) / (draw_end - draw_start);
+			if (ty >= 64)
+				ty = 63;
+			if (ty < 0)
+				ty = 0;
 			col = pixel_color(texture, tx, ty);
 			my_mlx_pixel_put(bundle->view, x, y, col);
 			y++;

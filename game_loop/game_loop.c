@@ -68,8 +68,8 @@ int	game_loop(void *param)
 		raycasting(arr, bundle->player, bundle->minimap);
 		draw_3d(arr, bundle);
 		mlx_put_image_to_window(bundle->mlx->mlx, bundle->mlx->mlx_win, bundle->view->img_2d, 0, 0);
-		mlx_put_image_to_window(bundle->mlx->mlx, bundle->mlx->mlx_win, bundle->minimap->img_2d, 0, 0);
 		mlx_put_image_to_window(bundle->mlx->mlx, bundle->mlx->mlx_win, bundle->player->image->img_2d, bundle->player->x, bundle->player->y + 1);
+		mlx_put_image_to_window(bundle->mlx->mlx, bundle->mlx->mlx_win, bundle->minimap->img_2d, 0, 0);
 	}
 	return (0);
 }

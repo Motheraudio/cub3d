@@ -25,12 +25,13 @@ unsigned int	slice(unsigned int colour)
 	unsigned int	mask;
 
 	mask = 0xFFFF00;
-	colour = colour & !mask;
+	colour = colour & ~mask;
 	return (colour);
 }
 
 int	get_texture_index(unsigned int orient)
 {
+	printf("HEYHEY, ITS %X\n", orient);
 	if (orient == NORTH_C)
 		return (0);
 	if (orient == WEST_C)

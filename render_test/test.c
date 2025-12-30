@@ -87,6 +87,10 @@ int main (int argc, char **argv)
 	draw_minimap(&minimap, data);
 	if (!init_textures(data, &mlx))
 		return (1); //needs free
+	printf("%s\n", data->textures[0]->texture_path);
+	printf("%s\n", data->textures[1]->texture_path);
+	printf("%s\n", data->textures[2]->texture_path);
+	printf("%s\n", data->textures[3]->texture_path);
 	if (!create_2d_player(&player, &mlx, data))
 		return (1); // meeds free
 	mlx_put_image_to_window(mlx.mlx, mlx.mlx_win, minimap.img_2d, 0, 0);
