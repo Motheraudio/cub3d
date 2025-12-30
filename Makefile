@@ -27,7 +27,8 @@ RENDER_TESTING = render_test/test.c $(GAME_LOOP)\
 				render_test/draw_minimap.c\
 				render_test/draw_box.c\
 				render_test/create_player2d.c\
-				render_test/textures.c
+				render_test/textures.c\
+				render_test/get_wall_orientation.c
 
 
 PROJECTION = projection/projection.c

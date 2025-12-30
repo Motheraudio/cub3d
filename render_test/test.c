@@ -85,7 +85,8 @@ int main (int argc, char **argv)
 		return (print_error("mlx image", 'n'), mlx_destroy_display(mlx.mlx),
 		free(mlx.mlx), 1);
 	draw_minimap(&minimap, data);
-	// init_textures(data, &mlx); <- this segfaults. Fix it!
+	if (!init_textures(data, &mlx))
+		return (1); //needs free
 	if (!create_2d_player(&player, &mlx, data))
 		return (1); // meeds free
 	mlx_put_image_to_window(mlx.mlx, mlx.mlx_win, minimap.img_2d, 0, 0);

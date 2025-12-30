@@ -14,4 +14,5 @@
 #include "../raycasting/raycasting.h"
 #include "../parsing/parsing.h"
 
+
 void	draw_3d(t_raycast rays[], t_bundle *bundle);

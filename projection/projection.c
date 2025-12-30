@@ -56,6 +56,7 @@ void	clear_3d_image(t_bundle *bundle)
 	}
 		
 }
+
 void	draw_3d(t_raycast rays[], t_bundle *bundle)
 {
 	int	i;
@@ -63,8 +64,12 @@ void	draw_3d(t_raycast rays[], t_bundle *bundle)
 	int	draw_start;
 	int	draw_end;
 	int	x;
-	int	col;
 	int y;
+	int	col;
+	int ty;
+	int tx;
+	int tex_index;
+	t_2d *texture;
 
 	col = 0xAAAAAA;
 	i = 0;
@@ -73,7 +78,10 @@ void	draw_3d(t_raycast rays[], t_bundle *bundle)
 	while(i < RAYCAST_ARR)
 	{
 		if(rays[i].distance <= 0)
+		{
+			i++;
 			continue;
+		}
 		line_height = ((double)HEIGHT / (double)rays[i].distance);
 		draw_start = -line_height / 2 + (double)HEIGHT / 2;
 		if (draw_start < 0)
@@ -83,8 +91,15 @@ void	draw_3d(t_raycast rays[], t_bundle *bundle)
 			draw_end = HEIGHT - 1;
 		x = i * (WIDTH / RAYCAST_ARR);
 		y = draw_start;
+		tex_index = get_texture_index(get_orientation(rays[i].colour));
+		texture = bundle->data->textures[tex_index];
+		tx = slice(rays[i].colour);
+		tx = (tx * 64) / 256;
+
 		while (y < draw_end)
 		{
+			ty = ((y - draw_start) * 64) / (draw_end - draw_start);
+			col = pixel_color(texture, tx, ty);
 			my_mlx_pixel_put(bundle->view, x, y, col);
 			y++;
 		}

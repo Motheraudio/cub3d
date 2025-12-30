@@ -133,5 +133,7 @@ void	init_game(t_2d *minimap, t_player *player, t_mlx *mlx, t_parse_data *data);
 int	move_2d_player(t_bundle *bundle, int addx, int addy);
 int	init_textures(t_parse_data *data, t_mlx *mlx);
 //takes colour and returns <orientention>_C constant
-unsigned int	get_wall_orientation(unsigned int colour);
+unsigned int	get_orientation(unsigned int colour);
+unsigned int	slice(unsigned int colour);
+int	get_texture_index(unsigned int orient);
 #endif

@@ -14,7 +14,6 @@
 # define PARSING_H
 
 # include "../libft/libft.h"
-
 typedef struct s_2d t_2d;
 typedef enum s_map_sqare
 {

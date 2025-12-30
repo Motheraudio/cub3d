@@ -31,6 +31,18 @@ int	init_textures(t_parse_data *data, t_mlx *mlx)
 	i = 0;
 	h = 64;
 	w = 64;
+	data->textures[0] = malloc(sizeof(t_2d));
+	if (!data->textures[0])
+		return(0);
+	data->textures[1] = malloc(sizeof(t_2d));
+	if (!data->textures[1])
+		return(free(data->textures[0]), 0);
+	data->textures[2] = malloc(sizeof(t_2d));
+	if (!data->textures[2])
+		return(free(data->textures[0]), free(data->textures[1]), 0);
+	data->textures[3] = malloc(sizeof(t_2d));
+	if (!data->textures[3])
+		return(free(data->textures[0]), free(data->textures[1]), free(data->textures[2]), 0);
 	data->textures[0]->texture_path = data->n_texture;
 	data->textures[1]->texture_path = data->w_texture;
 	data->textures[2]->texture_path = data->s_texture;
