@@ -14,5 +14,13 @@
 #include "../raycasting/raycasting.h"
 #include "../parsing/parsing.h"
 
-
+typedef struct s_draw
+{
+	int	linex;
+	int	liney;
+	int	starty;
+	int	endy;
+	int	tex;
+	int	tey;
+}	t_draw;
 void	draw_3d(t_raycast rays[], t_bundle *bundle);

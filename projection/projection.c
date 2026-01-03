@@ -7,11 +7,7 @@ void	put_floor_and_ceiling(t_bundle *bundle)
 	unsigned int	color;
 	i = 0;
 	j = 0;
-	printf("%X = R\n", bundle->data->celing.r);
-	printf("%X = G\n", bundle->data->celing.g);
-	printf("%X = B\n", bundle->data->celing.b);
 	color = (bundle->data->celing.r << 8) + (bundle->data->celing.g << 8) + bundle->data->celing.b;
-	printf("%X = COLOR\n", color);
 	while (i < HEIGHT / 2)
 	{
 		while (j < WIDTH)
@@ -56,60 +52,105 @@ void	clear_3d_image(t_bundle *bundle)
 	}
 		
 }
+static int	get_texture_x(t_raycast *ray, int wall_hit_x, int wall_hit_y)
+{
+	int tex_x;
+	double hit_pos;
+	unsigned int orientation;
+	
+	orientation = get_orientation(ray->colour);
+	
+	if (orientation == NORTH_C || orientation == SOUTH_C)
+		hit_pos = (double)wall_hit_x;
+	else
+		hit_pos = (double)wall_hit_y;
+	hit_pos = hit_pos - floor(hit_pos / WALL_LEN) * WALL_LEN;
+	tex_x = (int)((hit_pos / (double)WALL_LEN) * TILESIZE);
+	if (tex_x < 0)
+		tex_x = 0;
+	if (tex_x >= TILESIZE)
+		tex_x = TILESIZE - 1;
+		
+	return tex_x;
+}
+
+static void	draw_wall_column(t_bundle *bundle, int x, t_raycast *ray, int wall_height)
+{
+	int			y;
+	int			tex_x;
+	int			tex_y;
+	int			start_y;
+	int			end_y;
+	int			tex_index;
+	double		step;
+	double		tex_pos;
+	unsigned int color;
+	unsigned int orientation;
+
+	start_y = (HEIGHT / 2) - (wall_height / 2);
+	end_y = (HEIGHT / 2) + (wall_height / 2);
+	tex_x = get_texture_x(ray, ray->x_hit, ray->y_hit);
+	orientation = get_orientation(ray->colour);
+	tex_index = get_texture_index(orientation);
+	step = (double)TILESIZE / (double)wall_height;
+	tex_pos = 0;
+	if (start_y < 0)
+	{
+		tex_pos = (-start_y) * step;
+		start_y = 0;
+	}
+	if (end_y >= HEIGHT)
+		end_y = HEIGHT - 1;
+	y = start_y;
+	while (y <= end_y)
+	{
+		tex_y = (int)tex_pos;
+		if (tex_y < 0)
+			tex_y = 0;
+		if (tex_y >= TILESIZE)
+			tex_y = TILESIZE - 1;
+		color = pixel_color(bundle->data->textures[tex_index], tex_x, tex_y);
+		my_mlx_pixel_put(bundle->view, x, y, color);
+		tex_pos += step;
+		y++;
+	}
+}
 
 void	draw_3d(t_raycast rays[], t_bundle *bundle)
 {
-	int	i;
-	double	line_height;
-	int	draw_start;
-	int	draw_end;
-	int	x;
-	int y;
-	int	col;
-	int ty;
-	int tx;
-	int tex_index;
-	t_2d *texture;
-
-	i = 0;
-	clear_3d_image(bundle);
+	int		i;
+	int		wall_height;
+	double	corrected_distance;
+	double	ray_angle;
+	double	angle_diff;
+	int		screen_x;
+	int		pixels_per_ray;
+	int		pixel_offset;
+	double	fov;
+	
 	put_floor_and_ceiling(bundle);
-	while(i < RAYCAST_ARR)
+	pixels_per_ray = WIDTH / RAYCAST_ARR;
+	if (pixels_per_ray == 0)
+		pixels_per_ray = 1;
+	fov = 0.523598; // 30 degrees in radians
+	i = 0;
+	while (i < RAYCAST_ARR)
 	{
-		if(rays[i].distance <= 0)
+		ray_angle = (bundle->player->radian - fov / 2.0) + (i * fov / RAYCAST_ARR);
+		angle_diff = ray_angle - bundle->player->radian;
+		corrected_distance = (double)rays[i].distance * cos(angle_diff);
+		if (corrected_distance < 0.1)
+			corrected_distance = 0.1;
+		wall_height = (int)((double)(WALL_LEN * TILESIZE * HEIGHT) / (corrected_distance * TILESIZE));
+		pixel_offset = 0;
+		while (pixel_offset < pixels_per_ray)
 		{
-			i++;
-			continue;
+			screen_x = (i * pixels_per_ray) + pixel_offset;
+			if (screen_x < WIDTH)
+				draw_wall_column(bundle, screen_x, &rays[i], wall_height);
+			pixel_offset++;
 		}
-		line_height = ((double)HEIGHT / (double)rays[i].distance);
-		draw_start = -line_height / 2 + (double)HEIGHT / 2;
-		if (draw_start < 0)
-			draw_start = 0;
-		draw_end = line_height / 2 + (double)HEIGHT / 2;
-		if (draw_end >= HEIGHT)
-			draw_end = HEIGHT - 1;
-		x = i * (WIDTH / RAYCAST_ARR);
-		y = draw_start;
-		tex_index = get_texture_index(get_orientation(rays[i].colour));
-		texture = bundle->data->textures[tex_index];
-		tx = slice(rays[i].colour);
-		tx = (tx * 64) / 256;
-		if (tx >= 64)
-			tx = 63;
-		if (tx < 0)
-			tx = 0;
-		while (y < draw_end)
-		{
-			ty = ((y - draw_start) * 64) / (draw_end - draw_start);
-			if (ty >= 64)
-				ty = 63;
-			if (ty < 0)
-				ty = 0;
-			col = pixel_color(texture, tx, ty);
-			my_mlx_pixel_put(bundle->view, x, y, col);
-			y++;
-		}
+		
 		i++;
 	}
-	
 }

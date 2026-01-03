@@ -31,7 +31,6 @@ unsigned int	slice(unsigned int colour)
 
 int	get_texture_index(unsigned int orient)
 {
-	printf("HEYHEY, ITS %X\n", orient);
 	if (orient == NORTH_C)
 		return (0);
 	if (orient == WEST_C)
