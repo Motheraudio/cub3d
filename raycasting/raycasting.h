@@ -12,8 +12,8 @@
 
 #ifndef RAYCASTING_H
 # define RAYCASTING_H
-# define RAY_LEN 1000
-# define RAYCAST_ARR 500
+# define RAY_LEN 1920
+# define RAYCAST_ARR 960
 
 #include "../render_test/render.h"
 

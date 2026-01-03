@@ -89,7 +89,12 @@ int main (int argc, char **argv)
 		return (1); //needs free
 	if (!create_2d_player(&player, &mlx, data))
 		return (1); // meeds free
-	mlx_put_image_to_window(mlx.mlx, mlx.mlx_win, minimap.img_2d, 0, 0);
-	mlx_put_image_to_window(mlx.mlx, mlx.mlx_win, player.image->img_2d, player.x, player.y);
+	printf("TEXTURE NORTH: ARR: %s, TEXTURE %s\n", data->textures[0]->texture_path, data->n_texture);
+	printf("TEXTURE NORTH: ARR: %s, TEXTURE %s\n", data->textures[1]->texture_path, data->w_texture);
+	printf("TEXTURE NORTH: ARR: %s, TEXTURE %s\n", data->textures[2]->texture_path, data->s_texture);
+	printf("TEXTURE NORTH: ARR: %s, TEXTURE %s\n", data->textures[3]->texture_path, data->e_texture);
+	mlx_string_put(mlx.mlx, mlx.mlx_win, WIDTH/2, HEIGHT/2, WHITE, "Press any key to start");
+	// mlx_put_image_to_window(mlx.mlx, mlx.mlx_win, minimap.img_2d, 0, 0);
+	// mlx_put_image_to_window(mlx.mlx, mlx.mlx_win, player.image->img_2d, player.x, player.y);
 	init_game(&minimap, &player, &mlx, data);
 }

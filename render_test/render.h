@@ -1,9 +1,9 @@
 #ifndef RENDER_H
 #define RENDER_H
-# define WIDTH  1000
+# define WIDTH  1920
 # define FLOOR_COLOUR 0x0
 # define RAY_COLOUR 0xFFFFED
-# define HEIGHT 1000
+# define HEIGHT 1080
 # define TILESIZE 64
 # define WHITE 0xFFFFFF
 # define RED   0xFF0000

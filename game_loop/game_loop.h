@@ -14,7 +14,7 @@
 # define GAME_LOOP_H
 # define FPS 50
 # define TURNING_RATE 0.26179
-# define MOVEMENT_SPEED 5
+# define MOVEMENT_SPEED 10
 # include "../render_test/render.h"
 # include "../projection/projection.h"
 
