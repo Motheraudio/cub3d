@@ -21,6 +21,7 @@ static int	is_correct_size(char *texture)
 	if (!fd)
 		return (-1);
 	line = get_nth_line(fd, 4);
+	close(fd);
 	if (!line)
 		return (-1);
 	if (!ft_strncmp(line, "64 64", 5))

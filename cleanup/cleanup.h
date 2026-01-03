@@ -1,36 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_nth_line.c                                     :+:      :+:    :+:   */
+/*   cleanup.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alvcampo <alvcampo@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/11 20:27:39 by alvcampo          #+#    #+#             */
-/*   Updated: 2025/12/11 20:34:24 by alvcampo         ###   ########.fr       */
+/*   Created: 2026/01/03 16:50:36 by alvcampo          #+#    #+#             */
+/*   Updated: 2026/01/03 16:52:26 by alvcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef CLEANUP_H
+# define CLEANUP_H
+# include "../parsing/parsing.h"
+# include "../render_test/render.h"
 
-char *get_nth_line(int fd, int line_num)
-{
-	ssize_t	i;
-	char	*line;
-	int		err;
-	
-	i = 0;
-	while(1)
-	{
-		line = get_next_line(fd, &err);
-		if (!line)
-			return (NULL);
-		if (i == line_num - 1)
-		{
-			get_next_line(-1, &err);
-			break ;
-		}
-		free(line);
-		i++;
-	}
-	return (line);
-}
+
+void	destroy_extures(t_2d *textures[4], t_mlx *mlx);
+// cleans up all parsing struct members, and the parsing itself. If the mlx
+// struct pointer is set to NULL, it does not free the 4 texture images.
+void	cleanup_parse(t_parse_data *data, t_mlx *mlx);
+#endif

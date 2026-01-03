@@ -1,9 +1,12 @@
 #include "render.h"
+#include "../cleanup/cleanup.h"
 void	print_error(char *error, char type)
 {
-	if (type == 'n')
-		return ((void)perror(error));
-	errno = 0;
+	if (type == 'a')
+		errno = EINVAL;
+	if (type == '\0')
+		return((void)printf("%s\n", error));
+	perror(error);
 }
 
 
@@ -54,30 +57,28 @@ int	create_minimap(t_parse_data *data, t_mlx *mlx, t_2d *minimap)
 		return (1);
 }
 
+// void init_main
 int main (int argc, char **argv)
 {
 	t_img	img;
 	t_mlx	mlx;
 	t_parse_data	*data;
 	t_2d	minimap;
-	t_line line;
 	t_player player;
 	t_2d	player_img;
-	t_2d	textures[4];
 
 	player.image = &player_img;
-	// if (argc != 2)
-		// return (1);
-	// data = parse(argv[1]);
-	data = parse("files/test1.cub");
+	if (argc != 2)
+		return (print_error("Error\nargc", 'a'), 1);
+	data = parse(argv[1]);
 	if (!data)
-		return (1); // needs free;
+		return (print_error("Error\nParsing", '\0'), 1); // clean inside parse
 	mlx.mlx = mlx_init();
 	if (!mlx.mlx)
-		return (print_error("mlx init", 'n'), 1);
+		return (print_error("Error\nmlx init", '\0'), cleanup_parse(data, NULL), 1); // cleanup
 	mlx.mlx_win = mlx_new_window(mlx.mlx, WIDTH, HEIGHT, "Cub3d");
 	if (!mlx.mlx_win)
-		return (print_error("mlx wimdow", 'n'), mlx_destroy_display(mlx.mlx),
+		return (print_error("Error\nmlx window", 'n'), mlx_destroy_display(mlx.mlx),
 		free(mlx.mlx), 1);
 	img.img_height = 64;
 	img.img_width = 64;
@@ -89,10 +90,6 @@ int main (int argc, char **argv)
 		return (1); //needs free
 	if (!create_2d_player(&player, &mlx, data))
 		return (1); // meeds free
-	printf("TEXTURE NORTH: ARR: %s, TEXTURE %s\n", data->textures[0]->texture_path, data->n_texture);
-	printf("TEXTURE NORTH: ARR: %s, TEXTURE %s\n", data->textures[1]->texture_path, data->w_texture);
-	printf("TEXTURE NORTH: ARR: %s, TEXTURE %s\n", data->textures[2]->texture_path, data->s_texture);
-	printf("TEXTURE NORTH: ARR: %s, TEXTURE %s\n", data->textures[3]->texture_path, data->e_texture);
 	mlx_string_put(mlx.mlx, mlx.mlx_win, WIDTH/2, HEIGHT/2, WHITE, "Press any key to start");
 	// mlx_put_image_to_window(mlx.mlx, mlx.mlx_win, minimap.img_2d, 0, 0);
 	// mlx_put_image_to_window(mlx.mlx, mlx.mlx_win, player.image->img_2d, player.x, player.y);

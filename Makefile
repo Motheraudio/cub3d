@@ -34,6 +34,8 @@ RENDER_TESTING = render_test/test.c $(GAME_LOOP)\
 PROJECTION = projection/projection.c
 
 
+CLEANUP = cleanup/cleanup.c
+
 LIBFT = libft/ft_strlen.c\
 		libft/ft_isdigit.c\
 		libft/fd_to_str_arr.c\
@@ -61,6 +63,8 @@ RENDER_TESTING_OBJ= $(patsubst %.c,$(TEST_OBJ_DIR)%.o,$(RENDER_TESTING))
 GAME_LOOP_OBJ_TEST = $(patsubst %.c,$(TEST_OBJ_DIR)%.o,$(GAME_LOOP))
 PROJECTION_OBJ_TEST = $(patsubst %.c,$(TEST_OBJ_DIR)%.o,$(PROJECTION))
 LIBFT_OBJ = $(patsubst %.c,$(TEST_OBJ_DIR)%.o,$(LIBFT))
+CLEANUP_OBJ= $(patsubst %.c,$(TEST_OBJ_DIR)%.o,$(CLEANUP))
+TEST_OBJ = $(patsubst %.c,$(TEST_OBJ_DIR)%.o,$(ALL_SRC))
 MAIN_PARSING_OBJ = $(TEST_OBJ_DIR)parsing/main_parsing.o
 
 all: $(NAME)
@@ -81,7 +85,7 @@ parse: $(PARSING_OBJ) $(LIBFT_OBJ) $(MAIN_PARSING_OBJ)
 	$(CC) $(TESTFLAGS) $^ -o pars
 	./pars
 
-rendert: $(RENDER_TESTING_OBJ) $(LIBFT_OBJ) $(PARSING_OBJ) $(GAME_LOOP_OBJ_TEST) $(PROJECTION_OBJ_TEST)
+rendert: $(RENDER_TESTING_OBJ) $(LIBFT_OBJ) $(PARSING_OBJ) $(GAME_LOOP_OBJ_TEST) $(PROJECTION_OBJ_TEST) $(CLEANUP_OBJ)
 	$(CC) $(TESTFLAGS) $(LIBS) $^ -o rendt
 	./rendt files/test1.cub
 

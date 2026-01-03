@@ -48,7 +48,12 @@ void	init_parse_data(t_parse_data *data)
 	data->tall = 0;
 	data->wide = 0;
 	data->emap = NULL;
+	data->str_arr_map = NULL;
 	data->orientation = UNI;
+	data->textures[0] = NULL;
+	data->textures[1] = NULL;
+	data->textures[2] = NULL;
+	data->textures[3] = NULL;
 }
 
 void	print_parse_data(t_parse_data *data)
