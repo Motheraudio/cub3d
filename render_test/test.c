@@ -75,12 +75,12 @@ int	init_graphics(t_mlx *mlx, t_parse_data *data)
 		return (print_error("Error\ntextures", 'n'),
 		mlx_destroy_image(mlx->mlx, minimap.img_2d),
 		cleanup_parse(data, NULL), mlx_destroy_window(mlx->mlx, mlx->mlx_win), 
-		mlx_destroy_display(mlx->mlx), free(mlx->mlx), 0); //needs free
+		mlx_destroy_display(mlx->mlx), free(mlx->mlx), 0);
 	if (!create_2d_player(&player, mlx, data))
 		return (print_error("Error\ntextures", 'n'),
 		mlx_destroy_image(mlx->mlx, minimap.img_2d), cleanup_parse(data, mlx), 
 		mlx_destroy_window(mlx->mlx, mlx->mlx_win), 
-		mlx_destroy_display(mlx->mlx), free(mlx->mlx), 0); //needs free
+		mlx_destroy_display(mlx->mlx), free(mlx->mlx), 0);
 	mlx_string_put(mlx->mlx, mlx->mlx_win, WIDTH/2, HEIGHT/2, WHITE, 
 				"Press any wasd key to start");
 	init_game(&minimap, &player, mlx, data);
