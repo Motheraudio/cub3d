@@ -137,11 +137,15 @@ void	draw_3d(t_raycast rays[], t_bundle *bundle)
 	while (i < RAYCAST_ARR)
 	{
 		ray_angle = (bundle->player->radian - fov / 2.0) + (i * fov / RAYCAST_ARR);
-		angle_diff = ray_angle - bundle->player->radian;
+		angle_diff = fabs(ray_angle - bundle->player->radian);
+		if (angle_diff > M_PI * 2)
+			angle_diff -= (M_PI * 2);
+		else if (angle_diff < 0)
+			angle_diff += (M_PI * 2);
 		corrected_distance = (double)rays[i].distance * cos(angle_diff);
-		if (corrected_distance < 0.1)
-			corrected_distance = 0.1;
-		wall_height = (int)((double)(WALL_LEN * TILESIZE * HEIGHT) / (corrected_distance * TILESIZE));
+		if (corrected_distance < 0.0001f)
+			corrected_distance = 0.0001f;
+		wall_height = TILESIZE * HEIGHT / corrected_distance;//(int)((double)(WALL_LEN * TILESIZE * HEIGHT) / (corrected_distance * TILESIZE));
 		pixel_offset = 0;
 		while (pixel_offset < pixels_per_ray)
 		{

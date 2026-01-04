@@ -1,8 +1,14 @@
- NO ./north 
-SO ./south
-WE ./west
-F 256,100,0
-C 225,30, -1
+NO ./textures/1.xpm
+
+SO ./textures/2.xpm
+
+WE ./textures/3.xpm
+
+EA ./textures/4.xpm
+
+F 254,100,0
+
+C 225,30,0
 
 111
 1N1

@@ -63,7 +63,6 @@ int	game_loop(void *param)
 	has_moved = player_movement(bundle);
 	if (has_moved == 1)
 	{
-		// mlx_clear_window(bundle->mlx->mlx, bundle->mlx->mlx_win);
 		draw_minimap(bundle->minimap, bundle->data);
 		raycasting(arr, bundle->player, bundle->minimap);
 		draw_3d(arr, bundle);
@@ -97,5 +96,6 @@ void	init_game(t_2d *minimap, t_player *player, t_mlx *mlx, t_parse_data *data) 
 	mlx_hook(mlx->mlx_win, 2, 1L << 0, handle_keypress, (void *)&bundle);
 	mlx_hook(mlx->mlx_win, 3, 1L<< 1, handle_keyrelease, (void *)&bundle);
 	mlx_loop_hook(mlx->mlx, game_loop, &bundle);
+	mlx_hook(mlx->mlx_win, 17, 1L << 0, handle_xclick, (void*)&bundle);
 	mlx_loop(mlx->mlx);
 }

@@ -1,47 +1,18 @@
-  .git
-  files
-  │ 󰈚 test1.cub
-  │ 󰈚 test10.cub
-  │ 󰈚 test11.cub
-  │ 󰈚 test2.cub
-  │ 󰈚 test3.cub
-  │ 󰈚 test4.cub
-  │ 󰈚 test5.cub
-  │ 󰈚 test6.cub
-  │ 󰈚 test7.cub
-  │ 󰈚 test8.cub
-  └ 󰈚 test9.cub
-  game_loop
-  │  game_loop.c
-  │  game_loop.h
-  │  key_hooks.c
-  │  player_movement.c
-  └  utils.c
-  hehe
-  libft
-  parsing
-  projection
-  │  projection.c
-  └  projection.h
-  raycasting
-  │  raycasting.c
-  │  raycasting.h
-  └  raycasting_main.c
-  render_test
-  │  create_player2d.c
-  │  draw_box.c
-  │  draw_line.c
-  │  draw_minimap.c
-  │  get_wall_orientation.c
-  │ 󰈚 player.xpm
-  │  render.h
-  │  test.c
-  │ 󰈚 texture.xpm
-  │  tooling.c
-  └ 󰈚 transparent.xpm
-   .gitignore
-   a.out
-   cubed.h
-   heh.json
-   Makefile
-  󰈚 ★ rendt
+F 139,99,58
+C 171,154,137
+
+NO ./textures/1.xpm
+SO ./textures/2.xpm
+WE ./textures/3.xpm
+EA ./textures/4.xpm
+
+1111111111111111111
+1001001001001001001
+1001001001001001001
+1001001001001001001
+1001001000001001001
+100000000S000000001
+1000011111111000001
+1111000000000001111
+1000000101010000001
+1111111111111111111

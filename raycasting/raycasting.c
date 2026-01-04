@@ -22,7 +22,7 @@ void	casting_ray(t_2d *image, t_line *line, t_raycast *res)
 	initline(&algo, line);
 	while (1)
 	{
-		res->distance ++;
+		// res->distance ++; // comment this in if you are removing the fix by mehras
 		res->colour = pixel_color(image, line->x1, line->y1);
 		// printf("%X == res->colour2\n", res->colour);
 		if (!(res->colour == FLOOR_COLOUR || res->colour == RAY_COLOUR)) // remove second condition
@@ -64,6 +64,7 @@ void	raycasting(t_raycast arr[], t_player *player, t_2d *minimap)
 		line.x2 = player->x + RAY_LEN * cos(player->radian - 0.26179 + M_PI_2 + (i * 0.523598 / RAYCAST_ARR));
 		line.y2 = player->y + RAY_LEN * sin(player->radian - 0.26179 + M_PI_2 + (i * 0.523598 / RAYCAST_ARR));
 		casting_ray(minimap, &line, arr + i);
+		arr[i].distance = hypot(player->x - line.x1, player->y - line.y1); // fixed by mehras lol, ocmment it out if u dont like it but it works, otherwise there's an issue with bending of textures
 		i ++;
 	}
 	// gettimeofday(&end, NULL);

@@ -21,6 +21,7 @@
 int	player_move_axis(int *hasmoved, int *y, int *x, char type);
 int	handle_keyrelease(int keycode, void *param);
 int	handle_keypress(int keycode, void *param);
+int	handle_xclick(t_bundle *bundle);
 void init_player(t_player *player);
 int check_move(t_bundle *bundle);
 int check_turn(t_bundle *bundle);
