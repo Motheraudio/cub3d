@@ -154,7 +154,6 @@ void	draw_3d(t_raycast rays[], t_bundle *bundle)
 				draw_wall_column(bundle, screen_x, &rays[i], wall_height);
 			pixel_offset++;
 		}
-		
 		i++;
 	}
 }
