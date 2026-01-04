@@ -87,7 +87,6 @@ void	init_game(t_2d *minimap, t_player *player, t_mlx *mlx, t_parse_data *data) 
 	t_bundle	bundle;
 	t_2d		view;
 
-	// mlx_do_key_autorepeatoff(mlx->mlx);
 	init_player(player);
 	view = create_view(mlx);
 	bundle.view = &view;

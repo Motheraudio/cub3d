@@ -14,6 +14,7 @@
 #include "../libft/libft.h"
 void	destroy_textures(t_2d *textures[4], t_mlx *mlx)
 {
+	printf("%p\n", textures[0]->img_2d);
 	if (textures[0] != NULL)
 		mlx_destroy_image(mlx->mlx, textures[0]->img_2d);
 	if (textures[1] != NULL)

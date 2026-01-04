@@ -78,18 +78,18 @@ int main (int argc, char **argv)
 		return (print_error("Error\nmlx init", '\0'), cleanup_parse(data, NULL), 1); // cleanup
 	mlx.mlx_win = mlx_new_window(mlx.mlx, WIDTH, HEIGHT, "Cub3d");
 	if (!mlx.mlx_win)
-		return (print_error("Error\nmlx window", 'n'), mlx_destroy_display(mlx.mlx),
+		return (print_error("Error\nmlx window", 'n'), mlx_destroy_display(mlx.mlx), cleanup_parse(data, NULL),
 		free(mlx.mlx), 1);
 	img.img_height = 64;
 	img.img_width = 64;
 	if (create_minimap(data, &mlx, &minimap) == 0)
-		return (print_error("mlx image", 'n'), mlx_destroy_display(mlx.mlx),
+		return (print_error("Error\nmlx image", 'n'), cleanup_parse(data, NULL), mlx_destroy_window(mlx.mlx, mlx.mlx_win), mlx_destroy_display(mlx.mlx),
 		free(mlx.mlx), 1);
 	draw_minimap(&minimap, data);
 	if (!init_textures(data, &mlx))
-		return (1); //needs free
+		return (print_error("Error\ntextures", 'n'),mlx_destroy_image(mlx.mlx, minimap.img_2d),cleanup_parse(data, NULL), mlx_destroy_window(mlx.mlx, mlx.mlx_win), mlx_destroy_display(mlx.mlx), free(mlx.mlx), 1); //needs free
 	if (!create_2d_player(&player, &mlx, data))
-		return (1); // meeds free
+		return (print_error("Error\ntextures", 'n'),mlx_destroy_image(mlx.mlx, minimap.img_2d), cleanup_parse(data, &mlx), mlx_destroy_window(mlx.mlx, mlx.mlx_win), mlx_destroy_display(mlx.mlx), free(mlx.mlx), 1); //needs free
 	mlx_string_put(mlx.mlx, mlx.mlx_win, WIDTH/2, HEIGHT/2, WHITE, "Press any key to start");
 	// mlx_put_image_to_window(mlx.mlx, mlx.mlx_win, minimap.img_2d, 0, 0);
 	// mlx_put_image_to_window(mlx.mlx, mlx.mlx_win, player.image->img_2d, player.x, player.y);

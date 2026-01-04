@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "render.h"
+
 static void	del_prev_textures(t_2d *textures[4], t_mlx *mlx, int i)
 {
 	int	j;
@@ -19,14 +20,15 @@ static void	del_prev_textures(t_2d *textures[4], t_mlx *mlx, int i)
 	while (j < i)
 	{
 		mlx_destroy_image(mlx->mlx, textures[j]->img_2d);
+		free(textures[j]);
 		j++;
 	}
 }
 int	init_textures(t_parse_data *data, t_mlx *mlx)
 {
 	int	i;
-	int h;
-	int w;
+	int	h;
+	int	w;
 
 	i = 0;
 	h = 64;
