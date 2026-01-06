@@ -30,7 +30,9 @@ RENDER_TESTING = render_test/main.c $(GAME_LOOP)\
 				render_test/get_wall_orientation.c
 
 
-PROJECTION = projection/projection.c
+PROJECTION = projection/projection.c\
+			 projection/floor_and_ceiling.c\
+			 projection/projection_utils.c
 
 
 CLEANUP = cleanup/cleanup.c

@@ -1,159 +1,103 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   projection.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alvcampo <alvcampo@student.42vienna.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/06 16:58:49 by alvcampo          #+#    #+#             */
+/*   Updated: 2026/01/06 17:03:56 by alvcampo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "projection.h"
 
-void	put_floor_and_ceiling(t_bundle *bundle)
+static void	init_column(t_raycast *ray, t_column *column, int wall_height)
 {
-	size_t i;
-	size_t	j;
-	unsigned int	color;
-	i = 0;
-	j = 0;
-	color = (bundle->data->celing.r << 8) + (bundle->data->celing.g << 8) + bundle->data->celing.b;
-	while (i < HEIGHT / 2)
-	{
-		while (j < WIDTH)
-		{
-			my_mlx_pixel_put(bundle->view, j, i, color);
-			j++;
-		}
-		j = 0;
-		i++;
-	}
-
-	color = (unsigned int) ((unsigned int)(bundle->data->floor.r << 8) + (unsigned int)(bundle->data->floor.g << 8) + (unsigned int)bundle->data->floor.b);
-	while (i < HEIGHT)
-	{
-		while (j < WIDTH)
-		{
-			my_mlx_pixel_put(bundle->view, j, i, color);
-			j++;
-		}
-		j = 0;
-		i++;
-	}
-		
+	column->start_y = (HEIGHT / 2) - (wall_height / 2);
+	column->end_y = (HEIGHT / 2) + (wall_height / 2);
+	column->tex_x = get_texture_x(ray, ray->x_hit, ray->y_hit);
+	column->orientation = get_orientation(ray->colour);
+	column->tex_index = get_texture_index(column->orientation);
+	column->step = (double)TILESIZE / (double)wall_height;
+	column->tex_pos = 0;
 }
 
-void	clear_3d_image(t_bundle *bundle)
+static void	draw_wall_column(t_bundle *bundle, int x, t_raycast *ray,
+							int wall_height)
 {
-	size_t i;
-	size_t	j;
+	t_column	column;
 
-	i = 0;
-	j = 0;
-	while (i < HEIGHT)
+	init_column(ray, &column, wall_height);
+	if (column.start_y < 0)
 	{
-		while (j < WIDTH)
-		{
-			my_mlx_pixel_put(bundle->view, j, i, 0x000000);
-			j++;
-		}
-		j = 0;
-		i++;
+		column.tex_pos = (-column.start_y) * column.step;
+		column.start_y = 0;
 	}
-		
-}
-static int	get_texture_x(t_raycast *ray, int wall_hit_x, int wall_hit_y)
-{
-	int tex_x;
-	double hit_pos;
-	unsigned int orientation;
-	
-	orientation = get_orientation(ray->colour);
-	
-	if (orientation == NORTH_C || orientation == SOUTH_C)
-		hit_pos = (double)wall_hit_x;
-	else
-		hit_pos = (double)wall_hit_y;
-	hit_pos = hit_pos - floor(hit_pos / WALL_LEN) * WALL_LEN;
-	tex_x = (int)((hit_pos / (double)WALL_LEN) * TILESIZE);
-	if (tex_x < 0)
-		tex_x = 0;
-	if (tex_x >= TILESIZE)
-		tex_x = TILESIZE - 1;
-		
-	return tex_x;
+	if (column.end_y >= HEIGHT)
+		column.end_y = HEIGHT - 1;
+	column.y = column.start_y;
+	while (column.y <= column.end_y)
+	{
+		column.tex_y = (int)column.tex_pos;
+		if (column.tex_y < 0)
+			column.tex_y = 0;
+		if (column.tex_y >= TILESIZE)
+			column.tex_y = TILESIZE - 1;
+		column.color = pixel_color(bundle->data->textures[column.tex_index],
+				column.tex_x, column.tex_y);
+		my_mlx_pixel_put(bundle->view, x, column.y, column.color);
+		column.tex_pos += column.step;
+		column.y++;
+	}
 }
 
-static void	draw_wall_column(t_bundle *bundle, int x, t_raycast *ray, int wall_height)
+static void	draw_slice(t_bundle *bundle, t_draw *draw, t_raycast rays[], int i)
 {
-	int			y;
-	int			tex_x;
-	int			tex_y;
-	int			start_y;
-	int			end_y;
-	int			tex_index;
-	double		step;
-	double		tex_pos;
-	unsigned int color;
-	unsigned int orientation;
+	while (draw->pixel_offset < draw->pixels_per_ray)
+	{
+		draw->screen_x = (i * draw->pixels_per_ray) + draw->pixel_offset;
+		if (draw->screen_x < WIDTH)
+			draw_wall_column(bundle, draw->screen_x, &rays[i],
+				draw->wall_height);
+		draw->pixel_offset++;
+	}
+}
 
-	start_y = (HEIGHT / 2) - (wall_height / 2);
-	end_y = (HEIGHT / 2) + (wall_height / 2);
-	tex_x = get_texture_x(ray, ray->x_hit, ray->y_hit);
-	orientation = get_orientation(ray->colour);
-	tex_index = get_texture_index(orientation);
-	step = (double)TILESIZE / (double)wall_height;
-	tex_pos = 0;
-	if (start_y < 0)
-	{
-		tex_pos = (-start_y) * step;
-		start_y = 0;
-	}
-	if (end_y >= HEIGHT)
-		end_y = HEIGHT - 1;
-	y = start_y;
-	while (y <= end_y)
-	{
-		tex_y = (int)tex_pos;
-		if (tex_y < 0)
-			tex_y = 0;
-		if (tex_y >= TILESIZE)
-			tex_y = TILESIZE - 1;
-		color = pixel_color(bundle->data->textures[tex_index], tex_x, tex_y);
-		my_mlx_pixel_put(bundle->view, x, y, color);
-		tex_pos += step;
-		y++;
-	}
+//fov value is 30 deg in radians.
+
+static void	set_draw_params(t_draw *draw)
+{
+	draw->pixels_per_ray = WIDTH / RAYCAST_ARR;
+	if (draw->pixels_per_ray == 0)
+		draw->pixels_per_ray = 1;
+	draw->fov = 0.523598;
 }
 
 void	draw_3d(t_raycast rays[], t_bundle *bundle)
 {
+	t_draw	draw;
 	int		i;
-	int		wall_height;
-	double	corrected_distance;
-	double	ray_angle;
-	double	angle_diff;
-	int		screen_x;
-	int		pixels_per_ray;
-	int		pixel_offset;
-	double	fov;
-	
+
 	put_floor_and_ceiling(bundle);
-	pixels_per_ray = WIDTH / RAYCAST_ARR;
-	if (pixels_per_ray == 0)
-		pixels_per_ray = 1;
-	fov = 0.523598; // 30 degrees in radians
+	set_draw_params(&draw);
 	i = 0;
 	while (i < RAYCAST_ARR)
 	{
-		ray_angle = (bundle->player->radian - fov / 2.0) + (i * fov / RAYCAST_ARR);
-		angle_diff = fabs(ray_angle - bundle->player->radian);
-		if (angle_diff > M_PI * 2)
-			angle_diff -= (M_PI * 2);
-		else if (angle_diff < 0)
-			angle_diff += (M_PI * 2);
-		corrected_distance = (double)rays[i].distance * cos(angle_diff);
-		if (corrected_distance < 0.0001f)
-			corrected_distance = 0.0001f;
-		wall_height = TILESIZE * HEIGHT / corrected_distance;//(int)((double)(WALL_LEN * TILESIZE * HEIGHT) / (corrected_distance * TILESIZE));
-		pixel_offset = 0;
-		while (pixel_offset < pixels_per_ray)
-		{
-			screen_x = (i * pixels_per_ray) + pixel_offset;
-			if (screen_x < WIDTH)
-				draw_wall_column(bundle, screen_x, &rays[i], wall_height);
-			pixel_offset++;
-		}
+		draw.ray_angle = (bundle->player->radian - draw.fov / 3.0)
+			+ (i * draw.fov / RAYCAST_ARR);
+		draw.angle_diff = fabs(draw.ray_angle - bundle->player->radian);
+		if (draw.angle_diff > M_PI * 2)
+			draw.angle_diff -= (M_PI * 2);
+		else if (draw.angle_diff < 0)
+			draw.angle_diff += (M_PI * 2);
+		draw.corrected_distance = (double)rays[i].distance
+			* cos(draw.angle_diff);
+		if (draw.corrected_distance < 0.0001f)
+			draw.corrected_distance = 0.0001f;
+		draw.wall_height = TILESIZE * HEIGHT / draw.corrected_distance;
+		draw.pixel_offset = 0;
+		draw_slice(bundle, &draw, rays, i);
 		i++;
 	}
 }

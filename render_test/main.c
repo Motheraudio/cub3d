@@ -6,7 +6,7 @@
 /*   By: alvcampo <alvcampo@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 11:00:44 by alvcampo          #+#    #+#             */
-/*   Updated: 2026/01/06 11:11:30 by alvcampo         ###   ########.fr       */
+/*   Updated: 2026/01/06 16:19:29 by alvcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int	init_graphics(t_mlx *mlx, t_parse_data *data)
 
 int	main(int argc, char **argv)
 {
-	t_img			img;
 	t_mlx			mlx;
 	t_parse_data	*data;
 
