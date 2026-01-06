@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "game_loop.h"
-#include "../render_test/render.h"
 
 void	init_player(t_player *player)
 {

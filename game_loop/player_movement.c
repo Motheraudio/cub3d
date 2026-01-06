@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "game_loop.h"
-#include "../render_test/render.h"
 
 int	check_turn(t_bundle *bundle)
 {

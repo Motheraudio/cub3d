@@ -14,8 +14,8 @@
 
 void	where_player2d(t_player *player, t_parse_data *data)
 {
-	ssize_t	i;
-	ssize_t	j;
+	size_t	i;
+	size_t	j;
 
 	i = 1;
 	j = 1;

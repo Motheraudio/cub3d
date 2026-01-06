@@ -12,7 +12,7 @@
 
 #ifndef PROJECTION_H
 # define PROJECTION_H
-# include "../render_test/render.h"
+# include "../render/render.h"
 # include "../raycasting/raycasting.h"
 # include "../parsing/parsing.h"
 

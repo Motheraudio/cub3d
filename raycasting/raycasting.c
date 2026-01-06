@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../render_test/render.h"
 #include "raycasting.h"
-# include <math.h>
 
 void	casting_ray(t_2d *image, t_line *line, t_raycast *res)
 {

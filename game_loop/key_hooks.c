@@ -9,7 +9,6 @@
 /*   Updated: 2026/01/06 17:39:58 by alvcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../render_test/render.h"
 #include "../cleanup/cleanup.h"
 
 void	clean_exit(t_bundle *bundle)

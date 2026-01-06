@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../render_test/render.h"
 #include <sys/time.h>
 #include "game_loop.h"
 #include "../raycasting/raycasting.h"

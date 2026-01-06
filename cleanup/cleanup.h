@@ -13,7 +13,7 @@
 #ifndef CLEANUP_H
 # define CLEANUP_H
 # include "../parsing/parsing.h"
-# include "../render_test/render.h"
+# include "../render/render.h"
 
 void	destroy_extures(t_2d *textures[4], t_mlx *mlx);
 // cleans up all parsing struct members, and the parsing itself. If the mlx

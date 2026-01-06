@@ -15,7 +15,7 @@
 # define FPS 50
 # define TURNING_RATE 0.26179
 # define MOVEMENT_SPEED 10
-# include "../render_test/render.h"
+# include "../render/render.h"
 # include "../projection/projection.h"
 
 int		player_move_axis(int *hasmoved, int *y, int *x, char type);

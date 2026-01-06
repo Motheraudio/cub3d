@@ -20,14 +20,14 @@ GAME_LOOP = game_loop/game_loop.c\
 			game_loop/player_movement.c
 
 
-RENDER_TESTING = render_test/main.c $(GAME_LOOP)\
-				render_test/tooling.c\
-				render_test/draw_line.c\
-				render_test/draw_minimap.c\
-				render_test/draw_box.c\
-				render_test/create_player2d.c\
-				render_test/textures.c\
-				render_test/get_wall_orientation.c
+RENDER_TESTING = render/main.c $(GAME_LOOP)\
+				render/tooling.c\
+				render/draw_line.c\
+				render/draw_minimap.c\
+				render/draw_box.c\
+				render/create_player2d.c\
+				render/textures.c\
+				render/get_wall_orientation.c
 
 
 PROJECTION = projection/projection.c\
