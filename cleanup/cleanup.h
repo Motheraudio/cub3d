@@ -6,7 +6,7 @@
 /*   By: alvcampo <alvcampo@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 16:50:36 by alvcampo          #+#    #+#             */
-/*   Updated: 2026/01/03 16:52:26 by alvcampo         ###   ########.fr       */
+/*   Updated: 2026/01/06 17:44:45 by alvcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define CLEANUP_H
 # include "../parsing/parsing.h"
 # include "../render_test/render.h"
-
 
 void	destroy_extures(t_2d *textures[4], t_mlx *mlx);
 // cleans up all parsing struct members, and the parsing itself. If the mlx
