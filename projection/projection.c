@@ -84,13 +84,11 @@ void	draw_3d(t_raycast rays[], t_bundle *bundle)
 	i = 0;
 	while (i < RAYCAST_ARR)
 	{
-		draw.ray_angle = (bundle->player->radian - draw.fov / 3.0)
+		draw.ray_angle = (bundle->player->radian - draw.fov / 2.0)
 			+ (i * draw.fov / RAYCAST_ARR);
 		draw.angle_diff = fabs(draw.ray_angle - bundle->player->radian);
 		if (draw.angle_diff > M_PI * 2)
 			draw.angle_diff -= (M_PI * 2);
-		else if (draw.angle_diff < 0)
-			draw.angle_diff += (M_PI * 2);
 		draw.corrected_distance = (double)rays[i].distance
 			* cos(draw.angle_diff);
 		if (draw.corrected_distance < 0.0001f)
