@@ -6,16 +6,15 @@
 /*   By: mchoma <your@mail.com>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 16:36:26 by mchoma            #+#    #+#             */
-/*   Updated: 2025/12/10 17:03:18 by mchoma           ###   ########.fr       */
+/*   Updated: 2026/01/06 15:54:25 by alvcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
+
 unsigned int	pixel_color(t_2d *data, int x, int y)
 {
 	char	*dst;
-
-	// printf("%i == x \n %i == y\n", x, y);
 
 	dst = data->addr + ((y * data->line_length)
 			+ (x * (data->bits_per_pixel / 8)));
@@ -39,7 +38,6 @@ int	calcdir(int p1, int p2)
 		return (-1);
 }
 
-
 int	checksize(int x1, int y1)
 {
 	if (x1 > WIDTH - 1 || x1 < 0
@@ -48,4 +46,3 @@ int	checksize(int x1, int y1)
 	else
 		return (1);
 }
-

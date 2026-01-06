@@ -1,5 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alvcampo <alvcampo@student.42vienna.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/06 15:47:51 by alvcampo          #+#    #+#             */
+/*   Updated: 2026/01/06 15:51:13 by alvcampo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef RENDER_H
-#define RENDER_H
+# define RENDER_H
 # define WIDTH  1920
 # define FLOOR_COLOUR 0x0
 # define RAY_COLOUR 0xFFFFED
@@ -25,7 +37,8 @@
 # include <errno.h>
 # include <math.h>
 # include <X11/keysym.h> 
-#include <sys/time.h>
+# include <sys/time.h>
+
 typedef struct s_mlx
 {
 	void	*mlx;
@@ -41,8 +54,7 @@ typedef struct s_line
 	unsigned int	colour;
 }	t_line;
 
-
-typedef struct	s_img
+typedef struct s_img
 {
 	void	**img;
 	void	*player;
@@ -57,7 +69,7 @@ typedef struct	s_img
 	int		tileamount;
 }				t_img;
 
-typedef struct	s_2d
+typedef struct s_2d
 {
 	void	*img_2d;
 	char	*addr;
@@ -95,7 +107,7 @@ typedef struct s_raycast
 	int				y_hit;
 }	t_raycast;
 
-typedef struct	s_bundle
+typedef struct s_bundle
 {
 	t_player		*player;
 	t_parse_data	*data;
@@ -113,27 +125,31 @@ typedef struct s_algo
 	int	diry;
 	int	p2;
 }			t_algo;
-/*Cannot fail. prints with perror. error is the error message, type is a char representing the error errno should be set to:
+/*Cannot fail. prints with perror. error is the error message,
+type is a char representing the error errno should be set to:
 'n' means no manual setting of errno.*/
-void	print_error(char *error, char type); 
-void	my_mlx_pixel_put(t_2d *data, int x, int y, int color);
-void	algo(t_2d *minimap, t_parse_data *data);
-void	draw_line(t_2d *minimap, t_line *line);
-void	draw_floor(t_2d *minimap, int x, int y);
-void	draw_wall(t_2d *minimap, int x, int y);
-int	calcdir(int p1, int p2);
-int	checksize(int x1, int y1);
-void	draw_line(t_2d *minimap, t_line *line);
-void	draw_minimap(t_2d *minimap, t_parse_data *data);
+void			print_error(char *error, char type);
+void			my_mlx_pixel_put(t_2d *data, int x, int y, int color);
+void			algo(t_2d *minimap, t_parse_data *data);
+void			draw_line(t_2d *minimap, t_line *line);
+void			draw_floor(t_2d *minimap, int x, int y);
+void			draw_wall(t_2d *minimap, int x, int y);
+int				calcdir(int p1, int p2);
+int				checksize(int x1, int y1);
+void			draw_line(t_2d *minimap, t_line *line);
+void			draw_line_scale(t_2d *minimap, t_line *line);
+void			draw_minimap(t_2d *minimap, t_parse_data *data);
 unsigned int	pixel_color(t_2d *data, int x, int y);
-void	initline(t_algo *algo, t_line *line);
-void where_player2d(t_player *player, t_parse_data *data);
-int	create_2d_player(t_player *player, t_mlx *mlx, t_parse_data *data);
-void	init_game(t_2d *minimap, t_player *player, t_mlx *mlx, t_parse_data *data);
-int	move_2d_player(t_bundle *bundle, int addx, int addy);
-int	init_textures(t_parse_data *data, t_mlx *mlx);
+void			initline(t_algo *algo, t_line *line);
+void			where_player2d(t_player *player, t_parse_data *data);
+int				create_2d_player(t_player *player, t_mlx *mlx,
+					t_parse_data *data);
+void			init_game(t_2d *minimap, t_player *player, t_mlx *mlx,
+					t_parse_data *data);
+int				move_2d_player(t_bundle *bundle, int addx, int addy);
+int				init_textures(t_parse_data *data, t_mlx *mlx);
 //takes colour and returns <orientention>_C constant
 unsigned int	get_orientation(unsigned int colour);
 unsigned int	slice(unsigned int colour);
-int	get_texture_index(unsigned int orient);
+int				get_texture_index(unsigned int orient);
 #endif

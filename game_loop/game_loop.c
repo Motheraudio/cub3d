@@ -6,7 +6,7 @@
 /*   By: mchoma <your@mail.com>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 20:46:04 by mchoma            #+#    #+#             */
-/*   Updated: 2025/12/10 21:16:09 by alvcampo         ###   ########.fr       */
+/*   Updated: 2026/01/06 11:08:05 by alvcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ void	init_game(t_2d *minimap, t_player *player, t_mlx *mlx, t_parse_data *data) 
 	t_bundle	bundle;
 	t_2d		view;
 
+	mlx_string_put(mlx->mlx, mlx->mlx_win, WIDTH/2, HEIGHT/2, WHITE, 
+				"Press any wasd key to start");
 	init_player(player);
 	view = create_view(mlx);
 	bundle.view = &view;

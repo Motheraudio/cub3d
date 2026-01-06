@@ -6,13 +6,13 @@
 /*   By: alvcampo <alvcampo@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 15:31:41 by alvcampo          #+#    #+#             */
-/*   Updated: 2025/12/10 16:51:36 by mchoma           ###   ########.fr       */
+/*   Updated: 2026/01/06 15:30:57 by alvcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
 
-void where_player2d(t_player *player, t_parse_data *data)
+void	where_player2d(t_player *player, t_parse_data *data)
 {
 	ssize_t	i;
 	ssize_t	j;
@@ -28,9 +28,6 @@ void where_player2d(t_player *player, t_parse_data *data)
 			{
 				player->x = (j - 1) * WALL_LEN + (WALL_LEN / 2);
 				player->y = (i - 1) * WALL_LEN + (WALL_LEN / 2);
-				printf("%i player->y where_player2d\n", player->y);
-				// printf("%lu i\n", i);
-				// printf("%i WALL_LEN\n", WALL_LEN);
 				return ;
 			}
 			j++;
@@ -55,12 +52,13 @@ int	create_2d_player(t_player *player, t_mlx *mlx, t_parse_data *data)
 {
 	set_radian(player, data);
 	player->image->img_2d = mlx_new_image(mlx->mlx, 1, 1);
-	if(!player->image->img_2d)
-		return(0);
-	player->image->addr = mlx_get_data_addr(player->image->img_2d, &player->image->bits_per_pixel,
-								  &player->image->line_length, &player->image->endian);
+	if (!player->image->img_2d)
+		return (0);
+	player->image->addr = mlx_get_data_addr(player->image->img_2d,
+			&player->image->bits_per_pixel,
+			&player->image->line_length, &player->image->endian);
 	where_player2d(player, data);
-	my_mlx_pixel_put(player->image, 0,0, 0xFF00008B);
+	my_mlx_pixel_put(player->image, 0, 0, 0xFF00008B);
 	return (1);
 }
 
@@ -68,12 +66,14 @@ int	move_2d_player(t_bundle *bundle, int addx, int addy)
 {
 	unsigned int		col;
 
-	col = pixel_color(bundle->minimap, bundle->player->x + addx, bundle->player->y + addy);
+	col = pixel_color(bundle->minimap, bundle->player->x + addx,
+			bundle->player->y + addy);
 	if (col == FLOOR_COLOUR || col == RAY_COLOUR)
 	{
 		bundle->player->x += addx;
 		bundle->player->y += addy;
-		my_mlx_pixel_put(bundle->minimap, bundle->player->x, bundle->player->y, PLAYER_COLOUR);
+		my_mlx_pixel_put(bundle->minimap, bundle->player->x,
+			bundle->player->y, PLAYER_COLOUR);
 	}
-	return(1);
+	return (1);
 }

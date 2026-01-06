@@ -20,7 +20,7 @@ GAME_LOOP = game_loop/game_loop.c\
 			game_loop/player_movement.c
 
 
-RENDER_TESTING = render_test/test.c $(GAME_LOOP)\
+RENDER_TESTING = render_test/main.c $(GAME_LOOP)\
 				render_test/tooling.c\
 				render_test/draw_line.c\
 				render_test/draw_minimap.c\

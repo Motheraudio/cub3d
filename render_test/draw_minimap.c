@@ -6,7 +6,7 @@
 /*   By: alvcampo <alvcampo@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 22:03:38 by alvcampo          #+#    #+#             */
-/*   Updated: 2025/12/07 22:10:27 by alvcampo         ###   ########.fr       */
+/*   Updated: 2026/01/06 15:43:38 by alvcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	draw_minimap(t_2d *minimap, t_parse_data *data)
 {
 	size_t	i;
 	size_t	j;
-	
+
 	i = 1;
 	while (i < data->tall - 1)
 	{
