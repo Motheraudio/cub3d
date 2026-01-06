@@ -50,8 +50,6 @@ LIBFT = libft/ft_strlen.c\
 		libft/free_arr.c\
 		libft/ft_strchr.c\
 		libft/ft_memcpy.c\
-		libft/get_nth_line.c
-	
 
 OBJ_DIR = objects/
 TEST_OBJ_DIR = test_objects/
