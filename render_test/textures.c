@@ -12,7 +12,7 @@
 
 #include "render.h"
 
-static void	del_prev_textures(t_2d *textures[4], t_mlx *mlx, int i)
+static void	del_prev_textures(t_2d *textures[4], t_mlx *mlx, int i, char flag)
 {
 	int	j;
 
@@ -20,19 +20,18 @@ static void	del_prev_textures(t_2d *textures[4], t_mlx *mlx, int i)
 	while (j < i)
 	{
 		mlx_destroy_image(mlx->mlx, textures[j]->img_2d);
-		free(textures[j]);
 		j++;
 	}
+	if (flag == 'i')
+		mlx_destroy_image(mlx->mlx, textures[i]->img_2d);
+	free(textures[0]);
+	free(textures[1]);
+	free(textures[2]);
+	free(textures[3]);
 }
-int	init_textures(t_parse_data *data, t_mlx *mlx)
-{
-	int	i;
-	int	h;
-	int	w;
 
-	i = 0;
-	h = 64;
-	w = 64;
+static int	alloc_textures(t_parse_data *data)
+{
 	data->textures[0] = malloc(sizeof(t_2d));
 	if (!data->textures[0])
 		return(0);
@@ -44,17 +43,32 @@ int	init_textures(t_parse_data *data, t_mlx *mlx)
 		return(free(data->textures[0]), free(data->textures[1]), 0);
 	data->textures[3] = malloc(sizeof(t_2d));
 	if (!data->textures[3])
-		return(free(data->textures[0]), free(data->textures[1]), free(data->textures[2]), 0);
+		return(free(data->textures[0]), free(data->textures[1]), 
+		free(data->textures[2]), 0);
 	data->textures[0]->texture_path = data->n_texture;
 	data->textures[1]->texture_path = data->w_texture;
 	data->textures[2]->texture_path = data->s_texture;
 	data->textures[3]->texture_path = data->e_texture;
+	return (1);
+}
+
+int	init_textures(t_parse_data *data, t_mlx *mlx)
+{
+	int	i;
+	int	h;
+	int	w;
+
+	i = 0;
+	if (!alloc_textures(data))
+		return (0);
 	while (i < 4)
 	{
 		data->textures[i]->img_2d = mlx_xpm_file_to_image(mlx->mlx,
 											 data->textures[i]->texture_path, &w, &h);
 		if (!data->textures[i]->img_2d)
-			return(del_prev_textures(data->textures, mlx, i), 0);
+			return(del_prev_textures(data->textures, mlx, i, 'n'), 0);
+		if (h != 64 || w != 64)
+			return(del_prev_textures(data->textures, mlx, i, 'i'), 0);
 		data->textures[i]->addr = mlx_get_data_addr(data->textures[i]->img_2d,
 									   &data->textures[i]->bits_per_pixel,
 									   &data->textures[i]->line_length,

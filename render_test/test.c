@@ -106,8 +106,6 @@ int main (int argc, char **argv)
 		return (print_error("Error\nmlx window", 'n'),
 		mlx_destroy_display(mlx.mlx), cleanup_parse(data, NULL),
 		free(mlx.mlx), 1);
-	// img.img_height = 64;
-	// img.img_width = 64;
 	if (!init_graphics(&mlx,data))
 		return (1);
 }

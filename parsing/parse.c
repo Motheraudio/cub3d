@@ -31,7 +31,5 @@ void *parse(char *file_name)
 		return (cleanup_parse(data, NULL), NULL);
 	if (validate_map(fd, data) == -1)
 		return (cleanup_parse(data, NULL), NULL);
-	if (check_texture_dimensions(data) == -1)
-		return (cleanup_parse(data, NULL), NULL);
 	return (data);
 }

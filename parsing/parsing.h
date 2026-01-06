@@ -83,6 +83,4 @@ int		validate_map(int fd, t_parse_data *data);
 void	print_parse_data(t_parse_data *data);
 int		validate_map(int fd, t_parse_data *data);
 void	print_emap(t_parse_data *data);
-// checks if textures are 64x64. Returns 1 on success, -1 if the textures isn't valid. No allocations.
-int	check_texture_dimensions(t_parse_data *data);
 #endif

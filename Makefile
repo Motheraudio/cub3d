@@ -12,8 +12,7 @@ PARSING = parsing/parse.c \
           parsing/line_parsing.c\
 		  parsing/colour_atoi.c\
 		  parsing/validate_map.c\
-		  parsing/get_metadata.c\
-		  parsing/validate_texture.c
+		  parsing/get_metadata.c
 GAME_LOOP = game_loop/game_loop.c\
 			raycasting/raycasting.c\
 			game_loop/key_hooks.c\
