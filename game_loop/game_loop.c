@@ -6,7 +6,7 @@
 /*   By: mchoma <your@mail.com>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 20:46:04 by mchoma            #+#    #+#             */
-/*   Updated: 2026/01/06 11:08:05 by alvcampo         ###   ########.fr       */
+/*   Updated: 2026/01/06 17:36:56 by alvcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 #include "game_loop.h"
 #include "../raycasting/raycasting.h"
 
-int	nex_frame()
+int	nex_frame(void)
 {
-	static	struct timeval prev;
-	struct timeval	now;
+	static struct timeval	prev;
+	struct timeval			now;
 
 	gettimeofday(&now, NULL);
-	if ((now.tv_sec * 1000 + now.tv_usec / 1000) > (prev.tv_sec * 1000 + prev.tv_usec / 1000) + FPS)
+	if ((now.tv_sec * 1000 + now.tv_usec / 1000)
+		> (prev.tv_sec * 1000 + prev.tv_usec / 1000) + FPS)
 	{
 		prev = now;
 		return (1);
@@ -29,7 +30,7 @@ int	nex_frame()
 	return (-1);
 }
 
-int		player_movement(t_bundle *bundle)
+int	player_movement(t_bundle *bundle)
 {
 	int	hasmoved;
 	int	hasturned;
@@ -40,8 +41,10 @@ int		player_movement(t_bundle *bundle)
 	hasturned = check_turn(bundle);
 	if (hasmoved != 0)
 	{
-		xadd = MOVEMENT_SPEED * cos(bundle->player->radian + bundle->player->direction);
-		yadd = MOVEMENT_SPEED * sin(bundle->player->radian + bundle->player->direction);
+		xadd = MOVEMENT_SPEED * cos(bundle->player->radian
+				+ bundle->player->direction);
+		yadd = MOVEMENT_SPEED * sin(bundle->player->radian
+				+ bundle->player->direction);
 		move_2d_player(bundle, xadd, yadd);
 		return (1);
 	}
@@ -50,12 +53,17 @@ int		player_movement(t_bundle *bundle)
 	return (0);
 }
 
+//Add these lines under te put image to window to render minimap:
+//mlx_put_image_to_window(bundle->mlx->mlx, bundle->mlx->mlx_win, 
+//bundle->player->image->img_2d, bundle->player->x, bundle->player->y + 1);
+//mlx_put_image_to_window(bundle->mlx->mlx, bundle->mlx->mlx_win, 
+//bundle->minimap->img_2d, 0, 0);
+
 int	game_loop(void *param)
 {
 	t_bundle	*bundle;
 	int			has_moved;
 	t_raycast	arr[RAYCAST_ARR];
-
 
 	if (nex_frame() == -1)
 		return (0);
@@ -66,9 +74,8 @@ int	game_loop(void *param)
 		draw_minimap(bundle->minimap, bundle->data);
 		raycasting(arr, bundle->player, bundle->minimap);
 		draw_3d(arr, bundle);
-		mlx_put_image_to_window(bundle->mlx->mlx, bundle->mlx->mlx_win, bundle->view->img_2d, 0, 0);
-		// mlx_put_image_to_window(bundle->mlx->mlx, bundle->mlx->mlx_win, bundle->player->image->img_2d, bundle->player->x, bundle->player->y + 1);
-		// mlx_put_image_to_window(bundle->mlx->mlx, bundle->mlx->mlx_win, bundle->minimap->img_2d, 0, 0);
+		mlx_put_image_to_window(bundle->mlx->mlx, bundle->mlx->mlx_win,
+			bundle->view->img_2d, 0, 0);
 	}
 	return (0);
 }
@@ -76,18 +83,21 @@ int	game_loop(void *param)
 t_2d	create_view(t_mlx *mlx)
 {
 	t_2d	view;
+
 	view.img_2d = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);
-	view.addr = mlx_get_data_addr(view.img_2d, &view.bits_per_pixel, &view.line_length, &view.endian);
-	return(view);
+	view.addr = mlx_get_data_addr(view.img_2d, &view.bits_per_pixel,
+			&view.line_length, &view.endian);
+	return (view);
 }
 
-void	init_game(t_2d *minimap, t_player *player, t_mlx *mlx, t_parse_data *data) // add if you need;
+void	init_game(t_2d *minimap, t_player *player, t_mlx *mlx,
+			t_parse_data *data)
 {
 	t_bundle	bundle;
 	t_2d		view;
 
-	mlx_string_put(mlx->mlx, mlx->mlx_win, WIDTH/2, HEIGHT/2, WHITE, 
-				"Press any wasd key to start");
+	mlx_string_put(mlx->mlx, mlx->mlx_win, WIDTH / 2, HEIGHT / 2, WHITE,
+		"Press any wasd key to start");
 	init_player(player);
 	view = create_view(mlx);
 	bundle.view = &view;
@@ -96,8 +106,8 @@ void	init_game(t_2d *minimap, t_player *player, t_mlx *mlx, t_parse_data *data) 
 	bundle.data = data;
 	bundle.mlx = mlx;
 	mlx_hook(mlx->mlx_win, 2, 1L << 0, handle_keypress, (void *)&bundle);
-	mlx_hook(mlx->mlx_win, 3, 1L<< 1, handle_keyrelease, (void *)&bundle);
+	mlx_hook(mlx->mlx_win, 3, 1L << 1, handle_keyrelease, (void *)&bundle);
 	mlx_loop_hook(mlx->mlx, game_loop, &bundle);
-	mlx_hook(mlx->mlx_win, 17, 1L << 0, handle_xclick, (void*)&bundle);
+	mlx_hook(mlx->mlx_win, 17, 1L << 0, handle_xclick, (void *)&bundle);
 	mlx_loop(mlx->mlx);
 }

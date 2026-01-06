@@ -6,29 +6,32 @@
 /*   By: mchoma <your@mail.com>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 20:46:19 by mchoma            #+#    #+#             */
-/*   Updated: 2025/12/08 20:48:27 by mchoma           ###   ########.fr       */
+/*   Updated: 2026/01/06 17:42:08 by alvcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game_loop.h"
 #include "../render_test/render.h"
 
-int check_turn(t_bundle *bundle)
+int	check_turn(t_bundle *bundle)
 {
 	int	ret;
 
 	ret = 0;
 	if (bundle->player->ctrl.right == 1)
-	{ bundle->player->radian += TURNING_RATE; ret  = 1; }
+	{
+		bundle->player->radian += TURNING_RATE;
+		ret = 1;
+	}
 	if (bundle->player->ctrl.left == 1)
 	{
 		bundle->player->radian -= TURNING_RATE;
-		ret  = 1;
+		ret = 1;
 	}
 	return (ret);
 }
 
-int check_move(t_bundle *bundle)
+int	check_move(t_bundle *bundle)
 {
 	int	ret;
 
