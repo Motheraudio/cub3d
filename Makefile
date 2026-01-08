@@ -1,7 +1,7 @@
 NAME = cube3d
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-TESTFLAGS = -Wall -Wextra -g -O3
+TESTFLAGS = -Wall -Wextra -g 
 LIBS = -lmlx -lXext -lX11 -lm
 HEADERS = parsing/parsing.h
 
@@ -10,8 +10,10 @@ SRC =
 PARSING = parsing/parse.c \
           parsing/parse_utils.c\
           parsing/line_parsing.c\
+          parsing/line_parsing2.c\
 		  parsing/colour_atoi.c\
 		  parsing/validate_map.c\
+		  parsing/emapvalidation.c\
 		  parsing/get_metadata.c
 GAME_LOOP = game_loop/game_loop.c\
 			raycasting/raycasting.c\

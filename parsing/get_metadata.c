@@ -57,6 +57,5 @@ int		get_metadata(int fd, t_parse_data *data)
 	}
 	if (line == NULL)
 		return (get_next_line(-1, &err), -1); //invalid line
-
 	return (1);
 }

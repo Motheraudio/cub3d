@@ -6,7 +6,7 @@
 /*   By: mchoma <your@mail.com>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 12:54:01 by mchoma            #+#    #+#             */
-/*   Updated: 2025/12/11 20:41:02 by alvcampo         ###   ########.fr       */
+/*   Updated: 2026/01/08 15:27:57 by mchoma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../libft/libft.h"
 typedef struct s_2d t_2d;
+
 typedef enum s_map_sqare
 {
 	EMPTY,

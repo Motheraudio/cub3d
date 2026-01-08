@@ -25,7 +25,7 @@ void *parse(char *file_name)
 	if (file_sufix(file_name, ".cub") == -1)
 		return (NULL); // error handle
 	fd = open(file_name, O_RDONLY);
-	if(fd == -1)
+	ifif ( (fd == -1)
 		return(free(data), NULL); //error handle
 	if (get_metadata(fd, data) == -1)
 		return (cleanup_parse(data, NULL), NULL);
