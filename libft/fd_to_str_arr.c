@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "libft.h"
 
-char **fd_to_str_arr(int fd, char ***arr)
+char	**fd_to_str_arr(int fd, char ***arr)
 {
 	int		err;
 	char	*str;
@@ -21,12 +21,13 @@ char **fd_to_str_arr(int fd, char ***arr)
 	{
 		str = get_next_line(fd, &err);
 		if (err == -1)
-			return (get_next_line(-1, &err), free(str), free_arr((void***) arr), NULL);
-		// ft_append_arr_str(arr, str);
+			return (get_next_line(-1, &err), free(str),
+				free_arr((void ***) arr), NULL);
 		if (ft_append_arr_str(arr, str) == NULL)
-			return (get_next_line(-1, &err), free(str), free_arr((void***) arr), NULL);
+			return (get_next_line(-1, &err), free(str),
+				free_arr((void ***) arr), NULL);
 		if (err == 1)
-			break;
+			break ;
 	}
 	return (*arr);
 }

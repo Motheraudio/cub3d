@@ -55,6 +55,7 @@ void	init_parse_data(t_parse_data *data)
 	data->textures[3] = NULL;
 }
 
+/*
 void	print_parse_data(t_parse_data *data)
 {
 	printf("data->n_texture = \"%s\"\n", data->n_texture);
@@ -71,3 +72,4 @@ void	print_parse_data(t_parse_data *data)
 	printf("	data->floor.b= %u\n", data->floor.b);
 	print_emap(data);
 }
+*/

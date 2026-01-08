@@ -35,7 +35,8 @@ typedef struct s_data
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 //takes file descriptor and adress of int
 //will return malloced string that is one line from the file
-//in err it gives errror if err is set to -1 it is error if err = 0 no error ecountered
+//in err it gives errror if err is set to -1 it is error 
+//if err = 0 no error ecountered
 //if fd = -1 
 char	*get_next_line(int fd, int *err);
 

@@ -15,7 +15,7 @@
 
 # include "../libft/libft.h"
 
-typedef struct r_2d	t_2d;
+typedef struct s_2d	t_2d;
 
 typedef enum s_map_sqare
 {

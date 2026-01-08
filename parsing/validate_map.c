@@ -139,6 +139,5 @@ int	validate_map(int fd, t_parse_data *data)
 		return (get_next_line(-1, &err), -1);
 	if (map_checker(data) == -1)
 		return (get_next_line(-1, &err), -1);
-	print_emap(data);
 	return (1);
 }

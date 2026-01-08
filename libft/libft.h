@@ -12,10 +12,10 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <limits.h>
-#include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <limits.h>
+# include <stdio.h>
 
 typedef struct s_list
 {
@@ -50,7 +50,6 @@ int		ft_isalpha(int c);
 void	ft_putstr_fd(char *s, int fd);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strmapi(char *s, char (*f)(unsigned int, char*));
-void	ft_striteri(char *s, void (*f)(unsigned int,char*));
 int		ft_isalnum(int str);
 int		ft_isdigit(int str);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
@@ -63,23 +62,23 @@ void	ft_lstclear(t_list **lst, void (*del)(void*));
 void	ft_lstdelone(t_list *lst, void (*del)(void*));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstlast(t_list *lst);
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *),void (*del)(void *));
 t_list	*ft_lstnew(void *content);
 int		ft_lstsize(t_list *lst);
 
 //takes file descriptor and adress of int
 //will return malloced string that is one line from the file
-//in err it gives errror if err is set to -1 it is error if err = 0 no error ecountered
+//in err it gives errror if err is set to -1 it is error 
+//if err = 0 no error ecountered
 //if fd = -1 
 //if it is at the end of the file returns NULL and err is set to 1
 char	*get_next_line(int fd, int *err);
 
 void	free_arr(void ***arr);
 
-char **ft_append_arr_str(char ***arr, char *str);
-char **fd_to_str_arr(int fd, char ***arr);
+char	**ft_append_arr_str(char ***arr, char *str);
+char	**fd_to_str_arr(int fd, char ***arr);
 // takes an fd and the line number to be returned. Returns NULL on alloc failure
 // or when line_num is not available
-char *get_nth_line(int fd, int line_num);
+char	*get_nth_line(int fd, int line_num);
 
 #endif

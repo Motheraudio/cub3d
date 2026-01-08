@@ -37,8 +37,8 @@ char	*ft_strtrim(char const *s1, char const *set)
 	while (s1[j])
 		j++;
 	j --;
-	while (j < 1000000000  && is_in(s1[j], set) == 1)
+	while (j < 1000000000 && is_in(s1[j], set) == 1)
 		j --;
-	str = ft_substr(s1, i, j-i + 1);
+	str = ft_substr(s1, i, j - i + 1);
 	return (str);
 }

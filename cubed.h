@@ -13,6 +13,6 @@
 #ifndef CUBED_H
 # define CUBED_H
 
-#include "parsing/parsing.h"
+# include "parsing/parsing.h"
 
 #endif

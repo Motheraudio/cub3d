@@ -34,10 +34,69 @@ static t_sqare	**emap_alloc(char **arr, t_parse_data *data)
 	while (i[0] < data->tall)
 	{
 		emap[i[0]] = ft_calloc(i[1] + 2, sizeof(t_sqare));
-		if (emap[i[0]] == NULL || ++i[0])
+		if (++i[0] && emap[i[0] - 1] == NULL )
 			return (free_arr((void ***)& emap), NULL);
 	}
 	return (emap);
+}
+
+static t_sqare	get_tile_enum(char c)
+{
+	if (c == '1')
+		return (WALL);
+	else if (c == '0')
+		return (FLOOR);
+	else if (c == ' ')
+		return (EMPTY);
+	else if (c == 'W' || c == 'E' || c == 'N' || c == 'S')
+		return (PLAYER);
+	return (EMPTY);
+}
+
+static t_compas	get_player_orientation(char c)
+{
+	if (c == 'W')
+		return (WEST);
+	else if (c == 'E')
+		return (EAST);
+	else if (c == 'N')
+		return (NORTH);
+	else if (c == 'S')
+		return (SOUTH);
+	return (UNI);
+}
+
+static int	is_valid_map_char(char c)
+{
+	return (c == '1' || c == '0' || c == ' '
+		|| c == 'W' || c == 'E' || c == 'N'
+		|| c == 'S' || c == '\n');
+}
+
+static int	handle_player_tile(char c, t_parse_data *data)
+{
+	t_compas	new_orientation;
+
+	if (c != 'W' && c != 'E' && c != 'N' && c != 'S')
+		return (1);
+	if (data->orientation != UNI)
+		return (0);
+	new_orientation = get_player_orientation(c);
+	data->orientation = new_orientation;
+	return (1);
+}
+
+static int	process_tile(char c, size_t i, size_t j, t_parse_data *data)
+{
+	if (!is_valid_map_char(c))
+		return (0);
+	data->emap[i + 1][j + 1] = get_tile_enum(c);
+	if (c == 'W' || c == 'E' || c == 'N' || c == 'S')
+	{
+		if (! handle_player_tile(c, data))
+			return (0);
+	}
+	return (1);
 }
 
 t_sqare	**convert_to_enum(char **arr, t_parse_data *data)
@@ -45,7 +104,6 @@ t_sqare	**convert_to_enum(char **arr, t_parse_data *data)
 	size_t	i;
 	size_t	j;
 
-	j = 0;
 	i = 0;
 	data->emap = emap_alloc(arr, data);
 	if (data->emap == NULL)
@@ -55,45 +113,11 @@ t_sqare	**convert_to_enum(char **arr, t_parse_data *data)
 		j = 0;
 		while (arr[i][j])
 		{
-			if (arr[i][j] == '1')
-				data->emap[i + 1][j + 1] = WALL;
-			else if (arr[i][j] == '0')
-				data->emap[i + 1][j + 1] = FLOOR;
-			else if (arr[i][j] == ' ')
-				data->emap[i + 1][j + 1] = EMPTY;
-			else if (arr[i][j] == 'W')
-			{
-				data->emap[i + 1][j + 1] = PLAYER;
-				if (data->orientation != UNI)
-					return (NULL);
-				data->orientation = WEST;
-			}
-			else if (arr[i][j] == 'E')
-			{
-				data->emap[i + 1][j + 1] = PLAYER;
-				if (data->orientation != UNI)
-					return (NULL);
-				data->orientation = EAST;
-			}
-			else if (arr[i][j] == 'N')
-			{
-				data->emap[i + 1][j + 1] = PLAYER;
-				if (data->orientation != UNI)
-					return (NULL);
-				data->orientation = NORTH;
-			}
-			else if (arr[i][j] == 'S')
-			{
-				data->emap[i + 1][j + 1] = PLAYER;
-				if (data->orientation != UNI)
-					return (NULL);
-				data->orientation = SOUTH;
-			}
-			else if (arr[i][j] != '\n')
+			if (! process_tile(arr[i][j], i, j, data))
 				return (NULL);
-			j ++;
+			j++;
 		}
-		i ++;
+		i++;
 	}
 	return (data->emap);
 }

@@ -81,7 +81,7 @@ char	*get_next_line(int fd, int *err)
 	t_data		data[1];
 
 	if (-1 == initialize(data))
-		return (freeall(data, &str), *err = -1,NULL);
+		return (freeall(data, &str), *err = -1, NULL);
 	if (fd == -1)
 		return (*err = 0, freeall(data, &str), NULL);
 	while (1)
@@ -93,7 +93,8 @@ char	*get_next_line(int fd, int *err)
 		if (data->readcounter == -1)
 			return (freeall(data, &str), NULL);
 		if (data->readcounter == 0)
-			return (data->rt = str, str = NULL, free(data->buff), *err = 1, data->rt);
+			return (data->rt = str, str = NULL,
+				free(data->buff), *err = 1, data->rt);
 		data->buff[data->readcounter] = 0;
 		str = strjoinf2(data->buff, str);
 		if (str == NULL)
