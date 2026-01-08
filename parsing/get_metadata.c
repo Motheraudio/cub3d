@@ -6,7 +6,7 @@
 /*   By: mchoma <your@mail.com>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 13:38:49 by mchoma            #+#    #+#             */
-/*   Updated: 2025/12/06 18:44:57 by mchoma           ###   ########.fr       */
+/*   Updated: 2026/01/08 15:41:15 by mchoma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "parsing.h"
@@ -28,7 +28,7 @@ static int	all_set(t_parse_data *data)
 	return (1);
 }
 
-int		get_metadata(int fd, t_parse_data *data)
+int	get_metadata(int fd, t_parse_data *data)
 {
 	int		err;
 	char	*line;
@@ -38,24 +38,18 @@ int		get_metadata(int fd, t_parse_data *data)
 	while (all_set(data) != 1)
 	{
 		line = get_next_line(fd, &err);
-		// printf("line = %s", line);
 		if (err == -1 || line == NULL)
-			break ; //error handle
-		if (west_line(line, data) == -1 )
-			return (free(line), get_next_line(-1, &err), -1); //error handle ((this happends only if internal failiure))
-		if (east_line(line, data) == -1 )
-			return (free(line), get_next_line(-1, &err), -1); //error handle ((this happends only if internal failiure))
-		if (north_line(line, data) == -1 )
-			return (free(line), get_next_line(-1, &err), -1); //error handle ((this happends only if internal failiure))
-		if (south_line(line, data) == -1 )
-			return (free(line), get_next_line(-1, &err), -1); //error handle ((this happends only if internal failiure))
-		if (celing_line(line, data) == -1 )
-			return (free(line), get_next_line(-1, &err), -1); //error handle ((this happends only if internal failiure))
-		if (floor_line(line, data) == -1 )
-			return (free(line), get_next_line(-1, &err), -1); //error handle ((this happends only if internal failiure))
+			break ;
+		if (west_line(line, data) == -1
+			|| east_line(line, data) == -1
+			|| north_line(line, data) == -1
+			|| south_line(line, data) == -1
+			|| celing_line(line, data) == -1
+			|| floor_line(line, data) == -1)
+			return (free(line), get_next_line(-1, &err), -1);
 		free(line);
 	}
 	if (line == NULL)
-		return (get_next_line(-1, &err), -1); //invalid line
+		return (get_next_line(-1, &err), -1);
 	return (1);
 }

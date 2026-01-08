@@ -6,12 +6,13 @@
 /*   By: mchoma <your@mail.com>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 13:19:29 by mchoma            #+#    #+#             */
-/*   Updated: 2025/12/06 19:11:19 by mchoma           ###   ########.fr       */
+/*   Updated: 2026/01/08 15:42:11 by mchoma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "parsing.h"
 #include <fcntl.h>
 
+/*
 void filename_validation()
 {
 	printf("---FILE_NAME_VALIDATION---\n");
@@ -264,3 +265,4 @@ int main(){
 	map_validation();
 
 }
+*/
