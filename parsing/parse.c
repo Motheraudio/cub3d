@@ -23,7 +23,7 @@ void	*parse(char *file_name)
 		return (NULL);
 	init_parse_data(data);
 	if (file_sufix(file_name, ".cub") == -1)
-		return (NULL);
+		return (free(data), NULL);
 	fd = open(file_name, O_RDONLY);
 	if (fd == -1)
 		return (free(data), NULL);
