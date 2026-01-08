@@ -1,7 +1,8 @@
-NO ./src/textures/Wall2.xpm
-SO ./src/textures/Wall7.xpm
-WE ./src/textures/Wall4.xpm
-EA ./src/textures/Wall8.xpm
+
+NO ./textures/1.xpm
+SO ./textures/2.xpm
+WE ./textures/3.xpm
+EA ./textures/4.xpm
 
 C 0, 0, 100
 F 0, 0, 0

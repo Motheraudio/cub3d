@@ -28,8 +28,9 @@ void	*parse(char *file_name)
 	if (fd == -1)
 		return (free(data), NULL);
 	if (get_metadata(fd, data) == -1)
-		return (cleanup_parse(data, NULL), NULL);
+		return (cleanup_parse(data, NULL), close(fd), NULL);
 	if (validate_map(fd, data) == -1)
-		return (cleanup_parse(data, NULL), NULL);
+		return (cleanup_parse(data, NULL), close(fd), NULL);
+	close(fd);
 	return (data);
 }
