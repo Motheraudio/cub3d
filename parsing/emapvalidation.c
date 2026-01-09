@@ -71,11 +71,13 @@ t_sqare	**convert_to_enum(char **arr, t_parse_data *data)
 		j = 0;
 		while (arr[i][j])
 		{
-			if (! process_tile(arr[i][j], i, j, data))
+			if (!process_tile(arr[i][j], i, j, data))
 				return (NULL);
 			j++;
 		}
 		i++;
 	}
+	if (data->orientation == UNI)
+		return (NULL);
 	return (data->emap);
 }

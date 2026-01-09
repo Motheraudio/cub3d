@@ -40,12 +40,13 @@ int	get_metadata(int fd, t_parse_data *data)
 		line = get_next_line(fd, &err);
 		if (err == -1 || line == NULL)
 			break ;
-		if (west_line(line, data) == -1
-			|| east_line(line, data) == -1
-			|| north_line(line, data) == -1
-			|| south_line(line, data) == -1
-			|| celing_line(line, data) == -1
-			|| floor_line(line, data) == -1)
+		if (!(west_line(line, data) == 1
+				|| east_line(line, data) == 1
+				|| north_line(line, data) == 1
+				|| south_line(line, data) == 1
+				|| celing_line(line, data) == 1
+				|| floor_line(line, data) == 1
+				|| *line == '\n'))
 			return (free(line), get_next_line(-1, &err), -1);
 		free(line);
 	}
