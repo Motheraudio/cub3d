@@ -29,7 +29,6 @@ typedef struct s_column
 	unsigned int	color;
 	unsigned int	orientation;
 }	t_column;
-
 typedef struct s_draw
 {
 	int		wall_height;
@@ -46,4 +45,5 @@ void	draw_3d(t_raycast rays[], t_bundle *bundle);
 void	put_floor_and_ceiling(t_bundle *bundle);
 int		get_texture_x(t_raycast *ray, int wall_hit_x, int wall_hit_y);
 void	clear_3d_image(t_bundle *bundle);
+int		get_texture_x_mirrored(t_raycast *ray, int wall_hit_x, int wall_hit_y);
 #endif

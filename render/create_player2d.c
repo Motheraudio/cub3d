@@ -43,9 +43,9 @@ void	set_radian(t_player *player, t_parse_data *data)
 	else if (data->orientation == SOUTH)
 		player->radian = M_PI;
 	else if (data->orientation == EAST)
-		player->radian = M_PI / 2;
-	else if (data->orientation == WEST)
 		player->radian = M_PI + M_PI / 2;
+	else if (data->orientation == WEST)
+		player->radian = M_PI / 2;
 }
 
 int	create_2d_player(t_player *player, t_mlx *mlx, t_parse_data *data)

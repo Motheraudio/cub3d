@@ -16,8 +16,11 @@ static void	init_column(t_raycast *ray, t_column *column, int wall_height)
 {
 	column->start_y = (HEIGHT / 2) - (wall_height / 2);
 	column->end_y = (HEIGHT / 2) + (wall_height / 2);
-	column->tex_x = get_texture_x(ray, ray->x_hit, ray->y_hit);
 	column->orientation = get_orientation(ray->colour);
+	if (column->orientation == WEST_C || column->orientation == NORTH_C)
+		column->tex_x = get_texture_x(ray, ray->x_hit, ray->y_hit);
+	else
+		column->tex_x = get_texture_x_mirrored(ray, ray->x_hit, ray->y_hit);
 	column->tex_index = get_texture_index(column->orientation);
 	column->step = (double)TILESIZE / (double)wall_height;
 	column->tex_pos = 0;
