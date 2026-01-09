@@ -25,4 +25,5 @@ int		handle_xclick(t_bundle *bundle);
 void	init_player(t_player *player);
 int		check_move(t_bundle *bundle);
 int		check_turn(t_bundle *bundle);
+void	clean_exit(t_bundle *bundle);
 #endif

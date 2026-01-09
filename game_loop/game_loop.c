@@ -84,8 +84,13 @@ t_2d	create_view(t_mlx *mlx)
 	t_2d	view;
 
 	view.img_2d = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);
-	view.addr = mlx_get_data_addr(view.img_2d, &view.bits_per_pixel,
+	if (!view.img_2d)
+		view.addr = NULL;
+	else
+	{
+		view.addr = mlx_get_data_addr(view.img_2d, &view.bits_per_pixel,
 			&view.line_length, &view.endian);
+	}
 	return (view);
 }
 
@@ -104,6 +109,8 @@ void	init_game(t_2d *minimap, t_player *player, t_mlx *mlx,
 	bundle.minimap = minimap;
 	bundle.data = data;
 	bundle.mlx = mlx;
+	if (bundle.view->img_2d == NULL)
+		clean_exit(&bundle);
 	mlx_hook(mlx->mlx_win, 2, 1L << 0, handle_keypress, (void *)&bundle);
 	mlx_hook(mlx->mlx_win, 3, 1L << 1, handle_keyrelease, (void *)&bundle);
 	mlx_loop_hook(mlx->mlx, game_loop, &bundle);
