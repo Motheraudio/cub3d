@@ -18,7 +18,7 @@ void	put_floor(t_bundle *bundle, size_t *i)
 	size_t			j;
 
 	j = 0;
-	color = (bundle->data->celing.r << 8)
+	color = (bundle->data->celing.r << 16)
 		+ (bundle->data->celing.g << 8) + bundle->data->celing.b;
 	while (*i < HEIGHT / 2)
 	{
@@ -38,7 +38,7 @@ void	put_ceiling(t_bundle *bundle, size_t *i)
 	size_t			j;
 
 	j = 0;
-	color = (unsigned int)((unsigned int)(bundle->data->floor.r << 8)
+	color = (unsigned int)((unsigned int)(bundle->data->floor.r << 16)
 			+ (unsigned int)(bundle->data->floor.g << 8)
 			+ (unsigned int)bundle->data->floor.b);
 	while (*i < HEIGHT)
