@@ -14,6 +14,7 @@ PARSING = parsing/parse.c \
 		  parsing/colour_atoi.c\
 		  parsing/validate_map.c\
 		  parsing/emapvalidation.c\
+		  parsing/emapvalidation2.c\
 		  parsing/get_metadata.c
 GAME_LOOP = game_loop/game_loop.c\
 			raycasting/raycasting.c\
@@ -56,7 +57,8 @@ LIBFT = libft/ft_strlen.c\
 OBJ_DIR = objects/
 TEST_OBJ_DIR = test_objects/
 
-ALL_SRC = $(SRC) $(COMMANDS) $(PARSING) $(EXECUTE)
+ALL_SRC = $(SRC) $(COMMANDS) $(PARSING) $(RENDER_TESTING) $(GAME_LOOP)\
+		  $(PROJECTION) $(CLEANUP) $(LIBFT)
 OBJ = $(patsubst %.c,$(OBJ_DIR)%.o,$(ALL_SRC))
 TEST_OBJ = $(patsubst %.c,$(TEST_OBJ_DIR)%.o,$(ALL_SRC))
 PARSING_OBJ = $(patsubst %.c,$(TEST_OBJ_DIR)%.o,$(PARSING))

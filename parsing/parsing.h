@@ -6,7 +6,7 @@
 /*   By: mchoma <your@mail.com>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 12:54:01 by mchoma            #+#    #+#             */
-/*   Updated: 2026/01/08 15:36:14 by mchoma           ###   ########.fr       */
+/*   Updated: 2026/01/09 13:53:57 by mchoma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,6 @@ int				validate_map(int fd, t_parse_data *data);
 void			print_parse_data(t_parse_data *data);
 int				validate_map(int fd, t_parse_data *data);
 void			print_emap(t_parse_data *data);
+t_sqare			**emap_alloc(char **arr, t_parse_data *data);
+t_sqare			get_tile_enum(char c);
 #endif
