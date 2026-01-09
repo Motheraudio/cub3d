@@ -89,7 +89,7 @@ t_2d	create_view(t_mlx *mlx)
 	else
 	{
 		view.addr = mlx_get_data_addr(view.img_2d, &view.bits_per_pixel,
-			&view.line_length, &view.endian);
+				&view.line_length, &view.endian);
 	}
 	return (view);
 }
