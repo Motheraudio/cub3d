@@ -22,15 +22,6 @@ void	print_error(char *error, char type)
 	perror(error);
 }
 
-void	destroy_prev_images(t_img *img, t_mlx *mlx, ssize_t last)
-{
-	ssize_t	i;
-
-	i = -1;
-	while (++i <= last)
-		mlx_destroy_image(mlx->mlx, img->img[i]);
-}
-
 int	create_minimap(t_parse_data *data, t_mlx *mlx, t_2d *minimap)
 {
 	minimap->img_2d = mlx_new_image(mlx->mlx, data->wide * WALL_LEN,
