@@ -1,4 +1,5 @@
 # cub3D
+![alt text](https://github.com/Motheraudio/cub3d/blob/main/screenshots/example1.png)
 
 A raycasting game engine written in C that renders a 3D maze from a first-person perspective, inspired by classic games like Wolfenstein 3D.   
 
@@ -112,7 +113,7 @@ Controls:
 - `ESC` - Exit
 
 ## Technical Details
-
+![alt text](https://github.com/Motheraudio/cub3d/blob/main/screenshots/example2.png)
 - Resolution: 1920x1080
 - Field of view: 30 degrees (0.523598 radians)
 - Ray count: 960 per frame
