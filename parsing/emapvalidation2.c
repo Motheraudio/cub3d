@@ -29,7 +29,7 @@ t_sqare	**emap_alloc(char **arr, t_parse_data *data)
 	if (emap == NULL)
 		return (NULL);
 	data->wide = i[1] + 2;
-	data->tall = i[0] + 1;
+	data->tall = i[0] + 2;
 	i[0] = 0;
 	while (i[0] < data->tall)
 	{
